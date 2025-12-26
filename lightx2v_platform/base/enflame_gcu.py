@@ -41,7 +41,7 @@ class EnflameGcuDevice:
         Returns:
             str: "gcu" for GCU compatibility
         """
-        return "gcu"
+        return "enflame_gcu"
 
     @staticmethod
     def init_parallel_env():
