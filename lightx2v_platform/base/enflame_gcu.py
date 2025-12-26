@@ -4,7 +4,7 @@ import torch.distributed as dist
 from lightx2v_platform.registry_factory import PLATFORM_DEVICE_REGISTER
 
 
-@PLATFORM_DEVICE_REGISTER("enflame_gcu")
+@PLATFORM_DEVICE_REGISTER("gcu")
 class EnflameGcuDevice:
     """
     Enflame GCU Device implementation for LightX2V.
@@ -13,7 +13,7 @@ class EnflameGcuDevice:
     Most PyTorch operations work transparently through the GCU backend.
     """
 
-    name = "enflame_gcu"
+    name = "gcu"
 
     @staticmethod
     def is_available() -> bool:
@@ -36,12 +36,13 @@ class EnflameGcuDevice:
         """
         Get the device type string.
 
-        Returns "gcu" for Enflame GCU device.
+        Returns "gcu" for Enflame GCU device. This allows getattr(torch, AI_DEVICE)
+        to work correctly (torch.gcu) and torch.device(AI_DEVICE) to work with GCU.
 
         Returns:
-            str: "gcu" for GCU compatibility
+            str: "gcu" for GCU device
         """
-        return "enflame_gcu"
+        return "gcu"
 
     @staticmethod
     def init_parallel_env():
