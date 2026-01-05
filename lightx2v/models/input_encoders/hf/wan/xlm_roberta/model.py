@@ -55,7 +55,27 @@ class QuickGELU(nn.Module):
 
 class LayerNorm(nn.LayerNorm):
     def forward(self, x):
-        return super().forward(x.float()).type_as(x)
+        # GCU does not support mixed precision (Float input with Half weight/bias)
+        # Explicitly convert weight and bias to float32 to avoid dtype mismatch in autocast context
+        x_float = x.float()
+        # Convert weight and bias to float32 if they exist
+        if self.weight is not None:
+            weight_float = self.weight.float()
+        else:
+            weight_float = None
+        if self.bias is not None:
+            bias_float = self.bias.float()
+        else:
+            bias_float = None
+        # Use functional layer_norm with explicit float32 parameters
+        result = torch.nn.functional.layer_norm(
+            x_float,
+            self.normalized_shape,
+            weight_float,
+            bias_float,
+            self.eps
+        )
+        return result.type_as(x)
 
 
 class SelfAttention(nn.Module):

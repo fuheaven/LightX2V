@@ -1,6 +1,11 @@
 import argparse
 
 import torch
+try:
+    import torch_gcu # 导入 torch_gcu
+    from torch_gcu import transfer_to_gcu # 导入 transfer_to_gcu
+except Exception as e:
+    print(e)
 import torch.distributed as dist
 from loguru import logger
 

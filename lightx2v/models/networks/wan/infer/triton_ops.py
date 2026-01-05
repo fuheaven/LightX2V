@@ -71,15 +71,15 @@ def fuse_scale_shift_kernel_blc_opt(
     B,
     L,
     C,
-    stride_x_b,
-    stride_x_l,
-    stride_x_c,
-    stride_s_b,
-    stride_s_l,
-    stride_s_c,
-    stride_sc_b,
-    stride_sc_l,
-    stride_sc_c,
+    stride_x_b: tl.constexpr,
+    stride_x_l: tl.constexpr,
+    stride_x_c: tl.constexpr,
+    stride_s_b: tl.constexpr,
+    stride_s_l: tl.constexpr,
+    stride_s_c: tl.constexpr,
+    stride_sc_b: tl.constexpr,
+    stride_sc_l: tl.constexpr,
+    stride_sc_c: tl.constexpr,
     SCALE_IS_SCALAR: tl.constexpr,
     SHIFT_IS_SCALAR: tl.constexpr,
     BLOCK_L: tl.constexpr,
@@ -391,12 +391,12 @@ def _layer_norm_fwd_1pass_kernel(
     DROPOUT_MASK1,
     Mean,  # pointer to the mean
     Rstd,  # pointer to the 1/std
-    stride_x_row,  # how much to increase the pointer when moving by 1 row
-    stride_y_row,
-    stride_res_row,
-    stride_res_out_row,
-    stride_x1_row,
-    stride_y1_row,
+    stride_x_row: tl.constexpr,  # how much to increase the pointer when moving by 1 row
+    stride_y_row: tl.constexpr,
+    stride_res_row: tl.constexpr,
+    stride_res_out_row: tl.constexpr,
+    stride_x1_row: tl.constexpr,
+    stride_y1_row: tl.constexpr,
     M,  # number of rows in X
     N,  # number of columns in X
     eps,  # epsilon to avoid division by zero

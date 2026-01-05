@@ -17,11 +17,17 @@ def apply_wan_rope_with_torch(
     n = xq.size(1)
     seq_len = cos_sin_cache.size(0)
 
-    xq = torch.view_as_complex(xq[:seq_len].to(torch.float32).reshape(seq_len, n, -1, 2))
-    xk = torch.view_as_complex(xk[:seq_len].to(torch.float32).reshape(seq_len, n, -1, 2))
-    # Apply rotary embedding
-    xq = torch.view_as_real(xq * cos_sin_cache).flatten(2)
-    xk = torch.view_as_real(xk * cos_sin_cache).flatten(2)
+    xq = xq[:seq_len].to(torch.float32).reshape(seq_len, n, -1, 2)
+    xk = xk[:seq_len].to(torch.float32).reshape(seq_len, n, -1, 2)
+    # Apply rotary embedding using real arithmetic
+    cos = cos_sin_cache.real
+    sin = cos_sin_cache.imag
+    xq_real = xq[..., 0]
+    xq_imag = xq[..., 1]
+    xk_real = xk[..., 0]
+    xk_imag = xk[..., 1]
+    xq = torch.stack([xq_real * cos - xq_imag * sin, xq_real * sin + xq_imag * cos], dim=-1).flatten(2)
+    xk = torch.stack([xk_real * cos - xk_imag * sin, xk_real * sin + xk_imag * cos], dim=-1).flatten(2)
     xq = torch.cat([xq, xq[seq_len:]])
     xk = torch.cat([xk, xk[seq_len:]])
 

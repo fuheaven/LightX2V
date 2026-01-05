@@ -3,17 +3,29 @@ Wan2.2 distilled model image-to-video generation example.
 This example demonstrates how to use LightX2V with Wan2.2 distilled model for I2V generation.
 """
 
+import sys
+sys.path.append("/home/LightX2V_zwx/LightX2V")
+
+
+import torch
+try:
+    import torch_gcu
+    from torch_gcu import transfer_to_gcu
+except Exception as e:
+    print(f"Warning: {e}")
+
+
 from lightx2v import LightX2VPipeline
 
 # Initialize pipeline for Wan2.2 distilled I2V task
 # For wan2.1, use model_cls="wan2.1_distill"
 pipe = LightX2VPipeline(
-    model_path="/path/to/wan2.2/Wan2.2-I2V-A14B",
+    model_path="/home/Wan2.2-I2V-A14B",
     model_cls="wan2.2_moe_distill",
     task="i2v",
     # Distilled weights: For wan2.1, only need to specify dit_original_ckpt="/path/to/wan2.1_i2v_720p_lightx2v_4step.safetensors"
-    low_noise_original_ckpt="/path/to/wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
-    high_noise_original_ckpt="/path/to/wan2.2_i2v_A14b_high_noise_lightx2v_4step_1030.safetensors",
+    low_noise_original_ckpt="/home/wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+    high_noise_original_ckpt="/home/wan2.2_i2v_A14b_high_noise_lightx2v_4step_1030.safetensors",
 )
 
 # Alternative: create generator from config JSON file
@@ -33,10 +45,10 @@ pipe.enable_offload(
 
 # Create generator manually with specified parameters
 pipe.create_generator(
-    attn_mode="sage_attn2",
+    attn_mode="flash_attn2",
     infer_steps=4,
-    height=480,  # Can be set to 720 for higher resolution
-    width=832,  # Can be set to 1280 for higher resolution
+    height=720,  # Can be set to 720 for higher resolution
+    width=1280,  # Can be set to 1280 for higher resolution
     num_frames=81,
     guidance_scale=1,
     sample_shift=5.0,
@@ -45,8 +57,15 @@ pipe.create_generator(
 seed = 42
 prompt = "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside."
 negative_prompt = "镜头晃动，色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走"
-save_result_path = "/path/to/save_results/output.mp4"
-image_path = "/path/to/img_0.jpg"
+save_result_path = "./save_results/output.mp4"
+image_path = "/home/LightX2V_zwx/LightX2V/assets/inputs/imgs/img_0.jpg"
+
+
+import time
+
+torch.cuda.synchronize()
+time_start = time.time()
+
 
 pipe.generate(
     seed=seed,
@@ -55,3 +74,7 @@ pipe.generate(
     negative_prompt=negative_prompt,
     save_result_path=save_result_path,
 )
+
+torch.cuda.synchronize()
+time_end = time.time()
+print(f"Time cost: {time_end - time_start}")

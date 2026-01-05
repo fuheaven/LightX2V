@@ -5,6 +5,10 @@ from lightx2v_platform.base.global_var import AI_DEVICE
 if AI_DEVICE == "mlu":
     from .attn.cambricon_mlu import *
     from .mm.cambricon_mlu import *
+elif AI_DEVICE == "gcu":
+    from .attn.enflame_gcu import *
+    from .mm.enflame_gcu import *
+    from .rope.enflame_gcu import *
 elif AI_DEVICE == "cuda":
     platform = os.getenv("PLATFORM")
     if platform == "hygon_dcu":
