@@ -149,15 +149,28 @@ class DefaultRunner(BaseRunner):
                 if self.video_segment_num == 1:
                     self.check_stop()
                 logger.info(f"==> step_index: {step_index + 1} / {infer_steps}")
+                if step_index == 3: 
+                    with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU,torch.profiler.ProfilerActivity.CUDA],record_shapes=True, profile_memory=False, with_stack=True) as prof:
+                        with ProfilingContext4DebugL1("step_pre"):
+                            self.model.scheduler.step_pre(step_index=step_index)
 
-                with ProfilingContext4DebugL1("step_pre"):
-                    self.model.scheduler.step_pre(step_index=step_index)
+                        with ProfilingContext4DebugL1("🚀 infer_main"):
+                            self.model.infer(self.inputs)
 
-                with ProfilingContext4DebugL1("🚀 infer_main"):
-                    self.model.infer(self.inputs)
+                        with ProfilingContext4DebugL1("step_post"):
+                            self.model.scheduler.step_post()
+                    print(prof.key_averages().table(sort_by="self_cuda_time_total", row_limit=-1))
+                    prof.export_chrome_trace('./dcu_480p.json')
 
-                with ProfilingContext4DebugL1("step_post"):
-                    self.model.scheduler.step_post()
+                else:
+                    with ProfilingContext4DebugL1("step_pre"):
+                        self.model.scheduler.step_pre(step_index=step_index)
+
+                    with ProfilingContext4DebugL1("🚀 infer_main"):
+                        self.model.infer(self.inputs)
+
+                    with ProfilingContext4DebugL1("step_post"):
+                        self.model.scheduler.step_post()
 
                 if self.progress_callback:
                     current_step = segment_idx * infer_steps + step_index + 1

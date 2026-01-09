@@ -70,10 +70,14 @@ class WanPreInfer:
             cfg_embed = torch.nn.functional.silu(cfg_embed)
             cfg_embed = weights.cfg_cond_proj_2.apply(cfg_embed)
             embed = embed + cfg_embed
+        #import pdb
+        #pdb.set_trace()
         if self.sensitive_layer_dtype != self.infer_dtype:
             embed = weights.time_embedding_0.apply(embed.to(self.sensitive_layer_dtype))
         else:
             embed = weights.time_embedding_0.apply(embed)
+        #print("embed: ", embed)
+        #print("output.shape: ", embed.shape)
         embed = torch.nn.functional.silu(embed)
         embed = weights.time_embedding_2.apply(embed)
         embed0 = torch.nn.functional.silu(embed)

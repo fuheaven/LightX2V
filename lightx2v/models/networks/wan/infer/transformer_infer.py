@@ -8,7 +8,6 @@ from lightx2v.utils.envs import *
 from .triton_ops import fuse_scale_shift_kernel
 from .utils import apply_wan_rope_with_chunk, apply_wan_rope_with_flashinfer, apply_wan_rope_with_torch
 
-
 def modulate(x, scale, shift):
     return x * (1 + scale.squeeze()) + shift.squeeze()
 
@@ -207,10 +206,13 @@ class WanTransformerInfer(BaseTransformerInfer):
         return y
 
     def infer_cross_attn(self, phase, x, context, y_out, gate_msa):
+        #import pdb
+        #pdb.set_trace()
         if self.sensitive_layer_dtype != self.infer_dtype:
             x = x.to(self.sensitive_layer_dtype) + y_out.to(self.sensitive_layer_dtype) * gate_msa.squeeze()
         else:
-            x.add_(y_out * gate_msa.squeeze())
+            x = torch.addcmul(x, y_out, gate_msa.squeeze())
+            #x.add_(y_out * gate_msa.squeeze())
 
         norm3_out = phase.norm3.apply(x)
         if self.task in ["i2v", "flf2v", "animate", "s2v"] and self.config.get("use_image_encoder", True):

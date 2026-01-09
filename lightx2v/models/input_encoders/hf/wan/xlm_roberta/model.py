@@ -15,6 +15,8 @@ from lightx2v.utils.utils import load_weights
 from lightx2v_platform.base.global_var import AI_DEVICE
 from lightx2v_platform.ops.mm.cambricon_mlu.q_linear import MluQuantLinearInt8
 
+import lightop as op
+
 __all__ = [
     "XLMRobertaCLIP",
     "clip_xlm_roberta_vit_h_14",

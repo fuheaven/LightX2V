@@ -13,7 +13,7 @@ from lightx2v.utils.global_paras import CALIB
 from lightx2v.utils.quant_utils import FloatQuantizer, IntegerQuantizer
 from lightx2v.utils.registry_factory import MM_WEIGHT_REGISTER
 from lightx2v_platform.base.global_var import AI_DEVICE
-
+import fused_dense_cuda
 try:
     from lightx2v_kernel.gemm import (
         cutlass_scaled_mxfp4_mm,
@@ -35,8 +35,6 @@ try:
     from vllm import _custom_ops as ops
 except ImportError:
     ops = None
-
-try:
     import sgl_kernel
 except ImportError:
     sgl_kernel = None
@@ -199,7 +197,14 @@ class MMWeight(MMWeightTemplate):
         output_tensor = torch.empty(shape, dtype=dtype, device=device, requires_grad=False)
         if self.bias is None:
             return torch.mm(input_tensor, self.weight, out=output_tensor)
-        return torch.addmm(self.bias, input_tensor, self.weight, out=output_tensor)
+        #return fused_dense_cuda.linear_bias_forward(input_tensor, self.weight.t(), self.bias)
+        #print("input_tensor: ", input_tensor.shape)
+        #print("self.weight.shape: ", self.weight.shape)
+        #print("self.bias.shape: ", self.bias.shape)
+        #print("self.weight: ", self.weight)
+        return fused_dense_cuda.linear_bias_forward(input_tensor, self.weight.t(), self.bias)
+        #return torch.addmm(self.bias, input_tensor, self.weight, out=output_tensor)
+        #return torch.matmul(input_tensor, self.weight) + self.bias
 
     def state_dict(self, destination=None):
         if destination is None:
@@ -957,7 +962,8 @@ class MMCalibNvfp4(MMWeight):
         output_tensor = torch.empty(shape, dtype=dtype, device=device, requires_grad=False)
         if self.bias is None:
             return torch.mm(input_tensor, self.weight, out=output_tensor)
-        return torch.addmm(self.bias, input_tensor, self.weight, out=output_tensor)
+        return fused_dense_cuda.linear_bias_forward(input_tensor, self.weight, self.bias, out=output_tensor)        
+        #return torch.addmm(self.bias, input_tensor, self.weight, out=output_tensor)
 
 
 @MM_WEIGHT_REGISTER("fp8-q8f")

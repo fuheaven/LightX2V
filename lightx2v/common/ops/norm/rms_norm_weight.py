@@ -157,6 +157,7 @@ class RMSWeightSgl(RMSWeight):
 
     def apply(self, input_tensor):
         if sgl_kernel is not None and self.sensitive_layer_dtype == self.infer_dtype:
+            #if not input_tensor.is_contiguous():
             input_tensor = input_tensor.contiguous()
             orig_shape = input_tensor.shape
             input_tensor = input_tensor.view(-1, orig_shape[-1])

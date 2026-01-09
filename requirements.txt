@@ -1,9 +1,9 @@
 packaging
 ninja
-numpy
+#numpy
 scipy
-torch<=2.8.0
-torchvision<=0.23.0
+#torch<=2.8.0
+#torchvision<=0.23.0
 # torchaudio is optional - using librosa+soundfile as fallback for compatibility
 # torchaudio<=2.8.0
 librosa>=0.10.0

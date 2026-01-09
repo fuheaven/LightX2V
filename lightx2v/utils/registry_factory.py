@@ -29,6 +29,7 @@ class Register(dict):
         self._dict[key] = value
 
     def __getitem__(self, key):
+        #print(key)
         return self._dict[key]
 
     def __contains__(self, key):
