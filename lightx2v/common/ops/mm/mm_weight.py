@@ -747,17 +747,32 @@ class MMWeightWfp8channelAfp8channeldynamicVllm(MMWeightQuantTemplate):
         shape = (input_tensor.shape[0], self.weight.shape[1])
         dtype = input_tensor.dtype
         device = input_tensor.device
-        output_tensor = torch.empty(shape, dtype=dtype, device=device, requires_grad=False)
 
         input_tensor_quant, input_tensor_scale = self.act_quant_func(input_tensor)
-        torch.ops._C.cutlass_scaled_mm(
-            output_tensor,
-            input_tensor_quant,
-            self.weight,
-            input_tensor_scale,
-            self.weight_scale,
-            self.bias if self.bias is not None else None,
-        )
+        
+        # Use ops.cutlass_scaled_mm from vllm instead of torch.ops._C.cutlass_scaled_mm
+        if ops is not None and hasattr(ops, 'cutlass_scaled_mm'):
+            # Ensure out_dtype is bfloat16 or float16 as required by cutlass_scaled_mm
+            out_dtype = dtype if dtype in (torch.bfloat16, torch.float16) else torch.bfloat16
+            output_tensor = ops.cutlass_scaled_mm(
+                input_tensor_quant,
+                self.weight,
+                input_tensor_scale,
+                self.weight_scale,
+                out_dtype,
+                self.bias if self.bias is not None else None,
+            )
+            # Convert back to original dtype if needed
+            if output_tensor.dtype != dtype:
+                output_tensor = output_tensor.to(dtype)
+        else:
+            # Fallback: use manual dequantization and matmul
+            input_dequant = input_tensor_quant.to(dtype) * input_tensor_scale.to(dtype)
+            weight_dequant = self.weight.to(dtype) * self.weight_scale.to(dtype)
+            output_tensor = torch.matmul(input_dequant, weight_dequant)
+            if self.bias is not None:
+                output_tensor = output_tensor + self.bias
+        
         return output_tensor
 
 
@@ -782,17 +797,32 @@ class MMWeightWint8channelAint8channeldynamicVllm(MMWeightQuantTemplate):
         shape = (input_tensor.shape[0], self.weight.shape[1])
         dtype = input_tensor.dtype
         device = input_tensor.device
-        output_tensor = torch.empty(shape, dtype=dtype, device=device, requires_grad=False)
 
         input_tensor_quant, input_tensor_scale = self.act_quant_func(input_tensor)
-        torch.ops._C.cutlass_scaled_mm(
-            output_tensor,
-            input_tensor_quant,
-            self.weight,
-            input_tensor_scale,
-            self.weight_scale,
-            self.bias if self.bias is not None else None,
-        )
+        
+        # Use ops.cutlass_scaled_mm from vllm instead of torch.ops._C.cutlass_scaled_mm
+        if ops is not None and hasattr(ops, 'cutlass_scaled_mm'):
+            # Ensure out_dtype is bfloat16 or float16 as required by cutlass_scaled_mm
+            out_dtype = dtype if dtype in (torch.bfloat16, torch.float16) else torch.bfloat16
+            output_tensor = ops.cutlass_scaled_mm(
+                input_tensor_quant,
+                self.weight,
+                input_tensor_scale,
+                self.weight_scale,
+                out_dtype,
+                self.bias if self.bias is not None else None,
+            )
+            # Convert back to original dtype if needed
+            if output_tensor.dtype != dtype:
+                output_tensor = output_tensor.to(dtype)
+        else:
+            # Fallback: use manual dequantization and matmul
+            input_dequant = input_tensor_quant.to(dtype) * input_tensor_scale.to(dtype)
+            weight_dequant = self.weight.to(dtype) * self.weight_scale.to(dtype)
+            output_tensor = torch.matmul(input_dequant, weight_dequant)
+            if self.bias is not None:
+                output_tensor = output_tensor + self.bias
+        
         return output_tensor
 
 
