@@ -436,6 +436,8 @@ class QwenImageRunner(DisaggMixin, DefaultRunner):
         """
         self.input_info = input_info
         disagg_mode = self.config.get("disagg_mode")
+        if disagg_mode:
+            self.refresh_disagg_runtime()
 
         if disagg_mode == "decode":
             # Decoder role: receive DiT latents from Transformer, decode with VAE, save image

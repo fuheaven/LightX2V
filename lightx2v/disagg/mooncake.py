@@ -33,6 +33,11 @@ class MooncakeTransferEngineConfig:
 
 
 class MooncakeTransferEngine:
+    # Mooncake doesn't support re-registering overlapping memory regions.
+    # During dynamic disagg room/rank rebind, the same RDMA buffer pointers
+    # may be registered multiple times from different DataManager instances.
+    # Keep a per-process cache to de-duplicate registrations.
+    _registered_ptrs: set[int] = set()
     def __init__(self):
         self.engine = None
         try:
@@ -65,15 +70,21 @@ class MooncakeTransferEngine:
 
     def register(self, ptr, length):
         if self.engine:
+            iptr = int(ptr)
+            if iptr in MooncakeTransferEngine._registered_ptrs:
+                return
             ret = self.engine.register_memory(ptr, length)
             if ret != 0:
                 raise RuntimeError("Mooncake memory registration failed.")
+            MooncakeTransferEngine._registered_ptrs.add(iptr)
 
     def deregister(self, ptr):
         if self.engine:
+            iptr = int(ptr)
             ret = self.engine.unregister_memory(ptr)
             if ret != 0:
                 raise RuntimeError("Mooncake memory deregistration failed.")
+            MooncakeTransferEngine._registered_ptrs.discard(iptr)
 
     def initialize(
         self,

@@ -27,6 +27,9 @@ class BaseTaskRequest(BaseModel):
     target_shape: list[int] = Field([], description="Return video or image shape")
     lora_name: Optional[str] = Field(None, description="LoRA filename to load from lora_dir, None to disable LoRA")
     lora_strength: float = Field(1.0, description="LoRA strength")
+    disagg_transformer_idx: Optional[int] = Field(None, description="Disagg: target transformer index for this task")
+    disagg_phase1_room: Optional[int] = Field(None, description="Disagg: dynamic phase1 bootstrap_room for this task")
+    disagg_phase2_room: Optional[int] = Field(None, description="Disagg: dynamic phase2 bootstrap_room(decoder_bootstrap_room) for this task")
 
     def __init__(self, **data):
         super().__init__(**data)

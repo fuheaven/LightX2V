@@ -82,6 +82,45 @@ class TorchrunInferenceWorker:
             task_data["return_result_tensor"] = False
             task_data["negative_prompt"] = task_data.get("negative_prompt", "")
 
+            # Per-task disagg routing: choose transformer + dynamic rooms.
+            disagg_cfg = dict(self.runner.config.get("disagg_config", {}))
+            trans_idx = task_data.get("disagg_transformer_idx")
+            if trans_idx is not None:
+                trans_rank = 100 + int(trans_idx)
+                # Use the decoder rank already defined in each service's base config.
+                # Do NOT hardcode; otherwise transformer/decoder phase2 ranks mismatch.
+                dec_rank = int(disagg_cfg.get("decoder_engine_rank", 2))
+                disagg_cfg["phase1_sender_engine_rank"] = 0
+                disagg_cfg["phase1_receiver_engine_rank"] = trans_rank
+                disagg_cfg["phase2_sender_engine_rank"] = trans_rank
+                disagg_cfg["phase2_receiver_engine_rank"] = dec_rank
+                disagg_cfg["decoder_engine_rank"] = dec_rank
+                task_data["transformer_engine_rank"] = trans_rank
+                task_data["decoder_engine_rank"] = dec_rank
+
+            p1_room = task_data.get("disagg_phase1_room")
+            p2_room = task_data.get("disagg_phase2_room")
+            if p1_room is not None:
+                disagg_cfg["bootstrap_room"] = int(p1_room)
+            if p2_room is not None:
+                disagg_cfg["decoder_bootstrap_room"] = int(p2_room)
+
+            if disagg_cfg:
+                task_data["disagg_config"] = disagg_cfg
+                logger.info(
+                    "[DisaggRouting] mode={} task_id={} trans_idx={} p1_room={} p2_room={} "
+                    "p1({}->{}) p2({}->{})",
+                    self.runner.config.get("disagg_mode"),
+                    task_data.get("task_id"),
+                    trans_idx,
+                    disagg_cfg.get("bootstrap_room"),
+                    disagg_cfg.get("decoder_bootstrap_room"),
+                    disagg_cfg.get("phase1_sender_engine_rank", disagg_cfg.get("sender_engine_rank")),
+                    disagg_cfg.get("phase1_receiver_engine_rank", disagg_cfg.get("receiver_engine_rank")),
+                    disagg_cfg.get("phase2_sender_engine_rank", disagg_cfg.get("receiver_engine_rank")),
+                    disagg_cfg.get("phase2_receiver_engine_rank", disagg_cfg.get("decoder_engine_rank")),
+                )
+
             target_fps = task_data.pop("target_fps", None)
             if target_fps is not None:
                 vfi_cfg = self.runner.config.get("video_frame_interpolation")
@@ -101,6 +140,10 @@ class TorchrunInferenceWorker:
             has_error = True
             error_msg = str(e)
             logger.exception(f"Rank {self.rank} inference failed: {error_msg}")
+        # Note:
+        # We intentionally do not release/disconnect Mooncake RDMA rooms per request.
+        # With stable room-per-transformer routing, releasing would force repeated
+        # Mooncake memory registration and can trigger "overlapped memory region".
 
         if self.world_size > 1:
             self.dist_manager.barrier()

@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import os
 import math
 import time
 from typing import List, Optional
@@ -30,6 +31,20 @@ from lightx2v.utils.envs import GET_DTYPE
 from lightx2v_platform.base.global_var import AI_DEVICE
 
 logger = logging.getLogger(__name__)
+
+
+def _env_int(name: str, default: int) -> int:
+    try:
+        return int(os.environ.get(name, str(default)))
+    except Exception:
+        return default
+
+
+def _env_float(name: str, default: float) -> float:
+    try:
+        return float(os.environ.get(name, str(default)))
+    except Exception:
+        return default
 
 
 def _estimate_encoder_buffer_sizes(config) -> List[int]:
@@ -113,7 +128,13 @@ class DisaggMixin:
         disagg_cfg = config.get("disagg_config", {})
         self._disagg_mode = config.get("disagg_mode")  # "encoder" | "transformer" | "decode" | None
         self._disagg_bootstrap_addr = disagg_cfg.get("bootstrap_addr", "127.0.0.1")
-        self._disagg_bootstrap_room = int(disagg_cfg.get("bootstrap_room", 0))
+        bootstrap_rooms_raw = disagg_cfg.get("bootstrap_rooms", disagg_cfg.get("bootstrap_room", 0))
+        if isinstance(bootstrap_rooms_raw, list):
+            self._disagg_bootstrap_rooms = [int(x) for x in bootstrap_rooms_raw]
+        else:
+            self._disagg_bootstrap_rooms = [int(bootstrap_rooms_raw)]
+        # Default/first room for wiring sender/receiver objects at init time.
+        self._disagg_bootstrap_room = int(self._disagg_bootstrap_rooms[0])
         self._disagg_sender_rank = int(disagg_cfg.get("sender_engine_rank", 0))
         self._disagg_receiver_rank = int(disagg_cfg.get("receiver_engine_rank", 1))
         self._disagg_data_mgr: Optional[DataManager] = None
@@ -140,7 +161,10 @@ class DisaggMixin:
                 data_item_lens=data_lens,
                 ib_device=None,
             )
-            self._disagg_data_mgr = DataManager(data_args, DisaggregationPhase.PHASE1, DisaggregationMode.ENCODE)
+            self._disagg_data_mgr = DataManager(DisaggregationPhase.PHASE1, DisaggregationMode.ENCODE)
+            # Pre-initialize all bootstrap rooms if provided.
+            for room in self._disagg_bootstrap_rooms:
+                self._disagg_data_mgr.init(data_args, room)
             self._disagg_sender = DataSender(
                 self._disagg_data_mgr,
                 self._disagg_bootstrap_addr,
@@ -161,7 +185,8 @@ class DisaggMixin:
                 data_item_lens=data_lens,
                 ib_device=None,
             )
-            self._disagg_data_mgr = DataManager(data_args, DisaggregationPhase.PHASE1, DisaggregationMode.TRANSFORMER)
+            self._disagg_data_mgr = DataManager(DisaggregationPhase.PHASE1, DisaggregationMode.TRANSFORMER)
+            self._disagg_data_mgr.init(data_args, self._disagg_bootstrap_room)
             self._disagg_receiver = DataReceiver(
                 self._disagg_data_mgr,
                 self._disagg_bootstrap_addr,
@@ -176,6 +201,220 @@ class DisaggMixin:
         elif self._disagg_mode == "decode":
             # Phase 2: receive latents from transformer
             self._init_phase2_decoder_receiver(config, disagg_cfg)
+
+        # Cache current runtime routing state; can be overridden per task.
+        # Important: DataManager init() binds some ZMQ sockets that depend on ranks.
+        # If we don't set the initial runtime_key here, the first request will try to
+        # re-init Mooncake/DataManager and can hit "Address already in use" conflicts.
+        disagg_cfg = config.get("disagg_config", {})
+        phase1_room = int(self._disagg_bootstrap_room)
+        if self._disagg_mode == "encoder":
+            self._disagg_runtime_key = (
+                self._disagg_mode,
+                phase1_room,
+                self._disagg_sender_rank,
+                self._disagg_receiver_rank,
+            )
+            self._disagg_active_phase1_room = phase1_room
+            self._disagg_active_phase2_room = None
+        elif self._disagg_mode == "transformer":
+            phase2_room = int(disagg_cfg.get("decoder_bootstrap_room", phase1_room))
+            p2_sender_rank = int(disagg_cfg.get("receiver_engine_rank", self._disagg_receiver_rank))
+            p2_receiver_rank = int(disagg_cfg.get("decoder_engine_rank", 2))
+            self._disagg_runtime_key = (
+                self._disagg_mode,
+                phase1_room,
+                phase2_room,
+                self._disagg_sender_rank,
+                self._disagg_receiver_rank,
+                p2_sender_rank,
+                p2_receiver_rank,
+            )
+            self._disagg_active_phase1_room = phase1_room
+            self._disagg_active_phase2_room = phase2_room
+        elif self._disagg_mode == "decode":
+            phase2_room = phase1_room
+            self._disagg_runtime_key = (
+                self._disagg_mode,
+                phase2_room,
+                self._disagg_sender_rank,
+                self._disagg_receiver_rank,
+            )
+            self._disagg_active_phase1_room = None
+            self._disagg_active_phase2_room = phase2_room
+        else:
+            self._disagg_runtime_key = None
+            self._disagg_active_phase1_room = None
+            self._disagg_active_phase2_room = None
+        self._disagg_rebound_in_refresh = False
+
+    def _build_data_args_from_buffers(self, buffers: List[torch.Tensor], sender_rank: int, receiver_rank: int) -> DataArgs:
+        data_ptrs = [buf.data_ptr() for buf in buffers]
+        data_lens = [buf.numel() for buf in buffers]
+        return DataArgs(
+            sender_engine_rank=sender_rank,
+            receiver_engine_rank=receiver_rank,
+            data_ptrs=data_ptrs,
+            data_lens=data_lens,
+            data_item_lens=data_lens,
+            ib_device=None,
+        )
+
+    def _get_phase1_ranks(self, disagg_cfg: dict) -> tuple[int, int]:
+        sender_rank = int(disagg_cfg.get("phase1_sender_engine_rank", disagg_cfg.get("sender_engine_rank", self._disagg_sender_rank)))
+        receiver_rank = int(disagg_cfg.get("phase1_receiver_engine_rank", disagg_cfg.get("receiver_engine_rank", self._disagg_receiver_rank)))
+        return sender_rank, receiver_rank
+
+    def _get_phase2_ranks(self, disagg_cfg: dict) -> tuple[int, int]:
+        sender_rank = int(disagg_cfg.get("phase2_sender_engine_rank", disagg_cfg.get("receiver_engine_rank", 1)))
+        receiver_rank = int(disagg_cfg.get("phase2_receiver_engine_rank", disagg_cfg.get("decoder_engine_rank", 2)))
+        return sender_rank, receiver_rank
+
+    def refresh_disagg_runtime(self):
+        """Rebind disagg sender/receiver by per-task room/rank overrides in config."""
+        if not getattr(self, "_disagg_mode", None):
+            return
+        disagg_cfg = self.config.get("disagg_config", {})
+
+        phase1_room = int(disagg_cfg.get("bootstrap_room", self._disagg_bootstrap_room))
+        phase2_room = int(disagg_cfg.get("decoder_bootstrap_room", disagg_cfg.get("bootstrap_room", 1)))
+        p1_sender_rank, p1_receiver_rank = self._get_phase1_ranks(disagg_cfg)
+        p2_sender_rank, p2_receiver_rank = self._get_phase2_ranks(disagg_cfg)
+
+        # Track active rooms so worker can release after each request (only when needed).
+        self._disagg_active_phase1_room = phase1_room
+        self._disagg_active_phase2_room = phase2_room
+
+        # runtime_key must ignore fields that are not applicable to current role,
+        # otherwise first request can unnecessarily re-init DataManager and re-bind ports.
+        if self._disagg_mode == "encoder":
+            runtime_key = (
+                self._disagg_mode,
+                phase1_room,
+                p1_sender_rank,
+                p1_receiver_rank,
+            )
+        elif self._disagg_mode == "transformer":
+            runtime_key = (
+                self._disagg_mode,
+                phase1_room,
+                phase2_room,
+                p1_sender_rank,
+                p1_receiver_rank,
+                p2_sender_rank,
+                p2_receiver_rank,
+            )
+        elif self._disagg_mode == "decode":
+            runtime_key = (
+                self._disagg_mode,
+                phase2_room,
+                p2_sender_rank,
+                p2_receiver_rank,
+            )
+        else:
+            runtime_key = None
+        # Whether we performed a full rebind (which requires new Mooncake registration).
+        self._disagg_rebound_in_refresh = False
+        if runtime_key is not None and runtime_key == self._disagg_runtime_key:
+            return
+
+        if self._disagg_mode == "encoder":
+            data_args = self._build_data_args_from_buffers(self._disagg_rdma_buffers, p1_sender_rank, p1_receiver_rank)
+            # In this topology, dynamic transformer selection should update only
+            # the receiver_engine_rank used for phase1 status sync.
+            # Re-running DataManager.init() re-binds ZMQ sockets and can cause
+            # "Address already in use" conflicts.
+            if self._disagg_data_mgr is not None and phase1_room in getattr(self._disagg_data_mgr, "data_args", {}):
+                self._disagg_data_mgr.data_args[phase1_room] = data_args
+                self._disagg_rebound_in_refresh = False
+                self._disagg_runtime_key = runtime_key
+                # DataSender is bound to a specific bootstrap_room; update it too.
+                self._disagg_sender = DataSender(self._disagg_data_mgr, self._disagg_bootstrap_addr, phase1_room)
+                logger.info(
+                    "[Disagg] encoder routing updated without re-init room=%s p1(%s->%s)",
+                    phase1_room,
+                    p1_sender_rank,
+                    p1_receiver_rank,
+                )
+                return
+
+            if self._disagg_data_mgr is None:
+                self._disagg_data_mgr = DataManager(DisaggregationPhase.PHASE1, DisaggregationMode.ENCODE)
+            self._disagg_data_mgr.init(data_args, phase1_room)
+            self._disagg_sender = DataSender(self._disagg_data_mgr, self._disagg_bootstrap_addr, phase1_room)
+        elif self._disagg_mode == "transformer":
+            data_args = self._build_data_args_from_buffers(self._disagg_rdma_buffers, p1_sender_rank, p1_receiver_rank)
+            if self._disagg_data_mgr is None:
+                self._disagg_data_mgr = DataManager(DisaggregationPhase.PHASE1, DisaggregationMode.TRANSFORMER)
+            self._disagg_data_mgr.init(data_args, phase1_room)
+            self._disagg_receiver = DataReceiver(self._disagg_data_mgr, self._disagg_bootstrap_addr, phase1_room)
+            self._disagg_receiver.init()
+
+            if self._disagg_p2_rdma_buffers:
+                p2_data_args = self._build_data_args_from_buffers(self._disagg_p2_rdma_buffers, p2_sender_rank, p2_receiver_rank)
+                if self._disagg_p2_data_mgr is None:
+                    self._disagg_p2_data_mgr = DataManager(DisaggregationPhase.PHASE2, DisaggregationMode.TRANSFORMER)
+                self._disagg_p2_data_mgr.init(p2_data_args, phase2_room)
+                self._disagg_p2_sender = DataSender(self._disagg_p2_data_mgr, self._disagg_bootstrap_addr, phase2_room)
+        elif self._disagg_mode == "decode":
+            if self._disagg_p2_rdma_buffers:
+                p2_data_args = self._build_data_args_from_buffers(self._disagg_p2_rdma_buffers, p2_sender_rank, p2_receiver_rank)
+                if self._disagg_p2_data_mgr is not None and phase2_room in getattr(self._disagg_p2_data_mgr, "data_args", {}):
+                    # Room already pre-initialized: update routing in-place, no need to re-init DataManager.
+                    self._disagg_p2_data_mgr.data_args[phase2_room] = p2_data_args
+                    self._disagg_rebound_in_refresh = False
+                else:
+                    if self._disagg_p2_data_mgr is None:
+                        self._disagg_p2_data_mgr = DataManager(DisaggregationPhase.PHASE2, DisaggregationMode.DECODE)
+                    self._disagg_p2_data_mgr.init(p2_data_args, phase2_room)
+                self._disagg_p2_receiver = DataReceiver(self._disagg_p2_data_mgr, self._disagg_bootstrap_addr, phase2_room)
+                self._disagg_p2_receiver.init()
+
+        self._disagg_runtime_key = runtime_key
+        self._disagg_rebound_in_refresh = True
+        logger.info(
+            "[Disagg] runtime rebind done mode=%s p1_room=%s p2_room=%s p1(%s->%s) p2(%s->%s)",
+            self._disagg_mode,
+            phase1_room,
+            phase2_room,
+            p1_sender_rank,
+            p1_receiver_rank,
+            p2_sender_rank,
+            p2_receiver_rank,
+        )
+
+    def release_disagg_current_rooms(self) -> None:
+        """Deregister mooncake buffers for the rooms used by current request.
+
+        Important: When we use per-request dynamic rooms, we must release after each
+        request; otherwise Mooncake memory registration accumulates and eventually fails.
+        """
+        try:
+            # When rooms/ranks are stable across requests, we must not release,
+            # otherwise we'd force re-registration every time and hit overlapped
+            # memory registration limits.
+            if not getattr(self, "_disagg_rebound_in_refresh", False):
+                return
+
+            p1_room = getattr(self, "_disagg_active_phase1_room", None)
+            p2_room = getattr(self, "_disagg_active_phase2_room", None)
+
+            if self._disagg_data_mgr is not None and p1_room is not None:
+                try:
+                    self._disagg_data_mgr.release(int(p1_room))
+                except Exception as e:
+                    logger.warning(f"[Disagg] release phase1 room failed: room={p1_room} err={e}")
+            if self._disagg_p2_data_mgr is not None and p2_room is not None:
+                try:
+                    self._disagg_p2_data_mgr.release(int(p2_room))
+                except Exception as e:
+                    logger.warning(f"[Disagg] release phase2 room failed: room={p2_room} err={e}")
+        finally:
+            self._disagg_rebound_in_refresh = False
+            # Only when we actually rebound, allow the next request to rebind if needed.
+            self._disagg_runtime_key = None
+            self._disagg_active_phase1_room = None
+            self._disagg_active_phase2_room = None
 
     def _disagg_alloc_buffers(self, buffer_sizes: List[int]):
         self._disagg_rdma_buffers = []
@@ -214,7 +453,8 @@ class DisaggMixin:
             data_item_lens=data_lens,
             ib_device=None,
         )
-        self._disagg_p2_data_mgr = DataManager(data_args, DisaggregationPhase.PHASE2, DisaggregationMode.TRANSFORMER)
+        self._disagg_p2_data_mgr = DataManager(DisaggregationPhase.PHASE2, DisaggregationMode.TRANSFORMER)
+        self._disagg_p2_data_mgr.init(data_args, p2_bootstrap_room)
         self._disagg_p2_sender = DataSender(self._disagg_p2_data_mgr, p2_bootstrap_addr, p2_bootstrap_room)
         logger.info(f"[Disagg] Phase2 sender initialized (rank {p2_transformer_rank} → {p2_decoder_rank}, room={p2_bootstrap_room})")
 
@@ -225,7 +465,12 @@ class DisaggMixin:
         p2_transformer_rank = int(disagg_cfg.get("sender_engine_rank", 1))
         p2_decoder_rank = int(disagg_cfg.get("receiver_engine_rank", 2))
         p2_bootstrap_addr = disagg_cfg.get("bootstrap_addr", "127.0.0.1")
-        p2_bootstrap_room = int(disagg_cfg.get("bootstrap_room", 1))
+        bootstrap_rooms_raw = disagg_cfg.get("bootstrap_rooms", disagg_cfg.get("bootstrap_room", 1))
+        if isinstance(bootstrap_rooms_raw, list):
+            p2_bootstrap_rooms = [int(x) for x in bootstrap_rooms_raw]
+        else:
+            p2_bootstrap_rooms = [int(bootstrap_rooms_raw)]
+        p2_bootstrap_room = int(p2_bootstrap_rooms[0])
 
         buffer_sizes = estimate_transformer_buffer_sizes(config)
         self._disagg_alloc_p2_buffers(buffer_sizes)
@@ -239,10 +484,14 @@ class DisaggMixin:
             data_item_lens=data_lens,
             ib_device=None,
         )
-        self._disagg_p2_data_mgr = DataManager(data_args, DisaggregationPhase.PHASE2, DisaggregationMode.DECODE)
+        self._disagg_p2_data_mgr = DataManager(DisaggregationPhase.PHASE2, DisaggregationMode.DECODE)
+        for room in p2_bootstrap_rooms:
+            self._disagg_p2_data_mgr.init(data_args, room)
         self._disagg_p2_receiver = DataReceiver(self._disagg_p2_data_mgr, p2_bootstrap_addr, p2_bootstrap_room)
         self._disagg_p2_receiver.init()
-        logger.info(f"[Disagg] Phase2 receiver initialized (rank {p2_transformer_rank} → {p2_decoder_rank}, room={p2_bootstrap_room})")
+        logger.info(
+            f"[Disagg] Phase2 receiver initialized (rank {p2_transformer_rank} → {p2_decoder_rank}, rooms={p2_bootstrap_rooms})"
+        )
 
     # ------------------------------------------------------------------ #
     #  Encoder role: serialize and send
@@ -391,11 +640,24 @@ class DisaggMixin:
         self._disagg_sender.send(buffer_ptrs)
 
         # Wait for transfer completion
+        timeout_s = _env_int("LIGHTX2V_DISAGG_POLL_TIMEOUT_S", 600)
+        log_every_s = _env_int("LIGHTX2V_DISAGG_POLL_LOG_EVERY_S", 10)
+        room = getattr(self._disagg_sender, "bootstrap_room", None)
+        t0 = time.time()
+        last_log = 0.0
         while True:
             status = self._disagg_sender.poll()
             if status == DataPoll.Success:
-                logger.info("Disagg: encoder outputs sent successfully.")
+                logger.info("Disagg: encoder outputs sent successfully. room=%s", room)
                 break
+            if status == DataPoll.Failed:
+                raise RuntimeError(f"Disagg: encoder outputs transfer failed. room={room}")
+            now = time.time()
+            if now - t0 > timeout_s:
+                raise TimeoutError(f"Disagg: encoder outputs wait timeout (>{timeout_s}s). room={room} status={status}")
+            if now - last_log >= log_every_s:
+                logger.warning("Disagg: encoder outputs waiting... room=%s status=%s elapsed=%.1fs", room, status, now - t0)
+                last_log = now
             time.sleep(0.01)
 
     # ------------------------------------------------------------------ #
@@ -406,12 +668,31 @@ class DisaggMixin:
         """Poll for data from Encoder and reconstruct standard inputs dict."""
         config = self.config
 
+        # Ensure the transformer always registers current bootstrap_room + RDMA
+        # pointers to encoder before waiting. Otherwise, if receiver registration
+        # was missed for this room/task, poll() will wait forever.
+        if self._disagg_receiver is not None:
+            self._disagg_receiver.init()
+
         # Wait for data
+        timeout_s = _env_int("LIGHTX2V_DISAGG_POLL_TIMEOUT_S", 600)
+        log_every_s = _env_int("LIGHTX2V_DISAGG_POLL_LOG_EVERY_S", 10)
+        room = getattr(self._disagg_receiver, "bootstrap_room", None)
+        t0 = time.time()
+        last_log = 0.0
         while True:
             status = self._disagg_receiver.poll()
             if status == DataPoll.Success:
-                logger.info("Disagg: encoder outputs received successfully.")
+                logger.info("Disagg: encoder outputs received successfully. room=%s", room)
                 break
+            if status == DataPoll.Failed:
+                raise RuntimeError(f"Disagg: encoder outputs transfer failed. room={room}")
+            now = time.time()
+            if now - t0 > timeout_s:
+                raise TimeoutError(f"Disagg: encoder outputs receive timeout (>{timeout_s}s). room={room} status={status}")
+            if now - last_log >= log_every_s:
+                logger.warning("Disagg: encoder outputs receiving... room=%s status=%s elapsed=%.1fs", room, status, now - t0)
+                last_log = now
             time.sleep(0.01)
 
         # Immediately snapshot all RDMA destination buffers after poll() returns.
@@ -620,11 +901,24 @@ class DisaggMixin:
         torch.cuda.synchronize()
         buffer_ptrs = [buf.data_ptr() for buf in self._disagg_p2_rdma_buffers]
         self._disagg_p2_sender.send(buffer_ptrs)
+        timeout_s = _env_int("LIGHTX2V_DISAGG_POLL_TIMEOUT_S", 600)
+        log_every_s = _env_int("LIGHTX2V_DISAGG_POLL_LOG_EVERY_S", 10)
+        room = getattr(self._disagg_p2_sender, "bootstrap_room", None)
+        t0 = time.time()
+        last_log = 0.0
         while True:
             status = self._disagg_p2_sender.poll()
             if status == DataPoll.Success:
-                logger.info("[Disagg] Transformer latents sent to Decoder successfully.")
+                logger.info("[Disagg] Transformer latents sent to Decoder successfully. room=%s", room)
                 break
+            if status == DataPoll.Failed:
+                raise RuntimeError(f"[Disagg] Transformer latents transfer failed. room={room}")
+            now = time.time()
+            if now - t0 > timeout_s:
+                raise TimeoutError(f"[Disagg] Transformer->Decoder wait timeout (>{timeout_s}s). room={room} status={status}")
+            if now - last_log >= log_every_s:
+                logger.warning("[Disagg] Transformer latents waiting... room=%s status=%s elapsed=%.1fs", room, status, now - t0)
+                last_log = now
             time.sleep(0.01)
 
     # ------------------------------------------------------------------ #
@@ -638,11 +932,24 @@ class DisaggMixin:
         if len(self._disagg_p2_rdma_buffers) < 2:
             raise RuntimeError("[Disagg] Phase2 RDMA buffers require [latents, meta] entries.")
 
+        timeout_s = _env_int("LIGHTX2V_DISAGG_POLL_TIMEOUT_S", 600)
+        log_every_s = _env_int("LIGHTX2V_DISAGG_POLL_LOG_EVERY_S", 10)
+        room = getattr(self._disagg_p2_receiver, "bootstrap_room", None)
+        t0 = time.time()
+        last_log = 0.0
         while True:
             status = self._disagg_p2_receiver.poll()
             if status == DataPoll.Success:
-                logger.info("[Disagg] Decoder received latents from Transformer successfully.")
+                logger.info("[Disagg] Decoder received latents from Transformer successfully. room=%s", room)
                 break
+            if status == DataPoll.Failed:
+                raise RuntimeError(f"[Disagg] Decoder latents transfer failed. room={room}")
+            now = time.time()
+            if now - t0 > timeout_s:
+                raise TimeoutError(f"[Disagg] Decoder receive latents timeout (>{timeout_s}s). room={room} status={status}")
+            if now - last_log >= log_every_s:
+                logger.warning("[Disagg] Decoder waiting p2... room=%s status=%s elapsed=%.1fs", room, status, now - t0)
+                last_log = now
             time.sleep(0.01)
 
         # Immediately snapshot all Phase2 RDMA destination buffers after poll() returns.
