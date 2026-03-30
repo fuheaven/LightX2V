@@ -34,6 +34,11 @@ class RDMABuffer:
     - client: consumer side, reads slots remotely and updates head by rdma_faa.
 
     The ring stores serialized JSON configs in fixed-size slots.
+
+    Multi-consumer note: multiple client processes calling ``consume()`` compete on the
+    same head pointer. Unless the backend implements a true remote atomic fetch-add
+    (see ``RDMAClient.rdma_faa``), correctness under heavy parallel consumption is not
+    guaranteed. Prefer one consumer per ring or low parallelism for production.
     """
 
     def __init__(

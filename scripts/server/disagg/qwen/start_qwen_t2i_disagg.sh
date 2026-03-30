@@ -2,6 +2,9 @@
 #
 # Start Qwen Image T2I 3-way disagg services (Encoder, Transformer, Decoder).
 #
+# For decentralized RDMA meta rings + pull transformers (GPU0 encoder+decoder, GPU1–3 workers), see:
+#   start_qwen_t2i_decentralized_4gpu.sh
+#
 # Request order: Decoder first -> Transformer -> Encoder. Result is saved on Decoder node.
 #
 # Default layout (Encoder + Decoder on GPU_ED, Transformer on GPU_T):

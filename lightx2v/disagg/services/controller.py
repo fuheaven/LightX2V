@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 from threading import Event, Lock, Thread
 
@@ -109,6 +110,24 @@ class ControllerService(BaseService):
             phase2_slot_size,
             need_bytes_phase2,
         )
+
+    def serve_rdma_dispatch_only(self, config: dict) -> None:
+        """Expose request + phase1 + phase2 RDMA meta rings, then block.
+
+        For Qwen/Wan HTTP encoder + pull-based transformer/decoder workers that do not
+        use the encoder ``request`` ring; rings must stay up for handshake.
+        """
+        if config is None:
+            raise ValueError("config cannot be None")
+        dc = config.get("disagg_config", {})
+        bootstrap_addr = config.get("data_bootstrap_addr", dc.get("bootstrap_addr", "127.0.0.1"))
+        self._init_request_rdma_buffer(bootstrap_addr, config)
+        self.logger.info("RDMA dispatch rings ready on %s (Ctrl+C to exit).", bootstrap_addr)
+        try:
+            while True:
+                time.sleep(3600.0)
+        except KeyboardInterrupt:
+            self.logger.info("Controller serve_rdma_dispatch_only interrupted, exiting.")
 
     def add_instance(self, instance_type: str, instance_address: str):
         """Add instance address to the matching scheduling policy by type."""
