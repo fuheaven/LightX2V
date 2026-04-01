@@ -127,6 +127,10 @@ class DisaggMixin:
         self._disagg_p2_receiver: Optional[DataReceiver] = None
         self._disagg_p2_rdma_buffers: List[torch.Tensor] = []
 
+        # Decentralized queue attributes (RDMA ring buffers for task dispatch)
+        self._disagg_phase1_queue = None
+        self._disagg_phase2_queue = None
+
         if self._disagg_mode == "encoder":
             buffer_sizes = _estimate_encoder_buffer_sizes(config)
             self._disagg_alloc_buffers(buffer_sizes)
@@ -689,6 +693,235 @@ class DisaggMixin:
         # from the packed latent tensor shape alone.
         self._p2_receive_meta = meta
         return latents
+
+    # ------------------------------------------------------------------ #
+    #  Decentralized queue: RDMA ring buffer based dispatch
+    # ------------------------------------------------------------------ #
+
+    def init_disagg_queues(self, config):
+        """Initialize RDMA ring buffer clients for decentralized queue dispatch.
+
+        When ``decentralized_queue`` is true in disagg_config, the controller
+        hosts three RDMA ring buffers (request, phase1, phase2). Workers connect
+        as clients and consume/produce task metadata via these ring buffers.
+        """
+        from lightx2v.disagg.rdma_buffer import RDMABuffer, RDMABufferDescriptor
+        from lightx2v.disagg.rdma_client import RDMAClient
+
+        disagg_cfg = config.get("disagg_config", {})
+        if not disagg_cfg.get("decentralized_queue"):
+            return
+
+        self._disagg_phase1_queue: Optional[RDMABuffer] = None
+        self._disagg_phase2_queue: Optional[RDMABuffer] = None
+
+        slots = int(disagg_cfg.get("rdma_buffer_slots", 128))
+        slot_size = int(disagg_cfg.get("rdma_buffer_slot_size", 4096))
+
+        mode = self._disagg_mode  # "encoder" | "transformer" | "decode"
+
+        if mode in ("encoder", "transformer"):
+            # Connect to phase1 RDMA ring buffer
+            phase1_host = disagg_cfg.get("rdma_phase1_host", "127.0.0.1")
+            phase1_port = int(disagg_cfg.get("rdma_phase1_handshake_port", 5567))
+            try:
+                phase1_client = RDMAClient(local_buffer_size=slot_size)
+                phase1_client.connect_to_server(phase1_host, phase1_port)
+                # Build remote descriptor from server info
+                server_info = phase1_client.remote_info
+                base_addr = int(server_info["addr"])
+                phase1_desc = RDMABufferDescriptor(
+                    slot_addr=base_addr + 16,
+                    slot_bytes=slots * slot_size,
+                    slot_size=slot_size,
+                    buffer_size=slots,
+                    head_addr=base_addr,
+                    tail_addr=base_addr + 8,
+                    rkey=int(server_info.get("rkey", 0)),
+                )
+                self._disagg_phase1_queue = RDMABuffer(
+                    role="client",
+                    buffer_size=slots,
+                    slot_size=slot_size,
+                    rdma_client=phase1_client,
+                    remote=phase1_desc,
+                )
+                logger.info("[Disagg] Phase1 queue connected (%s:%s, mode=%s)", phase1_host, phase1_port, mode)
+            except Exception:
+                logger.exception("[Disagg] phase1 queue %s connect failed", "producer" if mode == "encoder" else "consumer")
+
+        if mode in ("transformer", "decode"):
+            # Connect to phase2 RDMA ring buffer
+            phase2_host = disagg_cfg.get("rdma_phase2_host", "127.0.0.1")
+            phase2_port = int(disagg_cfg.get("rdma_phase2_handshake_port", 5568))
+            try:
+                phase2_client = RDMAClient(local_buffer_size=slot_size)
+                phase2_client.connect_to_server(phase2_host, phase2_port)
+                server_info = phase2_client.remote_info
+                base_addr = int(server_info["addr"])
+                phase2_desc = RDMABufferDescriptor(
+                    slot_addr=base_addr + 16,
+                    slot_bytes=slots * slot_size,
+                    slot_size=slot_size,
+                    buffer_size=slots,
+                    head_addr=base_addr,
+                    tail_addr=base_addr + 8,
+                    rkey=int(server_info.get("rkey", 0)),
+                )
+                self._disagg_phase2_queue = RDMABuffer(
+                    role="client",
+                    buffer_size=slots,
+                    slot_size=slot_size,
+                    rdma_client=phase2_client,
+                    remote=phase2_desc,
+                )
+                logger.info("[Disagg] Phase2 queue connected (%s:%s, mode=%s)", phase2_host, phase2_port, mode)
+            except Exception:
+                logger.exception("[Disagg] phase2 queue %s connect failed", "producer" if mode == "transformer" else "consumer")
+
+    def disagg_try_consume_phase1(self) -> Optional[dict]:
+        """Non-blocking consume from phase1 RDMA ring buffer. Returns None if empty."""
+        if self._disagg_phase1_queue is None:
+            return None
+        return self._disagg_phase1_queue.consume()
+
+    def disagg_try_consume_phase2(self) -> Optional[dict]:
+        """Non-blocking consume from phase2 RDMA ring buffer. Returns None if empty."""
+        if self._disagg_phase2_queue is None:
+            return None
+        return self._disagg_phase2_queue.consume()
+
+    def disagg_transformer_prepare_dispatch(self, pkt: dict):
+        """Prepare transformer state from a consumed phase1 queue packet.
+
+        Updates runner config with per-request fields and re-initializes
+        Mooncake data receiver/sender for the request's bootstrap room.
+        """
+        req = pkt.get("request_config") or pkt
+        disagg_cfg = self.config.get("disagg_config", {})
+
+        # Update config with request-specific fields.
+        # Runner config is locked after module init; use set_config() which temporarily unlocks.
+        config_modify = {}
+        for key in (
+            "prompt",
+            "negative_prompt",
+            "save_result_path",
+            "seed",
+            "data_bootstrap_room",
+            "controller_result_host",
+            "controller_result_port",
+            "aspect_ratio",
+        ):
+            if key in req:
+                config_modify[key] = req[key]
+        if req.get("target_shape"):
+            config_modify["target_shape"] = req["target_shape"]
+        if config_modify:
+            if hasattr(self, "set_config"):
+                self.set_config(config_modify)
+            else:
+                with self.config.temporarily_unlocked():
+                    self.config.update(config_modify)
+
+        # Re-init Mooncake Phase 1 receiver with new bootstrap room
+        new_room = int(req.get("data_bootstrap_room", self._disagg_bootstrap_room))
+        self._disagg_bootstrap_room = new_room
+        if self._disagg_data_mgr is not None and self._disagg_receiver is not None:
+            self._disagg_receiver = DataReceiver(
+                self._disagg_data_mgr, self._disagg_bootstrap_addr, new_room,
+            )
+            self._disagg_receiver.init()
+
+        # Re-init Mooncake Phase 2 sender with new bootstrap room (if decoder configured)
+        if self._disagg_p2_data_mgr is not None and self._disagg_p2_sender is not None:
+            p2_room = int(req.get("decoder_bootstrap_room", new_room))
+            self._disagg_p2_sender = DataSender(
+                self._disagg_p2_data_mgr, self._disagg_bootstrap_addr, p2_room,
+            )
+
+        logger.info("[Disagg] Transformer dispatch prepared (room=%s)", new_room)
+
+    def disagg_transformer_teardown_session(self):
+        """Clean up per-request state after transformer completes one job."""
+        # Reset bootstrap room to avoid stale state
+        self._disagg_bootstrap_room = 0
+        logger.debug("[Disagg] Transformer session teardown complete")
+
+    def disagg_decoder_prepare_dispatch(self, pkt: dict):
+        """Prepare decoder state from a consumed phase2 queue packet.
+
+        Updates runner config and re-initializes Mooncake Phase 2 receiver.
+        """
+        req = pkt.get("request_config") or pkt
+        disagg_cfg = self.config.get("disagg_config", {})
+
+        config_modify = {}
+        for key in (
+            "prompt",
+            "negative_prompt",
+            "save_result_path",
+            "seed",
+            "data_bootstrap_room",
+            "controller_result_host",
+            "controller_result_port",
+        ):
+            if key in req:
+                config_modify[key] = req[key]
+        if req.get("target_shape"):
+            config_modify["target_shape"] = req["target_shape"]
+        if config_modify:
+            if hasattr(self, "set_config"):
+                self.set_config(config_modify)
+            else:
+                with self.config.temporarily_unlocked():
+                    self.config.update(config_modify)
+
+        # Re-init Mooncake Phase 2 receiver with new bootstrap room
+        new_room = int(req.get("data_bootstrap_room", 0))
+        if self._disagg_p2_data_mgr is not None and self._disagg_p2_receiver is not None:
+            self._disagg_p2_receiver = DataReceiver(
+                self._disagg_p2_data_mgr, self._disagg_bootstrap_addr, new_room,
+            )
+            self._disagg_p2_receiver.init()
+
+        logger.info("[Disagg] Decoder dispatch prepared (room=%s)", new_room)
+
+    def disagg_decoder_teardown_session(self):
+        """Clean up per-request state after decoder completes one job."""
+        logger.debug("[Disagg] Decoder session teardown complete")
+
+    def disagg_produce_phase1(self, request_config: dict):
+        """Produce a task metadata packet to the phase1 RDMA ring buffer.
+
+        Called by encoder after send_encoder_outputs() to notify transformer
+        workers that a new task is ready for processing.
+        """
+        if self._disagg_phase1_queue is None:
+            return
+        try:
+            self._disagg_phase1_queue.produce({"request_config": request_config})
+            logger.info("[Disagg] Phase1 queue: produced task (room=%s)", request_config.get("data_bootstrap_room"))
+        except BufferError:
+            logger.error("[Disagg] Phase1 queue full, dropping task")
+        except Exception:
+            logger.exception("[Disagg] Phase1 queue produce failed")
+
+    def disagg_produce_phase2(self, request_config: dict):
+        """Produce a task metadata packet to the phase2 RDMA ring buffer.
+
+        Called by transformer after send_transformer_outputs() to notify
+        decoder workers that latents are ready for decoding.
+        """
+        if self._disagg_phase2_queue is None:
+            return
+        try:
+            self._disagg_phase2_queue.produce({"request_config": request_config})
+            logger.info("[Disagg] Phase2 queue: produced task (room=%s)", request_config.get("data_bootstrap_room"))
+        except BufferError:
+            logger.error("[Disagg] Phase2 queue full, dropping task")
+        except Exception:
+            logger.exception("[Disagg] Phase2 queue produce failed")
 
     # ------------------------------------------------------------------ #
     #  Cleanup

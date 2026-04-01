@@ -85,9 +85,13 @@ class RDMAClient:
         print(f"[Client] Got Server Info: Addr={hex(self.remote_info['addr'])}, RKey={self.remote_info['rkey']}")
 
         # 2. 发送我的信息给 Server
-        gid = self.ctx.query_gid(port_num=self.port_num, index=self.gid_index)
+        # pyverbs API differs across versions: some methods don't accept keywords.
+        try:
+            gid = self.ctx.query_gid(port_num=self.port_num, index=self.gid_index)
+        except TypeError:
+            gid = self.ctx.query_gid(self.port_num, self.gid_index)
         my_info = {
-            "lid": self.ctx.query_port(port_num=self.port_num).lid,
+            "lid": self._query_lid(),
             "qpn": self.qp.qp_num,
             "psn": self.local_psn,
             "gid": str(gid),
@@ -99,6 +103,12 @@ class RDMAClient:
         self._modify_qp_to_rts()
         self.sock = sock
         print("[Client] Connection established (RTS)")
+
+    def _query_lid(self) -> int:
+        try:
+            return int(self.ctx.query_port(port_num=self.port_num).lid)
+        except TypeError:
+            return int(self.ctx.query_port(self.port_num).lid)
 
     def _modify_qp_to_rts(self):
         # Follow the standard RC flow: INIT -> RTR -> RTS.

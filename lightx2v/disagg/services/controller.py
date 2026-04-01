@@ -375,6 +375,23 @@ class ControllerService(BaseService):
         self.rdma_buffer_request.produce(config)
         self.logger.info("Request enqueued to encoder request RDMA buffer")
 
+    def serve_rdma_dispatch_only(self, config):
+        """Initialize RDMA ring buffers and block forever.
+
+        Lightweight alternative to ``run()`` for decentralized deployments where
+        encoder, transformer and decoder workers are started as separate processes.
+        Only creates the three RDMA ring buffers (request, phase1, phase2) —
+        no subprocess spawning, monitoring or auto-scaling.
+        """
+        import threading
+
+        bootstrap_addr = config.get("data_bootstrap_addr",
+                                     config.get("disagg_config", {}).get("bootstrap_addr", "127.0.0.1"))
+        dc = config.get("disagg_config", config)
+        self._init_request_rdma_buffer(bootstrap_addr, dc)
+        self.logger.info("RDMA dispatch rings ready (serve_rdma_dispatch_only). Blocking forever...")
+        threading.Event().wait()
+
     def run(self, config):
         """Initialize controller buffers, send requests, wait for decoder save_path callbacks, then exit."""
         if config is None:

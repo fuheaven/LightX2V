@@ -130,8 +130,26 @@ class RDMAServer:
             mr_addr = self.mr.buf
         qp = self.qp if qp is None else qp
         psn = self.local_psn if psn is None else int(psn)
-        gid = self.ctx.query_gid(port_num=self.port_num, index=self.gid_index)
-        return {"lid": self.ctx.query_port(port_num=self.port_num).lid, "qpn": qp.qp_num, "psn": psn, "gid": str(gid), "gid_index": self.gid_index, "rkey": self.mr.rkey, "addr": mr_addr}
+        # pyverbs API differs across versions: some methods don't accept keywords.
+        try:
+            gid = self.ctx.query_gid(port_num=self.port_num, index=self.gid_index)
+        except TypeError:
+            gid = self.ctx.query_gid(self.port_num, self.gid_index)
+
+        try:
+            lid = self.ctx.query_port(port_num=self.port_num).lid
+        except TypeError:
+            lid = self.ctx.query_port(self.port_num).lid
+
+        return {
+            "lid": lid,
+            "qpn": qp.qp_num,
+            "psn": psn,
+            "gid": str(gid),
+            "gid_index": self.gid_index,
+            "rkey": self.mr.rkey,
+            "addr": mr_addr,
+        }
 
     def _alloc_qp_with_psn(self):
         with self._conn_lock:

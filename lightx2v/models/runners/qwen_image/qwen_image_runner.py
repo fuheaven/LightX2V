@@ -175,6 +175,8 @@ class QwenImageRunner(DisaggMixin, DefaultRunner):
     def init_modules(self):
         if self.config.get("disagg_mode"):
             self.init_disagg(self.config)
+            if self.config.get("disagg_config", {}).get("decentralized_queue"):
+                self.init_disagg_queues(self.config)
         super().init_modules()
         self.run_dit = self._run_dit_local
 
@@ -515,6 +517,21 @@ class QwenImageRunner(DisaggMixin, DefaultRunner):
         if disagg_mode == "encoder":
             latent_shape = list(self.input_info.target_shape)
             self.send_encoder_outputs(self.inputs, latent_shape)
+            # In decentralized mode, produce task metadata to phase1 ring buffer
+            if self.config.get("disagg_config", {}).get("decentralized_queue"):
+                self.disagg_produce_phase1({
+                    "prompt": self.config.get("prompt", ""),
+                    "negative_prompt": self.config.get("negative_prompt", ""),
+                    "save_result_path": self.config.get("save_result_path", ""),
+                    "seed": self.config.get("seed", 42),
+                    "data_bootstrap_room": self.config.get("data_bootstrap_room", 0),
+                    "disagg_phase1_receiver_engine_rank": self.config.get("disagg_phase1_receiver_engine_rank", 1),
+                    "controller_result_host": self.config.get("controller_result_host"),
+                    "controller_result_port": self.config.get("controller_result_port"),
+                    "target_shape": latent_shape,
+                    "aspect_ratio": self.config.get("aspect_ratio", ""),
+                    "decoder_bootstrap_room": self.config.get("data_bootstrap_room", 0),
+                })
             logger.info("[Disagg] Encoder role completed. Skipping DiT run_main.")
             if GET_RECORDER_MODE():
                 monitor_cli.lightx2v_worker_request_success.inc()
@@ -524,6 +541,16 @@ class QwenImageRunner(DisaggMixin, DefaultRunner):
         # 3-way disagg: send latents to Decoder, skip local VAE
         if getattr(self, "_disagg_p2_sender", None) is not None:
             self.send_transformer_outputs(latents)
+            # In decentralized mode, produce task metadata to phase2 ring buffer
+            if self.config.get("disagg_config", {}).get("decentralized_queue"):
+                self.disagg_produce_phase2({
+                    "prompt": self.config.get("prompt", ""),
+                    "save_result_path": self.config.get("save_result_path", ""),
+                    "seed": self.config.get("seed", 42),
+                    "data_bootstrap_room": self.config.get("data_bootstrap_room", 0),
+                    "controller_result_host": self.config.get("controller_result_host"),
+                    "controller_result_port": self.config.get("controller_result_port"),
+                })
             self.end_run()
             if GET_RECORDER_MODE():
                 monitor_cli.lightx2v_worker_request_success.inc()
