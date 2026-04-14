@@ -427,6 +427,12 @@ class QwenImageScheduler(BaseScheduler):
         self.scheduler = FlowMatchEulerDiscreteScheduler.from_pretrained(scheduler_path)
         with open(os.path.join(config["model_path"], "scheduler", "scheduler_config.json"), "r") as f:
             self.scheduler_config = json.load(f)
+        self.scheduler_shift = config.get("scheduler_shift", None)
+        self.skip_last_timestep = config.get("skip_last_timestep", False)
+        if self.scheduler_shift is not None:
+            self.scheduler.config.use_dynamic_shifting = False
+            self.scheduler.config.shift_terminal = None
+            self.scheduler.set_shift(self.scheduler_shift)
         self.dtype = torch.bfloat16
         self.sample_guide_scale = self.config["sample_guide_scale"]
         self.zero_cond_t = config.get("zero_cond_t", False)
@@ -495,31 +501,40 @@ class QwenImageScheduler(BaseScheduler):
         self.noise_pred = None
 
     def set_timesteps(self):
-        sigmas = np.linspace(1.0, 1 / self.config["infer_steps"], self.config["infer_steps"])
-        image_seq_len = self.latents.shape[1]
-        if self.is_layered:
-            base_seqlen = 256 * 256 / 16 / 16
-            image_seq_len = self.latents.shape[1] // 5
-            mu = (image_seq_len / base_seqlen) ** 0.5
-        else:
-            mu = calculate_shift(
-                image_seq_len,
-                self.scheduler_config.get("base_image_seq_len", 256),
-                self.scheduler_config.get("max_image_seq_len", 4096),
-                self.scheduler_config.get("base_shift", 0.5),
-                self.scheduler_config.get("max_shift", 1.15),
-            )
         num_inference_steps = self.config["infer_steps"]
-        timesteps, num_inference_steps = retrieve_timesteps(
-            self.scheduler,
-            num_inference_steps,
-            AI_DEVICE,
-            sigmas=sigmas,
-            mu=mu,
-        )
+
+        if self.scheduler_shift is not None:
+            self.scheduler.set_timesteps(num_inference_steps, device=AI_DEVICE)
+            timesteps = self.scheduler.timesteps
+        else:
+            sigmas = np.linspace(1.0, 1 / num_inference_steps, num_inference_steps)
+            image_seq_len = self.latents.shape[1]
+            if self.is_layered:
+                base_seqlen = 256 * 256 / 16 / 16
+                image_seq_len = self.latents.shape[1] // 5
+                mu = (image_seq_len / base_seqlen) ** 0.5
+            else:
+                mu = calculate_shift(
+                    image_seq_len,
+                    self.scheduler_config.get("base_image_seq_len", 256),
+                    self.scheduler_config.get("max_image_seq_len", 4096),
+                    self.scheduler_config.get("base_shift", 0.5),
+                    self.scheduler_config.get("max_shift", 1.15),
+                )
+            timesteps, num_inference_steps = retrieve_timesteps(
+                self.scheduler,
+                num_inference_steps,
+                AI_DEVICE,
+                sigmas=sigmas,
+                mu=mu,
+            )
 
         self.timesteps = timesteps
-        self.infer_steps = num_inference_steps
+
+        if self.skip_last_timestep and len(timesteps) > 1:
+            self.infer_steps = len(timesteps) - 1
+        else:
+            self.infer_steps = len(timesteps)
 
         num_warmup_steps = max(len(timesteps) - num_inference_steps * self.scheduler.order, 0)
         self._num_timesteps = len(timesteps)
