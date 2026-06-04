@@ -122,6 +122,7 @@ class WanRunner(DisaggMixin, DefaultRunner):
                 cpu_offload=clip_offload,
                 use_31_block=self.config.get("use_31_block", True),
                 load_from_rank0=self.config.get("load_from_rank0", False),
+                dummy_model=self.config.get("dummy_model", False),
             )
 
         return image_encoder
@@ -162,6 +163,7 @@ class WanRunner(DisaggMixin, DefaultRunner):
             quant_scheme=t5_quant_scheme,
             load_from_rank0=self.config.get("load_from_rank0", False),
             lazy_load=self.config.get("t5_lazy_load", False),
+            dummy_model=self.config.get("dummy_model", False),
         )
         text_encoders = [text_encoder]
         return text_encoders
@@ -190,6 +192,7 @@ class WanRunner(DisaggMixin, DefaultRunner):
             "dtype": GET_DTYPE(),
             "load_from_rank0": self.config.get("load_from_rank0", False),
             "use_lightvae": self.config.get("use_lightvae", False),
+            "dummy_model": self.config.get("dummy_model", False),
         }
         if self.config["task"] not in ["i2v", "flf2v", "animate", "vace", "s2v", "rs2v"]:
             return None
@@ -213,6 +216,7 @@ class WanRunner(DisaggMixin, DefaultRunner):
             "use_lightvae": self.config.get("use_lightvae", False),
             "dtype": GET_DTYPE(),
             "load_from_rank0": self.config.get("load_from_rank0", False),
+            "dummy_model": self.config.get("dummy_model", False),
         }
         if self.config.get("use_tae", False):
             tae_path = find_torch_model_path(self.config, "tae_path", self.tiny_vae_name)
@@ -842,18 +846,8 @@ class Wan22DenseRunner(WanRunner):
 @RUNNER_REGISTER("lingbot_world")
 class LingbotRunner(Wan22MoeRunner):
     def __init__(self, config):
-        with config.temporarily_unlocked():
-            if "use_image_encoder" not in config:
-                config["use_image_encoder"] = False
-            config["enable_lingbot_cam_ctrl"] = bool(config.get("enable_lingbot_cam_ctrl", True))
         super().__init__(config)
-        model_path = str(self.config.get("model_path", "")).lower()
-        if "cam" in model_path:
-            self.control_type = "cam"
-        elif "act" in model_path:
-            self.control_type = "act"
-        else:
-            self.control_type = "cam"
+        self.control_type = config.get("control_type", "cam")
 
     def set_inputs(self, inputs):
         super().set_inputs(inputs)

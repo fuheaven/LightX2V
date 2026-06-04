@@ -7,7 +7,6 @@
     "timestep_shift": 3.0,
     "cfg_interval": [-1, 2],
     "enable_cfg": true,
-    "parallel": {
-        "cfg_p_size": 3
-    }
+    "dit_quantized": true,
+    "dit_quant_scheme": "fp8-sgl"
 }

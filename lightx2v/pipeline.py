@@ -23,6 +23,7 @@ from lightx2v.models.runners.seedvr.seedvr_runner import SeedVRRunner  # noqa: F
 from lightx2v.models.runners.wan.wan_animate_runner import WanAnimateRunner  # noqa: F401
 from lightx2v.models.runners.wan.wan_audio_runner import Wan22AudioRunner, WanAudioRunner  # noqa: F401
 from lightx2v.models.runners.wan.wan_distill_runner import WanDistillRunner  # noqa: F401
+from lightx2v.models.runners.wan.wan_lingbot_fast_runner import LingbotFastRunner  # noqa: F401
 from lightx2v.models.runners.wan.wan_matrix_game2_runner import WanSFMtxg2Runner  # noqa: F401
 from lightx2v.models.runners.wan.wan_runner import Wan22MoeRunner, WanRunner  # noqa: F401
 from lightx2v.models.runners.wan.wan_sf_runner import WanSFRunner  # noqa: F401
@@ -415,6 +416,7 @@ class LightX2VPipeline:
         image_path=None,
         video_path=None,  # For SR task (video super-resolution)
         image_strength=None,
+        image_frame_idx=None,
         last_frame_path=None,
         audio_path=None,
         src_ref_images=None,
@@ -427,6 +429,7 @@ class LightX2VPipeline:
         # Run inference (following LightX2V pattern)
         # Note: image_path supports comma-separated paths for multiple images
         # image_strength can be a scalar (float/int) or a list matching the number of images
+        # image_frame_idx: optional list of pixel frame indices (one per image), or None to evenly space in [0, num_frames-1]
         self.seed = seed
         self.image_path = image_path
         self.video_path = video_path  # For SR task
@@ -442,6 +445,7 @@ class LightX2VPipeline:
         self.return_result_tensor = return_result_tensor
         self.target_shape = target_shape
         self.image_strength = image_strength
+        self.image_frame_idx = image_frame_idx
         if task is not None:
             self.task = task
             self.modify_config({"task": self.task})
@@ -449,9 +453,10 @@ class LightX2VPipeline:
         input_info = init_empty_input_info(self.task, self.support_tasks)
         seed_all(self.seed)
         update_input_info_from_dict(input_info, self)
-        self.runner.run_pipeline(input_info)
+        gen_result = self.runner.run_pipeline(input_info)
         logger.info("Generated successfully!")
         logger.info(f"Saved in {save_result_path}")
+        return gen_result
 
     def _init_runner(self, config):
         torch.set_grad_enabled(False)

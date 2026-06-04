@@ -37,7 +37,15 @@ from lightx2v.disagg.conn import (
     DisaggregationPhase,
 )
 from lightx2v.disagg.rdma_buffer import RDMABuffer, RDMABufferDescriptor
+<<<<<<< HEAD
 from lightx2v.disagg.rdma_client import RDMAClient
+=======
+
+try:
+    from lightx2v.disagg.rdma_client import RDMAClient
+except ImportError:
+    RDMAClient = None
+>>>>>>> 6db002f2755036b02bd0900bf9b41958bbfb4137
 from lightx2v.utils.envs import GET_DTYPE
 from lightx2v_platform.base.global_var import AI_DEVICE
 
