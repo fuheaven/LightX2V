@@ -1,0 +1,786 @@
+2026-07-24 04:15:35.587 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:36.102 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:15:38.829 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:38.830 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:38.833 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:39.119 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:39.153 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:39.172 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:39.173 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:44.059 | INFO     | __main__:_controller_main:391 - launched 8 workers
+2026-07-24 04:15:44.078 | INFO     | __main__:_dispatch:454 - [dispatch] request_id=0 -> cooperative workers [0..7]
+2026-07-24 04:15:45.368 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.369 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.370 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.371 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.373 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.373 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.374 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.375 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:45.474 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:45.478 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:45.479 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:45.481 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:45.481 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:45.483 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:45.485 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:45.486 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:15:48.561 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.562 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.565 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:15:48.675 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.676 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.678 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.682 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.682 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.684 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.789 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.823 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:48.831 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.832 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.835 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.840 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.841 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.928 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.939 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.963 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:48.974 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:48.977 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.977 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:48.986 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:48.987 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.030 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.031 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.032 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.050 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.050 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.052 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.070 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.070 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.072 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.088 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.089 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.091 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.107 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.142 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:49.156 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.156 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.232 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.245 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.267 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:49.269 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.280 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:49.280 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.281 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.294 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.295 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.305 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:49.306 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.318 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.319 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:49.341 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:49.355 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:49.355 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:53.138 | INFO     | __main__:_worker_main:208 - worker=2 listening on port=12890 gpu=2 monitor_port=7890
+2026-07-24 04:15:53.138 | INFO     | __main__:_worker_main:208 - worker=7 listening on port=12895 gpu=7 monitor_port=7895
+2026-07-24 04:15:53.138 | INFO     | __main__:_worker_main:208 - worker=0 listening on port=12888 gpu=0 monitor_port=7888
+2026-07-24 04:15:53.138 | INFO     | __main__:_worker_main:208 - worker=6 listening on port=12894 gpu=6 monitor_port=7894
+2026-07-24 04:15:53.140 | INFO     | __main__:_worker_main:208 - worker=5 listening on port=12893 gpu=5 monitor_port=7893
+2026-07-24 04:15:53.140 | INFO     | __main__:_worker_main:208 - worker=4 listening on port=12892 gpu=4 monitor_port=7892
+2026-07-24 04:15:53.140 | INFO     | __main__:_worker_main:208 - worker=1 listening on port=12889 gpu=1 monitor_port=7889
+2026-07-24 04:15:53.243 | INFO     | __main__:_worker_main:208 - worker=3 listening on port=12891 gpu=3 monitor_port=7891
+2026-07-24 04:15:54.505 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.508 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.509 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.512 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.512 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.513 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.514 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.551 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:15:54.591 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:54.592 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:54.600 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:54.605 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:54.606 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:54.608 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:54.610 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+2026-07-24 04:15:54.626 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:15:58.012 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.013 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.016 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.037 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.037 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.040 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.124 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.125 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.127 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.293 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.294 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.296 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.315 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.330 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.331 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.333 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.337 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.338 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.339 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.344 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.350 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.353 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.354 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.354 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.355 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.356 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.357 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.366 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.366 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.371 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.372 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.385 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.385 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.406 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.418 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.419 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.491 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.525 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.538 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.538 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.542 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.576 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.576 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.576 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.576 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.589 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.589 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.611 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.611 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.612 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:15:58.624 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.624 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.624 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.624 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:15:58.625 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:15:58.625 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:16:02.870 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_cizemmc9/request_config.json
+2026-07-24 04:16:02.870 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_eovmvucw/request_config.json
+2026-07-24 04:16:02.870 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_othux3wo/request_config.json
+2026-07-24 04:16:02.870 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_2dve1tdg/request_config.json
+2026-07-24 04:16:02.870 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_e6phgsig/request_config.json
+2026-07-24 04:16:02.870 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_c5iatydj/request_config.json
+2026-07-24 04:16:02.872 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_5yqwzt7m/request_config.json
+2026-07-24 04:16:02.872 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /tmp/baseline_req_0_2kaf3_3g/request_config.json
+2026-07-24 04:16:04.114 | INFO     | lightx2v.utils.set_config:print_config:373 - config:
+{
+    "do_mm_calib": false,
+    "cpu_offload": true,
+    "max_area": false,
+    "vae_stride": [
+        4,
+        8,
+        8
+    ],
+    "patch_size": [
+        1,
+        2,
+        2
+    ],
+    "feature_caching": "NoCaching",
+    "teacache_thresh": 0.26,
+    "use_ret_steps": false,
+    "use_bfloat16": true,
+    "lora_configs": null,
+    "use_prompt_enhancer": false,
+    "parallel": {
+        "seq_p_size": 8,
+        "seq_p_attn_type": "ulysses"
+    },
+    "seq_parallel": true,
+    "cfg_parallel": false,
+    "enable_cfg": false,
+    "use_image_encoder": false,
+    "model_cls": "wan2.2_moe",
+    "task": "i2v",
+    "support_tasks": [],
+    "model_path": "/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B",
+    "config_json": "/tmp/baseline_req_0_e6phgsig/request_config.json",
+    "enable_bf16": false,
+    "save_rendered": false,
+    "render_depth": false,
+    "_wm_cli_snapshot": {
+        "subfolder": null,
+        "disable_heads": null,
+        "enable_bf16": false,
+        "save_rendered": false,
+        "render_interp_per_pair": null,
+        "render_depth": false,
+        "wm_config_path": null,
+        "wm_ckpt_path": null
+    },
+    "infer_steps": 4,
+    "in_dim": 36,
+    "dim": 5120,
+    "ffn_dim": 13824,
+    "freq_dim": 256,
+    "num_heads": 40,
+    "num_layers": 40,
+    "out_dim": 16,
+    "eps": 1e-06,
+    "model_type": "i2v",
+    "target_video_length": 81,
+    "text_len": 512,
+    "target_height": 480,
+    "target_width": 832,
+    "self_attn_1_type": "sage_attn2",
+    "cross_attn_1_type": "sage_attn2",
+    "cross_attn_2_type": "sage_attn2",
+    "sample_guide_scale": [
+        3.5,
+        3.5
+    ],
+    "sample_shift": 5.0,
+    "offload_granularity": "block",
+    "t5_cpu_offload": false,
+    "vae_cpu_offload": false,
+    "fps": 16,
+    "boundary_step_index": 2,
+    "denoising_step_list": [
+        1000,
+        750,
+        500,
+        250
+    ],
+    "dit_quantized": true,
+    "dit_quant_scheme": "int8-q8f",
+    "high_noise_quantized_ckpt": "/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors",
+    "low_noise_quantized_ckpt": "/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors",
+    "high_noise_original_ckpt": "/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors",
+    "low_noise_original_ckpt": "/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors",
+    "save_path": "/data/fuhaiwen1/LightX2V/save_results/baseline_smoke.mp4",
+    "prompt": "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard.",
+    "negative_prompt": "镜头晃动，色调艳丽，过曝，静态",
+    "image_path": "/data/fuhaiwen1/LightX2V/assets/inputs/imgs/img_0.jpg",
+    "boundary": 0.9,
+    "data_bootstrap_room": 0,
+    "device_mesh": "DeviceMesh('cuda', [[0, 1, 2, 3, 4, 5, 6, 7]], mesh_dim_names=('cfg_p', 'seq_p'))",
+    "tensor_parallel": false
+}
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.118 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.119 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.120 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.120 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.120 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.120 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.120 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.120 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.120 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.120 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.120 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.120 | DEBUG    | lightx2v.utils.utils:validate_config_paths:750 - ✓ Verified high_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.120 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.120 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.120 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.121 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.121 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.121 | DEBUG    | lightx2v.utils.utils:validate_config_paths:754 - ✓ Verified high_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.121 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:04.121 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.121 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:04.121 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.121 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.121 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.121 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.121 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.122 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.122 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.122 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.122 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.122 | DEBUG    | lightx2v.utils.utils:validate_config_paths:759 - ✓ Verified low_noise_original_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.122 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.122 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.122 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.122 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.122 | DEBUG    | lightx2v.utils.utils:validate_config_paths:763 - ✓ Verified low_noise_quantized_ckpt: /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:04.122 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.123 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.utils.utils:validate_config_paths:765 - ✓ Config checkpoint paths validated successfully
+2026-07-24 04:16:04.123 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.123 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:04.123 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.models.runners.wan.wan_runner:init_scheduler:364 - Using WanScheduler
+2026-07-24 04:16:04.123 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.123 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:04.124 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.124 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:04.124 | INFO     | lightx2v.models.runners.default_runner:init_modules:111 - Initializing runner modules...
+2026-07-24 04:16:04.124 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:04.124 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:04.124 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:16:04.124 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:16:17.603 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:17.604 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:17.605 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:17.607 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:17.607 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:17.607 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:17.610 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:16:17.610 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:53.895 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:53.896 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:54.902 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:55.252 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:55.252 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:55.266 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:55.266 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:55.269 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:55.274 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:55.319 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:55.319 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:55.324 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:55.325 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:55.331 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:55.331 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:55.334 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:55.334 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:55.339 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:55.340 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:55.342 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:55.348 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:17:55.682 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+2026-07-24 04:17:55.689 | INFO     | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+2026-07-24 04:17:58.476 | INFO     | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:19:35.872 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:35.979 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:19:36.773 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:36.800 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:36.836 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:36.844 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:36.849 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:36.865 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:37.042 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:19:37.076 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:19:37.111 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:19:37.130 | INFO     | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.9, boundary_timestep: 900.0
+2026-07-24 04:19:37.135 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:19:37.142 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:19:37.145 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:19:37.251 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:20:28.042 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:28.156 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:28.702 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:28.978 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:29.261 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:29.421 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:30.063 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:30.074 | INFO     | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+2026-07-24 04:20:32.631 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 268.506970 seconds
+2026-07-24 04:20:32.633 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 268.509094 seconds
+2026-07-24 04:20:32.948 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:33.188 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.067292 seconds
+2026-07-24 04:20:33.190 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.069526 seconds
+2026-07-24 04:20:33.315 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.192428 seconds
+2026-07-24 04:20:33.317 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.194561 seconds
+2026-07-24 04:20:33.390 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:33.522 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:33.606 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.481934 seconds
+2026-07-24 04:20:33.606 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.482611 seconds
+2026-07-24 04:20:33.655 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.531368 seconds
+2026-07-24 04:20:33.656 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.533172 seconds
+2026-07-24 04:20:33.795 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:33.815 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:33.987 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.864101 seconds
+2026-07-24 04:20:33.988 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.864758 seconds
+2026-07-24 04:20:34.038 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.917257 seconds
+2026-07-24 04:20:34.038 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.917865 seconds
+2026-07-24 04:20:34.065 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:34.072 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:34.115 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.991712 seconds
+2026-07-24 04:20:34.116 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Load models cost 269.992716 seconds
+2026-07-24 04:20:34.136 | INFO     | lightx2v.models.runners.wan.wan_runner:run_vae_encoder:739 - ori latent: 90x68, adjust_latent: 90x68, grid: 2x4
+2026-07-24 04:20:34.936 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 0.871588 seconds
+2026-07-24 04:20:34.936 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 0.863911 seconds
+2026-07-24 04:20:34.936 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 0.800340 seconds
+2026-07-24 04:20:34.936 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 1.141385 seconds
+2026-07-24 04:20:34.936 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 1.121198 seconds
+2026-07-24 04:20:34.937 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 1.547542 seconds
+2026-07-24 04:20:34.937 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 1.989117 seconds
+2026-07-24 04:20:34.937 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Encoder cost 1.415368 seconds
+2026-07-24 04:20:35.127 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.190031 seconds
+2026-07-24 04:20:35.127 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.188920 seconds
+2026-07-24 04:20:35.128 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 1.139433 seconds
+2026-07-24 04:20:35.128 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 1.521493 seconds
+2026-07-24 04:20:35.129 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.190310 seconds
+2026-07-24 04:20:35.130 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.130 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.131 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 1.811731 seconds
+2026-07-24 04:20:35.132 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.141 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.201947 seconds
+2026-07-24 04:20:35.141 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 2.507538 seconds
+2026-07-24 04:20:35.143 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.147 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.208635 seconds
+2026-07-24 04:20:35.148 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 1.957192 seconds
+2026-07-24 04:20:35.149 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.150 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.212217 seconds
+2026-07-24 04:20:35.151 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 1.112149 seconds
+2026-07-24 04:20:35.152 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.153 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.153 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.153 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_pre cost 0.000106 seconds
+2026-07-24 04:20:35.153 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_pre cost 0.000092 seconds
+2026-07-24 04:20:35.154 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.154 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000331 seconds
+2026-07-24 04:20:35.154 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.154 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000287 seconds
+2026-07-24 04:20:35.160 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.221730 seconds
+2026-07-24 04:20:35.160 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 1.503276 seconds
+2026-07-24 04:20:35.161 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.165 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.165 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.165 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.165 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_pre cost 0.000095 seconds
+2026-07-24 04:20:35.165 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_pre cost 0.000110 seconds
+2026-07-24 04:20:35.166 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_pre cost 0.000128 seconds
+2026-07-24 04:20:35.166 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.166 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.166 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000350 seconds
+2026-07-24 04:20:35.166 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.166 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000438 seconds
+2026-07-24 04:20:35.166 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000559 seconds
+2026-07-24 04:20:35.180 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run Text Encoder cost 0.241749 seconds
+2026-07-24 04:20:35.181 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run Encoders cost 1.063973 seconds
+2026-07-24 04:20:35.182 | INFO     | lightx2v.models.runners.default_runner:run_main:450 - 🔄 start segment 1/1
+2026-07-24 04:20:35.187 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.187 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.187 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 1 / 4
+2026-07-24 04:20:35.187 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_pre cost 0.000098 seconds
+2026-07-24 04:20:35.188 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_pre cost 0.000133 seconds
+2026-07-24 04:20:35.188 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_pre cost 0.000157 seconds
+2026-07-24 04:20:35.188 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.188 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.189 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000416 seconds
+2026-07-24 04:20:35.189 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000432 seconds
+2026-07-24 04:20:35.189 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+2026-07-24 04:20:35.189 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000439 seconds
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+2026-07-24 04:20:43.153 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log 🚀 infer_main cost 7.986983 seconds
+2026-07-24 04:20:43.153 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log 🚀 infer_main cost 7.964731 seconds
+2026-07-24 04:20:43.159 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_post cost 0.004613 seconds
+2026-07-24 04:20:43.159 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_post cost 0.004402 seconds
+2026-07-24 04:20:43.159 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log 🚀 infer_main cost 8.004807 seconds
+2026-07-24 04:20:43.159 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log Run Dit every step cost 7.994640 seconds
+2026-07-24 04:20:43.159 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log Run Dit every step cost 7.972986 seconds
+2026-07-24 04:20:43.160 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log 🚀 infer_main cost 7.994379 seconds
+2026-07-24 04:20:43.161 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log 🚀 infer_main cost 7.972946 seconds
+2026-07-24 04:20:43.161 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_post cost 0.001359 seconds
+2026-07-24 04:20:43.161 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log 🚀 infer_main cost 7.972644 seconds
+2026-07-24 04:20:43.162 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_post cost 0.001244 seconds
+2026-07-24 04:20:43.162 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log Run Dit every step cost 8.009157 seconds
+2026-07-24 04:20:43.162 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log Run Dit every step cost 7.997495 seconds
+2026-07-24 04:20:43.163 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_post cost 0.001017 seconds
+2026-07-24 04:20:43.163 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log Run Dit every step cost 7.976384 seconds
+2026-07-24 04:20:43.165 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_post cost 0.002516 seconds
+2026-07-24 04:20:43.165 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log Run Dit every step cost 7.978228 seconds
+2026-07-24 04:20:43.174 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log 🚀 infer_main cost 8.007937 seconds
+2026-07-24 04:20:43.176 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_post cost 0.001499 seconds
+2026-07-24 04:20:43.176 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log Run Dit every step cost 8.011703 seconds
+2026-07-24 04:20:43.178 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log 🚀 infer_main cost 8.023399 seconds
+2026-07-24 04:20:43.180 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_post cost 0.001582 seconds
+2026-07-24 04:20:43.180 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log Run Dit every step cost 8.027240 seconds
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 2 / 4
+2026-07-24 04:20:43.181 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_pre cost 0.000123 seconds
+2026-07-24 04:20:43.181 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_pre cost 0.000258 seconds
+2026-07-24 04:20:43.181 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_pre cost 0.000128 seconds
+2026-07-24 04:20:43.181 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_pre cost 0.000120 seconds
+2026-07-24 04:20:43.182 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_pre cost 0.000124 seconds
+2026-07-24 04:20:43.182 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_pre cost 0.000296 seconds
+2026-07-24 04:20:43.182 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.182 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_pre cost 0.000136 seconds
+2026-07-24 04:20:43.182 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.182 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.182 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_pre cost 0.000285 seconds
+2026-07-24 04:20:43.182 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.182 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.183 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000265 seconds
+2026-07-24 04:20:43.183 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000834 seconds
+2026-07-24 04:20:43.183 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.183 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.183 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000846 seconds
+2026-07-24 04:20:43.183 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000882 seconds
+2026-07-24 04:20:43.183 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+2026-07-24 04:20:43.183 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000809 seconds
+2026-07-24 04:20:43.184 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000863 seconds
+2026-07-24 04:20:43.184 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.001182 seconds
+2026-07-24 04:20:43.184 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.001039 seconds
+2026-07-24 04:20:47.051 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log 🚀 infer_main cost 3.868396 seconds
+2026-07-24 04:20:47.053 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log 🚀 infer_main cost 3.871190 seconds
+2026-07-24 04:20:47.054 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_post cost 0.001833 seconds
+2026-07-24 04:20:47.054 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log Run Dit every step cost 3.894030 seconds
+2026-07-24 04:20:47.056 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log 🚀 infer_main cost 3.873814 seconds
+2026-07-24 04:20:47.058 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log 🚀 infer_main cost 3.875965 seconds
+2026-07-24 04:20:47.058 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_post cost 0.004265 seconds
+2026-07-24 04:20:47.059 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log Run Dit every step cost 3.898805 seconds
+2026-07-24 04:20:47.060 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log 🚀 infer_main cost 3.877441 seconds
+2026-07-24 04:20:47.061 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_post cost 0.004205 seconds
+2026-07-24 04:20:47.061 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log 🚀 infer_main cost 3.878966 seconds
+2026-07-24 04:20:47.061 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_post cost 0.002632 seconds
+2026-07-24 04:20:47.062 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log Run Dit every step cost 3.899476 seconds
+2026-07-24 04:20:47.062 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log Run Dit every step cost 3.899355 seconds
+2026-07-24 04:20:47.063 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_post cost 0.001328 seconds
+2026-07-24 04:20:47.063 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_post cost 0.001992 seconds
+2026-07-24 04:20:47.063 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log Run Dit every step cost 3.900034 seconds
+2026-07-24 04:20:47.063 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log Run Dit every step cost 3.898086 seconds
+2026-07-24 04:20:47.070 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log 🚀 infer_main cost 3.887920 seconds
+2026-07-24 04:20:47.073 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_post cost 0.001668 seconds
+2026-07-24 04:20:47.073 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log Run Dit every step cost 3.896192 seconds
+2026-07-24 04:20:47.075 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log 🚀 infer_main cost 3.892083 seconds
+2026-07-24 04:20:47.077 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_post cost 0.001733 seconds
+2026-07-24 04:20:47.077 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log Run Dit every step cost 3.896980 seconds
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 3 / 4
+2026-07-24 04:20:47.078 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_pre cost 0.000162 seconds
+2026-07-24 04:20:47.078 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_pre cost 0.000145 seconds
+2026-07-24 04:20:47.079 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_pre cost 0.000307 seconds
+2026-07-24 04:20:47.079 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_pre cost 0.000110 seconds
+2026-07-24 04:20:47.079 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_pre cost 0.000117 seconds
+2026-07-24 04:20:47.079 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_pre cost 0.000283 seconds
+2026-07-24 04:20:47.079 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_pre cost 0.000110 seconds
+2026-07-24 04:20:47.079 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.079 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.079 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_pre cost 0.000319 seconds
+2026-07-24 04:20:47.080 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.080 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.080 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.080 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000691 seconds
+2026-07-24 04:20:47.080 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.080 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000849 seconds
+2026-07-24 04:20:47.080 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.080 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000680 seconds
+2026-07-24 04:20:47.080 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000913 seconds
+2026-07-24 04:20:47.080 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000783 seconds
+2026-07-24 04:20:47.081 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+2026-07-24 04:20:47.081 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000795 seconds
+2026-07-24 04:20:47.081 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000993 seconds
+2026-07-24 04:20:47.081 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000954 seconds
+2026-07-24 04:20:51.220 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log 🚀 infer_main cost 4.140583 seconds
+2026-07-24 04:20:51.221 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log 🚀 infer_main cost 4.140530 seconds
+2026-07-24 04:20:51.221 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log 🚀 infer_main cost 4.141874 seconds
+2026-07-24 04:20:51.224 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log 🚀 infer_main cost 4.143285 seconds
+2026-07-24 04:20:51.225 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log 🚀 infer_main cost 4.144540 seconds
+2026-07-24 04:20:51.227 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log 🚀 infer_main cost 4.147808 seconds
+2026-07-24 04:20:51.243 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log 🚀 infer_main cost 4.163563 seconds
+2026-07-24 04:20:51.246 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log 🚀 infer_main cost 4.166175 seconds
+2026-07-24 04:20:51.305 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_post cost 0.082501 seconds
+2026-07-24 04:20:51.305 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log Run Dit every step cost 4.250482 seconds
+2026-07-24 04:20:51.306 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_post cost 0.084492 seconds
+2026-07-24 04:20:51.307 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log Run Dit every step cost 4.243094 seconds
+2026-07-24 04:20:51.318 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_post cost 0.092824 seconds
+2026-07-24 04:20:51.319 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log Run Dit every step cost 4.255523 seconds
+2026-07-24 04:20:51.332 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_post cost 0.106839 seconds
+2026-07-24 04:20:51.332 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log Run Dit every step cost 4.270255 seconds
+2026-07-24 04:20:51.335 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_post cost 0.107723 seconds
+2026-07-24 04:20:51.336 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log Run Dit every step cost 4.273784 seconds
+2026-07-24 04:20:51.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_post cost 0.118687 seconds
+2026-07-24 04:20:51.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log Run Dit every step cost 4.281891 seconds
+2026-07-24 04:20:51.342 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_post cost 0.094597 seconds
+2026-07-24 04:20:51.342 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log Run Dit every step cost 4.264778 seconds
+2026-07-24 04:20:51.343 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.343 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.343 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_pre cost 0.000189 seconds
+2026-07-24 04:20:51.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_pre cost 0.000227 seconds
+2026-07-24 04:20:51.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_pre cost 0.000183 seconds
+2026-07-24 04:20:51.344 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.344 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.345 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.345 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000385 seconds
+2026-07-24 04:20:51.345 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000417 seconds
+2026-07-24 04:20:51.345 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000398 seconds
+2026-07-24 04:20:51.346 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_post cost 0.101349 seconds
+2026-07-24 04:20:51.346 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log Run Dit every step cost 4.272762 seconds
+2026-07-24 04:20:51.346 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.346 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.346 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.346 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.347 | INFO     | lightx2v.models.runners.default_runner:run_segment:234 - ==> step_index: 4 / 4
+2026-07-24 04:20:51.347 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_pre cost 0.000212 seconds
+2026-07-24 04:20:51.347 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_pre cost 0.000195 seconds
+2026-07-24 04:20:51.347 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_pre cost 0.000158 seconds
+2026-07-24 04:20:51.347 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_pre cost 0.000137 seconds
+2026-07-24 04:20:51.347 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_pre cost 0.000111 seconds
+2026-07-24 04:20:51.348 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.348 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.348 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.348 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.348 | INFO     | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+2026-07-24 04:20:51.348 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000682 seconds
+2026-07-24 04:20:51.349 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000915 seconds
+2026-07-24 04:20:51.348 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000560 seconds
+2026-07-24 04:20:51.349 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000771 seconds
+2026-07-24 04:20:51.349 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.000609 seconds
+2026-07-24 04:20:55.347 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log 🚀 infer_main cost 3.999364 seconds
+2026-07-24 04:20:55.347 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log 🚀 infer_main cost 4.003138 seconds
+2026-07-24 04:20:55.348 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log 🚀 infer_main cost 4.000140 seconds
+2026-07-24 04:20:55.348 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log 🚀 infer_main cost 4.000796 seconds
+2026-07-24 04:20:55.350 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log step_post cost 0.001933 seconds
+2026-07-24 04:20:55.351 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log Run Dit every step cost 4.043476 seconds
+2026-07-24 04:20:55.351 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log step_post cost 0.001672 seconds
+2026-07-24 04:20:55.351 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log Run Dit every step cost 4.045721 seconds
+2026-07-24 04:20:55.351 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log step_post cost 0.002355 seconds
+2026-07-24 04:20:55.351 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log Run Dit every step cost 4.018456 seconds
+2026-07-24 04:20:55.352 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log step_post cost 0.002881 seconds
+2026-07-24 04:20:55.352 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log Run Dit every step cost 4.010894 seconds
+2026-07-24 04:20:55.352 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log 🚀 infer_main cost 4.004271 seconds
+2026-07-24 04:20:55.356 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log 🚀 infer_main cost 4.011368 seconds
+2026-07-24 04:20:55.357 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log step_post cost 0.004108 seconds
+2026-07-24 04:20:55.357 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log Run Dit every step cost 4.037655 seconds
+2026-07-24 04:20:55.359 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log step_post cost 0.002453 seconds
+2026-07-24 04:20:55.359 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log Run Dit every step cost 4.022971 seconds
+2026-07-24 04:20:55.367 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log 🚀 infer_main cost 4.018651 seconds
+2026-07-24 04:20:55.370 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log step_post cost 0.002317 seconds
+2026-07-24 04:20:55.370 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log Run Dit every step cost 4.023608 seconds
+2026-07-24 04:20:55.371 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log 🚀 infer_main cost 4.026760 seconds
+2026-07-24 04:20:55.375 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log step_post cost 0.002697 seconds
+2026-07-24 04:20:55.375 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log Run Dit every step cost 4.032148 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.970680 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.983060 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.981575 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.989681 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.990216 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.966031 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.989474 seconds
+2026-07-24 04:20:56.341 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log Run VAE Decoder cost 0.988616 seconds
+2026-07-24 04:20:56.342 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log segment end2end 1/1 cost 21.198626 seconds
+2026-07-24 04:20:56.342 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log segment end2end 1/1 cost 21.159047 seconds
+2026-07-24 04:20:56.342 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log segment end2end 1/1 cost 21.190239 seconds
+2026-07-24 04:20:56.342 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log segment end2end 1/1 cost 21.180648 seconds
+2026-07-24 04:20:56.342 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log segment end2end 1/1 cost 21.209798 seconds
+2026-07-24 04:20:56.343 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log segment end2end 1/1 cost 21.193191 seconds
+2026-07-24 04:20:56.343 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log segment end2end 1/1 cost 21.212864 seconds
+2026-07-24 04:20:56.343 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log segment end2end 1/1 cost 21.212565 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 21.192414 seconds
+2026-07-24 04:20:56.343 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 21.201657 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 21.182901 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 21.162555 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 21.215302 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 21.212769 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 22.227258 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 22.305071 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 23.025405 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 23.710086 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 22.686771 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 21.215363 seconds
+2026-07-24 04:20:56.344 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 22.355782 seconds
+2026-07-24 04:20:56.345 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 22.738213 seconds
+2026-07-24 04:20:56.345 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level2_Log wan_vae_to_comfy cost 0.001340 seconds
+2026-07-24 04:20:56.345 | INFO     | lightx2v.models.runners.default_runner:process_images_after_vae_decoder:561 - 🎬 Start to save video 🎬
+2026-07-24 04:20:56.710 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708914 live tracked objects out of future GC walks
+2026-07-24 04:20:56.710 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 6 - Level1_Log Total Cost cost 292.590526 seconds
+2026-07-24 04:20:56.819 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708915 live tracked objects out of future GC walks
+2026-07-24 04:20:56.819 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 1 - Level1_Log Total Cost cost 292.696714 seconds
+2026-07-24 04:20:56.821 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708915 live tracked objects out of future GC walks
+2026-07-24 04:20:56.821 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 5 - Level1_Log Total Cost cost 292.698820 seconds
+2026-07-24 04:20:56.867 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708913 live tracked objects out of future GC walks
+2026-07-24 04:20:56.868 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 3 - Level1_Log Total Cost cost 292.745103 seconds
+2026-07-24 04:20:56.884 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708914 live tracked objects out of future GC walks
+2026-07-24 04:20:56.885 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 4 - Level1_Log Total Cost cost 292.762558 seconds
+2026-07-24 04:20:57.023 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708912 live tracked objects out of future GC walks
+2026-07-24 04:20:57.024 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 2 - Level1_Log Total Cost cost 292.902014 seconds
+2026-07-24 04:20:57.091 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708912 live tracked objects out of future GC walks
+2026-07-24 04:20:57.092 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 7 - Level1_Log Total Cost cost 292.970919 seconds
+2026-07-24 04:20:57.279 | INFO     | lightx2v.models.runners.default_runner:process_images_after_vae_decoder:570 - ✅ Video saved successfully to: /data/fuhaiwen1/LightX2V/save_results/baseline_smoke.mp4 ✅
+2026-07-24 04:20:57.281 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Run DiT cost 22.132847 seconds
+2026-07-24 04:20:57.281 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level1_Log RUN pipeline cost 24.090741 seconds
+2026-07-24 04:20:59.124 | INFO     | lightx2v.models.runners.base_runner:_maybe_freeze_gc:84 - [GC] gc.collect() reclaimed 1283 objects; gc.freeze() moved ~708922 live tracked objects out of future GC walks
+2026-07-24 04:20:59.129 | INFO     | lightx2v.utils.profiler:__exit__:87 - [Profile] Rank 0 - Level1_Log Total Cost cost 295.009001 seconds
+2026-07-24 04:20:59.924 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:20:59.939 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:20:59.940 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:20:59.962 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:20:59.963 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:20:59.965 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:20:59.966 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:21:00.022 | INFO     | __main__:main:241 - Distributed process group cleaned up
+2026-07-24 04:21:07.555 | INFO     | __main__:_controller_main:512 - [done] request_id=0 worker=0 start_ts=1784866553.269782 finish_ts=1784866867.534833 e2e=323.458s elapsed_from_global_start=323.458s rc=0
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+Warning: Sage2++ NOT enabled
+2026-07-24 04:21:23.381 | INFO     | __main__:_controller_main:549 - metrics saved to /data/fuhaiwen1/LightX2V/save_results/baseline_smoke_metrics.json
+Warning: Sage2++ NOT enabled

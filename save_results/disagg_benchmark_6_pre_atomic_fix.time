@@ -1,0 +1,24 @@
+Command exited with non-zero status 130
+	Command being timed: "env LIGHTX2V_PATH=/data/fuhaiwen1/LightX2V WAN22_MOE_MODEL_PATH=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B DISAGG_CONTROLLER_CFG=/data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json DISAGG_TOPOLOGY=single_node DISAGG_SKIP_CONDA_ACTIVATE=1 DISAGG_AUTO_REQUEST_COUNT=6 DISAGG_CONTROLLER_METRICS_OUTPUT_JSON=/data/fuhaiwen1/LightX2V/save_results/disagg_benchmark_6_metrics.json SAVE_RESULT_PATH=/data/fuhaiwen1/LightX2V/save_results/disagg_benchmark_6.mp4 RDMA_IFACE=mlx5_bond_0 MOONCAKE_DEVICE_NAME=mlx5_bond_0 MOONCAKE_LOCAL_HOSTNAME=10.119.17.134 RDMA_PREFERRED_IPV4=10.119.192.225 ENABLE_MONITOR=1 TORCH_CUDA_ARCH_LIST=8.9 PYTHONPATH=/tmp/rdma-core39.CXGWdZ/build/python:/data/fuhaiwen1/LightX2V LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libibverbs.so.1 bash scripts/disagg/run_dynamic.sh"
+	User time (seconds): 1845.00
+	System time (seconds): 693.86
+	Percent of CPU this job got: 532%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:56.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 54612820
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 541686
+	Minor (reclaiming a frame) page faults: 37844797
+	Voluntary context switches: 1833114
+	Involuntary context switches: 124787
+	Swaps: 0
+	File system inputs: 848416
+	File system outputs: 168
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 130

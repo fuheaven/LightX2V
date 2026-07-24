@@ -166,9 +166,9 @@ class RDMAClient:
                 print(f"[Client] Got Server Info: Addr={hex(int(self.remote_info['addr']))}, RKey={self.remote_info['rkey']}")
 
                 # 2. 发送我的信息给 Server
-                gid = self.ctx.query_gid(port_num=self.port_num, index=self.gid_index)
+                gid = self.ctx.query_gid(self.port_num, self.gid_index)
                 my_info = {
-                    "lid": self.ctx.query_port(port_num=self.port_num).lid,
+                    "lid": self.ctx.query_port(self.port_num).lid,
                     "qpn": self.qp.qp_num,
                     "psn": self.local_psn,
                     "gid": str(gid),
@@ -384,7 +384,11 @@ class RDMAClient:
             self._poll_cq()
 
             old = self.local_mr.read(8, 0)
-            old_v = int.from_bytes(old, byteorder="little", signed=False)
+            # Verbs atomic results are returned in network byte order.  Decoding
+            # them as little-endian makes every non-zero CAS result look like a
+            # different counter value (for example 1 becomes 1 << 56), which can
+            # drain a multi-request ring while the consumer retries.
+            old_v = int.from_bytes(old, byteorder="big", signed=False)
             return old_v
 
     def rdma_cas(self, remote_addr, compare_value, swap_value, rkey=None):
@@ -413,7 +417,8 @@ class RDMAClient:
             self._poll_cq()
 
             old = self.local_mr.read(8, 0)
-            old_v = int.from_bytes(old, byteorder="little", signed=False)
+            # Atomic completion data follows network byte order; see rdma_faa.
+            old_v = int.from_bytes(old, byteorder="big", signed=False)
             return old_v
 
     def _poll_cq(self):

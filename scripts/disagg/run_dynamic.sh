@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-lightx2v_path=/root/zht/LightX2V
-model_path=${lightx2v_path}/models/lightx2v/Wan2.2-Distill-Models
+lightx2v_path=${LIGHTX2V_PATH:-/root/zht/LightX2V}
+model_path=${WAN22_MOE_MODEL_PATH:-${lightx2v_path}/models/Wan-AI/Wan2.2-I2V-A14B}
 
 # base.sh expects PYTHONPATH to be defined under `set -u`.
 export PYTHONPATH=${PYTHONPATH:-}
@@ -28,9 +28,11 @@ fi
 # Ensure stale disagg services/ports from previous runs do not block bootstrap.
 bash ${lightx2v_path}/scripts/disagg/kill_service.sh || true
 
-export CC=/usr/bin/gcc-13
-export CXX=/usr/bin/g++-13
-export CUDAHOSTCXX=/usr/bin/g++-13
+if [[ -x /usr/bin/gcc-13 && -x /usr/bin/g++-13 ]]; then
+    export CC=${CC:-/usr/bin/gcc-13}
+    export CXX=${CXX:-/usr/bin/g++-13}
+    export CUDAHOSTCXX=${CUDAHOSTCXX:-/usr/bin/g++-13}
+fi
 if [[ -n "${NVCC_PREPEND_FLAGS:-}" ]]; then
     export NVCC_PREPEND_FLAGS="${NVCC_PREPEND_FLAGS} -allow-unsupported-compiler"
 else
@@ -71,13 +73,13 @@ fi
 export DISAGG_CONTROLLER_REQUEST_PORT=${DISAGG_CONTROLLER_REQUEST_PORT:-12786}
 export LOAD_FROM_USER=${LOAD_FROM_USER:-0}
 export ENABLE_MONITOR=${ENABLE_MONITOR:-1}
+export DISAGG_SIDECAR_START_TIMEOUT_SECONDS=${DISAGG_SIDECAR_START_TIMEOUT_SECONDS:-60}
 # multi_node: remote ranks (e.g. slow encoder/decoder host) may need longer TCP/ready waits.
 if [[ "${topology}" == "single_node" ]]; then
     export DISAGG_INSTANCE_START_TIMEOUT_SECONDS=${DISAGG_INSTANCE_START_TIMEOUT_SECONDS:-90}
 else
     export DISAGG_INSTANCE_START_TIMEOUT_SECONDS=${DISAGG_INSTANCE_START_TIMEOUT_SECONDS:-300}
     export DISAGG_REMOTE_PROXY_START_TIMEOUT_SECONDS=${DISAGG_REMOTE_PROXY_START_TIMEOUT_SECONDS:-120}
-    export DISAGG_SIDECAR_START_TIMEOUT_SECONDS=${DISAGG_SIDECAR_START_TIMEOUT_SECONDS:-60}
 fi
 # Dynamic debug defaults to a smaller request batch; override for stress runs.
 export DISAGG_AUTO_REQUEST_COUNT=${DISAGG_AUTO_REQUEST_COUNT:-30}
@@ -103,8 +105,8 @@ prompt=${PROMPT:-"Summer beach vacation style, a white cat wearing sunglasses si
 negative_prompt=${NEGATIVE_PROMPT:-"镜头晃动，色调艳丽，过曝，静态"}
 save_result_path=${SAVE_RESULT_PATH:-${lightx2v_path}/save_results/wan22_i2v_dynamic.mp4}
 
-controller_log=${lightx2v_path}/save_results/disagg_wan22_i2v_dynamic_controller.log
-user_log=${lightx2v_path}/save_results/disagg_wan22_i2v_dynamic_user.log
+controller_log=${DISAGG_CONTROLLER_LOG:-${lightx2v_path}/save_results/disagg_wan22_i2v_dynamic_controller.log}
+user_log=${DISAGG_USER_LOG:-${lightx2v_path}/save_results/disagg_wan22_i2v_dynamic_user.log}
 
 if [[ "${topology}" == "single_node" ]]; then
     controller_wait_timeout_s=${CONTROLLER_WAIT_TIMEOUT_S:-3000}

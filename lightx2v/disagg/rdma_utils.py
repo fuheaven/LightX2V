@@ -91,7 +91,7 @@ def resolve_gid_index(ctx, port_num: int, env_var_name: str = "RDMA_GID_INDEX") 
             idx = -1
         else:
             try:
-                gid_text = str(ctx.query_gid(port_num=port_num, index=idx))
+                gid_text = str(ctx.query_gid(port_num, idx))
             except Exception:
                 gid_text = ""
             else:
@@ -113,7 +113,7 @@ def resolve_gid_index(ctx, port_num: int, env_var_name: str = "RDMA_GID_INDEX") 
     if preferred:
         for idx in range(16):
             try:
-                gid_text = str(ctx.query_gid(port_num=port_num, index=idx))
+                gid_text = str(ctx.query_gid(port_num, idx))
             except Exception:
                 continue
             if not gid_text or gid_text == "::":
@@ -127,7 +127,7 @@ def resolve_gid_index(ctx, port_num: int, env_var_name: str = "RDMA_GID_INDEX") 
 
     for idx in range(16):
         try:
-            gid_text = str(ctx.query_gid(port_num=port_num, index=idx))
+            gid_text = str(ctx.query_gid(port_num, idx))
         except Exception:
             continue
 
@@ -149,7 +149,7 @@ def resolve_gid_index(ctx, port_num: int, env_var_name: str = "RDMA_GID_INDEX") 
     if first_non_empty_idx is not None:
         return first_non_empty_idx
 
-    ctx.query_gid(port_num=port_num, index=0)
+    ctx.query_gid(port_num, 0)
     return 0
 
 

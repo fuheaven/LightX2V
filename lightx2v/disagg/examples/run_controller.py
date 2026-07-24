@@ -2,6 +2,7 @@ import argparse
 import copy
 import json
 import os
+import signal
 import subprocess
 import sys
 import tempfile
@@ -56,6 +57,7 @@ def _make_parser() -> argparse.ArgumentParser:
     parser.add_argument("--result_port", type=int, default=REQUEST_POLLING_PORT - 1)
     parser.add_argument("--worker_base_port", type=int, default=REQUEST_POLLING_PORT + 100)
     parser.add_argument("--worker_monitor_base_port", type=int, default=MONITOR_POLLING_PORT + 100)
+    parser.add_argument("--worker_ack_base_port", type=int, default=REQUEST_POLLING_PORT + 200)
     parser.add_argument("--monitor_poll_interval_s", type=float, default=2.0)
     parser.add_argument("--request_poll_sleep_s", type=float, default=0.02)
     parser.add_argument("--completion_timeout_s", type=float, default=7200.0)
@@ -88,6 +90,7 @@ def _make_parser() -> argparse.ArgumentParser:
     parser.add_argument("--worker_recv_port", type=int, default=0)
     parser.add_argument("--worker_gpu", type=int, default=0)
     parser.add_argument("--worker_monitor_port", type=int, default=0)
+    parser.add_argument("--worker_ack_port", type=int, default=0)
     parser.add_argument("--worker_dist_rank", type=int, default=0)
     parser.add_argument("--worker_dist_world_size", type=int, default=1)
     parser.add_argument("--worker_cooperative_parallel", action="store_true", default=False)
@@ -183,7 +186,27 @@ def _run_infer_once(args: argparse.Namespace, payload: dict[str, Any], worker_id
         env["NODE_RANK"] = "0"
         env["WORLD_SIZE"] = str(worker_world_size)
 
-    result = subprocess.run(cmd, env=env, check=False)
+    infer_timeout_s = max(1.0, float(os.getenv("BASELINE_INFER_TIMEOUT_S", "7200")))
+    proc = subprocess.Popen(cmd, env=env, start_new_session=True)
+    try:
+        return_code = int(proc.wait(timeout=infer_timeout_s))
+    except subprocess.TimeoutExpired:
+        logger.error(
+            "baseline infer timed out after {:.1f}s: request_id={} worker={}",
+            infer_timeout_s,
+            request_id,
+            worker_id,
+        )
+        try:
+            os.killpg(proc.pid, signal.SIGTERM)
+            proc.wait(timeout=10)
+        except (ProcessLookupError, subprocess.TimeoutExpired):
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            proc.wait()
+        return_code = 124
 
     try:
         os.remove(config_json)
@@ -191,7 +214,7 @@ def _run_infer_once(args: argparse.Namespace, payload: dict[str, Any], worker_id
     except OSError:
         pass
 
-    return int(result.returncode), str(save_path)
+    return return_code, str(save_path)
 
 
 def _worker_main(args: argparse.Namespace) -> None:
@@ -227,23 +250,30 @@ def _worker_main(args: argparse.Namespace) -> None:
         return_code, save_path = _run_infer_once(args, payload, args.worker_id)
         finish_ts = time.time()
 
-        # In cooperative parallel mode, all workers are ranks of one request.
-        # Only rank0 reports completion to avoid duplicated completion events.
-        if not args.worker_cooperative_parallel or int(args.worker_dist_rank) == 0:
-            req_mgr.send(
-                "127.0.0.1",
-                args.result_port,
-                {
-                    "request_id": request_id,
-                    "worker_id": args.worker_id,
-                    "start_ts": start_ts,
-                    "finish_ts": finish_ts,
-                    "client_send_ts": client_send_ts,
-                    "e2e_latency_s": finish_ts - client_send_ts,
-                    "return_code": return_code,
-                    "save_path": save_path,
-                },
-            )
+        req_mgr.send(
+            "127.0.0.1",
+            args.result_port,
+            {
+                "request_id": request_id,
+                "worker_id": args.worker_id,
+                "worker_dist_rank": args.worker_dist_rank,
+                "start_ts": start_ts,
+                "finish_ts": finish_ts,
+                "client_send_ts": client_send_ts,
+                "e2e_latency_s": finish_ts - client_send_ts,
+                "return_code": return_code,
+                "save_path": save_path,
+            },
+        )
+
+        # A cooperative request is one distributed job. Do not let a rank
+        # start the next queued request until every peer has exited the current
+        # infer process; otherwise ranks can drift across request generations
+        # and corrupt the next NCCL process group.
+        if args.worker_cooperative_parallel:
+            ack = req_mgr.receive(args.worker_ack_port)
+            if not isinstance(ack, dict) or int(ack.get("request_id", -1)) != request_id:
+                raise RuntimeError(f"invalid cooperative completion ack for request_id={request_id}: {ack}")
 
     reporter.stop()
 
@@ -295,6 +325,7 @@ def _launch_worker_processes(args: argparse.Namespace, gpus: list[int]) -> tuple
             gpu_id = gpu_group[0]
         recv_port = args.worker_base_port + worker_id
         monitor_port = args.worker_monitor_base_port + worker_id
+        ack_port = args.worker_ack_base_port + worker_id
 
         env = os.environ.copy()
         env["CUDA_VISIBLE_DEVICES"] = ",".join(str(g) for g in gpu_group)
@@ -313,6 +344,8 @@ def _launch_worker_processes(args: argparse.Namespace, gpus: list[int]) -> tuple
             str(gpu_id),
             "--worker_monitor_port",
             str(monitor_port),
+            "--worker_ack_port",
+            str(ack_port),
             "--worker_dist_rank",
             str(worker_id),
             "--worker_dist_world_size",
@@ -487,6 +520,7 @@ def _controller_main(args: argparse.Namespace) -> None:
                 _dispatch(payload)
 
     pending_ids = set(dispatched.keys())
+    cooperative_rank_results: dict[int, dict[int, dict[str, Any]]] = {}
     wait_start = time.time()
     while pending_ids:
         msg = req_mgr.receive_non_block(args.result_port)
@@ -501,7 +535,38 @@ def _controller_main(args: argparse.Namespace) -> None:
             continue
 
         request_id = int(msg.get("request_id", -1))
-        finish_ts = float(msg.get("finish_ts", 0.0))
+        if cooperative_parallel:
+            worker_id = int(msg.get("worker_id", -1))
+            rank_results = cooperative_rank_results.setdefault(request_id, {})
+            rank_results[worker_id] = msg
+            if len(rank_results) < worker_count:
+                continue
+
+            ordered = [rank_results[i] for i in range(worker_count)]
+            start_ts = min(float(item.get("start_ts", 0.0)) for item in ordered)
+            finish_ts = max(float(item.get("finish_ts", 0.0)) for item in ordered)
+            client_send_ts = min(float(item.get("client_send_ts", start_ts)) for item in ordered)
+            return_codes = {str(i): int(ordered[i].get("return_code", 1)) for i in range(worker_count)}
+            msg = {
+                "request_id": request_id,
+                "worker_id": "cooperative_group",
+                "start_ts": start_ts,
+                "finish_ts": finish_ts,
+                "client_send_ts": client_send_ts,
+                "e2e_latency_s": finish_ts - client_send_ts,
+                "return_code": max(return_codes.values()),
+                "rank_return_codes": return_codes,
+                "save_path": ordered[0].get("save_path"),
+            }
+            for worker_id in range(worker_count):
+                req_mgr.send(
+                    "127.0.0.1",
+                    args.worker_ack_base_port + worker_id,
+                    {"request_id": request_id},
+                )
+        else:
+            finish_ts = float(msg.get("finish_ts", 0.0))
+
         elapsed_from_global_start_s = finish_ts - global_first_send_ts if global_first_send_ts is not None else None
         if elapsed_from_global_start_s is not None:
             msg["elapsed_from_global_start_s"] = elapsed_from_global_start_s

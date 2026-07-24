@@ -1,0 +1,642 @@
+2026-07-24 04:09:03.526 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:09:04.030 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:09:06.708 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:06.708 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:06.711 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:07.018 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:07.065 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:09:07.086 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:07.087 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:11.510 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:09:11.522 | INFO     | __main__:main:120 - Starting disagg service mode=controller
+[INFO] 24 Jul 2026 04:09:11 | lightx2v.disagg.services.base:__init__:67 - Initializing ControllerService
+[INFO] 24 Jul 2026 04:09:11 | lightx2v.disagg.services.controller:_init_gpu_pool:1311 - Static multi-node mode enabled with 8 slots
+[INFO] 24 Jul 2026 04:09:11 | lightx2v.disagg.services.controller:_init_request_rdma_buffer:1693 - Initialized RDMA buffers: request=(128,8192,1048592) phase1=(128,8192,1048592) phase2=(128,8192,1048592)
+[INFO] 24 Jul 2026 04:09:16 | lightx2v.disagg.services.controller:run:1956 - Starting managed instances from static_instance_slots: ['encoder', 'transformer', 'transformer', 'transformer', 'transformer', 'transformer', 'transformer', 'decoder']
+2026-07-24 04:09:17.837 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:09:17.905 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:09:20.274 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:20.275 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:20.279 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:20.463 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:20.496 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:09:20.515 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:20.515 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:09:24 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for encoder gpu=0 pid=19083 push=tcp://127.0.0.1:44661 req=tcp://127.0.0.1:52661
+2026-07-24 04:09:26.141 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:09:26.210 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:09:28.657 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:28.657 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:28.660 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:28.854 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:28.887 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:09:28.942 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:28.942 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:32.977 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:09:32.988 | INFO     | __main__:main:120 - Starting disagg service mode=encoder
+[INFO] 24 Jul 2026 04:09:33 | lightx2v.disagg.services.base:__init__:67 - Initializing EncoderService
+[INFO] 24 Jul 2026 04:09:33 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:09:33.030377 19178 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:09:33.030594 19178 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:09:33.030674 19178 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:09:33.030794 19178 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15445
+I0724 04:09:33.030969 19178 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:09:33.046604 19178 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:09:33.047271 19178 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:09:33.047391 19178 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:09:33.047572 19178 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:09:33.050865 19178 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:09:33.051826 19178 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:09:33.051929 19178 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:09:33 monitor.py:80: Reporter started: service=encoder gpu=0 bind=tcp://127.0.0.1:7788
+[INFO] 24 Jul 2026 04:09:33 | lightx2v.disagg.services.encoder:load_models:423 - Loading Encoder Models...
+[INFO] 24 Jul 2026 04:09:33 | lightx2v.disagg.services.controller:create_instance:1500 - Created encoder instance host=127.0.0.1 rank=0 mode=local address=127.0.0.1:12788
+[INFO] 24 Jul 2026 04:09:33 | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/models_t5_umt5-xxl-enc-bf16.pth
+2026-07-24 04:09:34.249 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:09:34.331 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:09:36.881 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:36.882 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:36.885 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:37.066 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:37.098 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:09:37.114 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:37.114 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:09:41 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for transformer gpu=1 pid=19271 push=tcp://127.0.0.1:34371 req=tcp://127.0.0.1:55571
+2026-07-24 04:09:42.708 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:09:42.787 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:09:45.059 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:45.059 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:45.065 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:45.244 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:45.279 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:09:45.295 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:45.295 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:49.435 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:09:49.446 | INFO     | __main__:main:120 - Starting disagg service mode=transformer
+[INFO] 24 Jul 2026 04:09:49 | lightx2v.disagg.services.base:__init__:67 - Initializing TransformerService
+[INFO] 24 Jul 2026 04:09:49 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:09:49.491371 19371 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:09:49.491644 19371 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:09:49.491739 19371 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:09:49.491823 19371 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:16029
+I0724 04:09:49.492015 19371 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:09:49.507740 19371 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:09:49.508555 19371 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:09:49.508647 19371 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:09:49.508733 19371 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:09:49.523789 19371 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:09:49.524958 19371 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:09:49.525100 19371 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:09:49 mooncake.py:144: Mooncake Configuration loaded successfully.
+W0724 04:09:49.526250 19371 transfer_engine_py.cpp:55] Memory allocator already initialized with: rdma
+I0724 04:09:49.526489 19371 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:09:49.526619 19371 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:09:49.526701 19371 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:16783
+I0724 04:09:49.526849 19371 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:09:49.542670 19371 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:09:49.543223 19371 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:09:49.543363 19371 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:09:49.543500 19371 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:09:49.558941 19371 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:09:49.560145 19371 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:09:49.560322 19371 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:09:49 monitor.py:80: Reporter started: service=transformer gpu=1 bind=tcp://127.0.0.1:7789
+[INFO] 24 Jul 2026 04:09:49 | lightx2v.disagg.services.transformer:load_models:502 - Loading Transformer Models...
+Warning: Sage2++ NOT enabled
+Loading WanModel module: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Constructing WanModel: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Loading MultiModelStruct module start
+Loading MultiModelStruct module done
+[INFO] 24 Jul 2026 04:09:49 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:09:49 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:09:49 | lightx2v.disagg.services.controller:create_instance:1500 - Created transformer instance host=127.0.0.1 rank=1 mode=local address=127.0.0.1:12789
+[INFO] 24 Jul 2026 04:09:50 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:09:50.906 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:09:50.975 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:09:54.387 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:54.387 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:54.390 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:54.568 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:09:54.602 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:09:54.617 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:09:54.618 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:10:01 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for transformer gpu=2 pid=19466 push=tcp://127.0.0.1:42427 req=tcp://127.0.0.1:43437
+2026-07-24 04:10:03.045 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:10:03.124 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:10:05.992 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:05.993 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:05.998 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:06.185 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:06.220 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:10:06.237 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:06.238 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:14.157 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:10:14.171 | INFO     | __main__:main:120 - Starting disagg service mode=transformer
+[INFO] 24 Jul 2026 04:10:14 | lightx2v.disagg.services.base:__init__:67 - Initializing TransformerService
+[INFO] 24 Jul 2026 04:10:14 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:10:14.225134 19642 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:10:14.225335 19642 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:10:14.225430 19642 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:10:14.225520 19642 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:16495
+I0724 04:10:14.225632 19642 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:10:14.240696 19642 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:10:14.241353 19642 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:10:14.241465 19642 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:10:14.241556 19642 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:10:14.256598 19642 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:10:14.406440 19642 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:10:14.406884 19642 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:10:14 mooncake.py:144: Mooncake Configuration loaded successfully.
+W0724 04:10:14.409775 19642 transfer_engine_py.cpp:55] Memory allocator already initialized with: rdma
+I0724 04:10:14.409886 19642 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:10:14.409981 19642 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:10:14.410076 19642 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15124
+I0724 04:10:14.430914 19642 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:10:14.445431 19642 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:10:14.446027 19642 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:10:14.446105 19642 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:10:14.446209 19642 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:10:14.449422 19642 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:10:14.450306 19642 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:10:14.450449 19642 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:10:14 monitor.py:80: Reporter started: service=transformer gpu=2 bind=tcp://127.0.0.1:7790
+[INFO] 24 Jul 2026 04:10:14 | lightx2v.disagg.services.transformer:load_models:502 - Loading Transformer Models...
+Warning: Sage2++ NOT enabled
+Loading WanModel module: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Constructing WanModel: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Loading MultiModelStruct module start
+Loading MultiModelStruct module done
+[INFO] 24 Jul 2026 04:10:14 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:10:14 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:10:14 | lightx2v.disagg.services.controller:create_instance:1500 - Created transformer instance host=127.0.0.1 rank=2 mode=local address=127.0.0.1:12790
+[INFO] 24 Jul 2026 04:10:15 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:10:15.605 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:10:15.683 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:10:19.361 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:19.362 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:19.365 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:19.722 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:19.757 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:10:19.790 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:19.790 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:10:27 | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+[INFO] 24 Jul 2026 04:10:28 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for transformer gpu=3 pid=19744 push=tcp://127.0.0.1:57189 req=tcp://127.0.0.1:37529
+2026-07-24 04:10:29.386 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:10:29.473 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+[INFO] 24 Jul 2026 04:10:31 | lightx2v.disagg.services.encoder:load_models:441 - Encoder Models loaded successfully.
+[INFO] 24 Jul 2026 04:10:31 | lightx2v.disagg.services.encoder:_ensure_request_buffer:242 - Connected request RDMA buffer: host=127.0.0.1 port=5566 slots=128 slot_size=8192
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:10:32.657 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:32.658 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:32.662 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:32.858 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:32.893 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:10:32.909 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:32.909 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:39.027 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:10:39.039 | INFO     | __main__:main:120 - Starting disagg service mode=transformer
+[INFO] 24 Jul 2026 04:10:39 | lightx2v.disagg.services.base:__init__:67 - Initializing TransformerService
+[INFO] 24 Jul 2026 04:10:39 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:10:39.087308 19939 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:10:39.087515 19939 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:10:39.087601 19939 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:10:39.087687 19939 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15730
+I0724 04:10:39.087831 19939 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:10:39.104463 19939 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:10:39.105222 19939 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:10:39.105324 19939 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:10:39.105446 19939 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:10:39.121263 19939 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:10:39.226423 19939 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:10:39.226615 19939 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:10:39 mooncake.py:144: Mooncake Configuration loaded successfully.
+W0724 04:10:39.229574 19939 transfer_engine_py.cpp:55] Memory allocator already initialized with: rdma
+I0724 04:10:39.229720 19939 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:10:39.229815 19939 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:10:39.229923 19939 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15142
+I0724 04:10:39.230219 19939 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:10:39.245483 19939 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:10:39.246109 19939 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:10:39.246222 19939 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:10:39.246335 19939 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:10:39.261579 19939 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:10:39.262970 19939 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:10:39.263123 19939 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:10:39 monitor.py:80: Reporter started: service=transformer gpu=3 bind=tcp://127.0.0.1:7791
+[INFO] 24 Jul 2026 04:10:39 | lightx2v.disagg.services.transformer:load_models:502 - Loading Transformer Models...
+Warning: Sage2++ NOT enabled
+Loading WanModel module: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Constructing WanModel: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Loading MultiModelStruct module start
+Loading MultiModelStruct module done
+[INFO] 24 Jul 2026 04:10:39 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:10:39 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:10:39 | lightx2v.disagg.services.controller:create_instance:1500 - Created transformer instance host=127.0.0.1 rank=3 mode=local address=127.0.0.1:12791
+2026-07-24 04:10:40.765 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:10:40.833 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+[INFO] 24 Jul 2026 04:10:40 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:10:44.071 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:44.072 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:44.076 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:44.318 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:10:44.352 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:10:44.368 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:10:44.369 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:10:55 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for transformer gpu=4 pid=20103 push=tcp://127.0.0.1:36679 req=tcp://127.0.0.1:39991
+2026-07-24 04:10:56.839 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:10:56.917 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:11:00.078 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:00.079 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:00.122 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:00.351 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:00.387 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:11:00.412 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:00.413 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:12.017 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:11:12.028 | INFO     | __main__:main:120 - Starting disagg service mode=transformer
+[INFO] 24 Jul 2026 04:11:12 | lightx2v.disagg.services.base:__init__:67 - Initializing TransformerService
+[INFO] 24 Jul 2026 04:11:12 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:11:12.084821 20292 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:11:12.085000 20292 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:11:12.085103 20292 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:11:12.085181 20292 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15894
+I0724 04:11:12.085389 20292 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:11:12.102319 20292 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:11:12.103003 20292 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:11:12.103094 20292 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:11:12.103169 20292 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:11:12.107457 20292 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:11:12.175084 20292 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:11:12.175297 20292 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:11:12 mooncake.py:144: Mooncake Configuration loaded successfully.
+W0724 04:11:12.176960 20292 transfer_engine_py.cpp:55] Memory allocator already initialized with: rdma
+I0724 04:11:12.177086 20292 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:11:12.177163 20292 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:11:12.177244 20292 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15241
+I0724 04:11:12.177475 20292 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:11:12.200678 20292 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:11:12.201248 20292 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:11:12.201368 20292 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:11:12.201534 20292 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:11:12.221312 20292 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:11:12.223505 20292 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:11:12.223774 20292 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:11:12 monitor.py:80: Reporter started: service=transformer gpu=4 bind=tcp://127.0.0.1:7792
+[INFO] 24 Jul 2026 04:11:12 | lightx2v.disagg.services.transformer:load_models:502 - Loading Transformer Models...
+Warning: Sage2++ NOT enabled
+Loading WanModel module: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Constructing WanModel: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Loading MultiModelStruct module start
+Loading MultiModelStruct module done
+[INFO] 24 Jul 2026 04:11:12 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:11:12 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:11:12 | lightx2v.disagg.services.controller:create_instance:1500 - Created transformer instance host=127.0.0.1 rank=4 mode=local address=127.0.0.1:12792
+2026-07-24 04:11:13.560 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:11:13.628 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+[INFO] 24 Jul 2026 04:11:15 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:11:16.853 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:16.854 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:16.858 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:17.069 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:17.103 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:11:17.123 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:17.124 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:11:25 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for transformer gpu=5 pid=20399 push=tcp://127.0.0.1:37247 req=tcp://127.0.0.1:57259
+2026-07-24 04:11:26.694 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:11:26.770 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:11:29.585 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:29.585 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:29.589 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:29.777 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:29.817 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:11:29.833 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:29.833 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:11:31 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:11:31 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:11:32 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:11:32 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:11:32 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:11:32 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:11:32 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+[INFO] 24 Jul 2026 04:11:32 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+[INFO] 24 Jul 2026 04:11:32 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:11:37.493 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:11:37.504 | INFO     | __main__:main:120 - Starting disagg service mode=transformer
+[INFO] 24 Jul 2026 04:11:37 | lightx2v.disagg.services.base:__init__:67 - Initializing TransformerService
+[INFO] 24 Jul 2026 04:11:37 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:11:37.544661 20579 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:11:37.544849 20579 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:11:37.544925 20579 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:11:37.545013 20579 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:16707
+I0724 04:11:37.545236 20579 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:11:37.560721 20579 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:11:37.561365 20579 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:11:37.561439 20579 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:11:37.561529 20579 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:11:37.564733 20579 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:11:37.678143 20579 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:11:37.678265 20579 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:11:37 mooncake.py:144: Mooncake Configuration loaded successfully.
+W0724 04:11:37.680737 20579 transfer_engine_py.cpp:55] Memory allocator already initialized with: rdma
+I0724 04:11:37.680866 20579 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:11:37.680956 20579 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:11:37.681041 20579 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:16353
+I0724 04:11:37.681161 20579 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:11:37.696452 20579 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:11:37.697052 20579 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:11:37.697131 20579 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:11:37.697214 20579 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:11:37.714948 20579 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:11:37.715977 20579 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:11:37.716087 20579 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:11:37 monitor.py:80: Reporter started: service=transformer gpu=5 bind=tcp://127.0.0.1:7793
+[INFO] 24 Jul 2026 04:11:37 | lightx2v.disagg.services.transformer:load_models:502 - Loading Transformer Models...
+Warning: Sage2++ NOT enabled
+Loading WanModel module: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Constructing WanModel: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Loading MultiModelStruct module start
+Loading MultiModelStruct module done
+[INFO] 24 Jul 2026 04:11:37 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:11:37 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:11:37 | lightx2v.disagg.services.controller:create_instance:1500 - Created transformer instance host=127.0.0.1 rank=5 mode=local address=127.0.0.1:12793
+[INFO] 24 Jul 2026 04:11:38 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+2026-07-24 04:11:38.996 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:11:39.092 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:11:42.369 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:42.369 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:42.373 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:42.814 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:42.852 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:11:42.871 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:42.871 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:11:52 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for transformer gpu=6 pid=20682 push=tcp://127.0.0.1:58193 req=tcp://127.0.0.1:55253
+2026-07-24 04:11:53.640 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:11:53.698 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:11:57.137 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:57.138 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:57.142 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:57.351 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:11:57.392 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:11:57.599 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:11:57.600 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:12:06.595 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:12:06.608 | INFO     | __main__:main:120 - Starting disagg service mode=transformer
+[INFO] 24 Jul 2026 04:12:06 | lightx2v.disagg.services.base:__init__:67 - Initializing TransformerService
+[INFO] 24 Jul 2026 04:12:06 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:12:06.670015 20866 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:12:06.670254 20866 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:12:06.670346 20866 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:12:06.670435 20866 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:16099
+I0724 04:12:06.670676 20866 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:12:06.686679 20866 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:12:06.687343 20866 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:12:06.687436 20866 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:12:06.687515 20866 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:12:06.690681 20866 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:12:06.747378 20866 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:12:06.747712 20866 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:12:06 mooncake.py:144: Mooncake Configuration loaded successfully.
+W0724 04:12:06.750442 20866 transfer_engine_py.cpp:55] Memory allocator already initialized with: rdma
+I0724 04:12:06.750720 20866 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:12:06.750905 20866 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:12:06.751088 20866 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:16211
+I0724 04:12:06.751520 20866 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:12:06.772810 20866 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:12:06.773394 20866 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:12:06.773989 20866 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:12:06.774084 20866 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:12:06.789033 20866 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:12:06.790143 20866 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:12:06.790272 20866 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:12:06 monitor.py:80: Reporter started: service=transformer gpu=6 bind=tcp://127.0.0.1:7794
+[INFO] 24 Jul 2026 04:12:06 | lightx2v.disagg.services.transformer:load_models:502 - Loading Transformer Models...
+Warning: Sage2++ NOT enabled
+Loading WanModel module: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Constructing WanModel: model_cls=wan2.2_moe model_path=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B device=cpu dit_quantized=True lazy_load=False
+Loading MultiModelStruct module start
+Loading MultiModelStruct module done
+[INFO] 24 Jul 2026 04:12:06 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:12:06 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:12:06 | lightx2v.disagg.services.controller:create_instance:1500 - Created transformer instance host=127.0.0.1 rank=6 mode=local address=127.0.0.1:12794
+2026-07-24 04:12:08.155 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:12:08.238 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+[INFO] 24 Jul 2026 04:12:08 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:12:11.673 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:12:11.674 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:12:11.677 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:12:11.922 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:12:11.958 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:12:11.975 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:12:11.976 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+[INFO] 24 Jul 2026 04:12:22 | lightx2v.disagg.services.controller:_start_sidecar_process:427 - Started sidecar for decoder gpu=7 pid=20972 push=tcp://127.0.0.1:35635 req=tcp://127.0.0.1:43305
+2026-07-24 04:12:23.620 | INFO     | lightx2v_platform.base.base:init_ai_device:17 - Initialized AI_DEVICE: cuda
+2026-07-24 04:12:23.692 | INFO     | lightx2v_platform.base.base:check_ai_device:34 - AI device for platform 'cuda' is available.
+/app/MagiAttention/magi_attention/__init__.py:26: UserWarning: You are using magi_attention without installing it. This may cause some unexpected errors.
+  warnings.warn(
+2026-07-24 04:12:27.465 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:16 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:12:27.466 | INFO     | lightx2v.common.ops.attn.dynamic_sparse_attn:<module>:22 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:12:27.470 | INFO     | lightx2v.common.ops.attn.flash_attn:<module>:26 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:12:27.671 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:23 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:12:27.707 | INFO     | lightx2v.common.ops.attn.sage_attn:<module>:61 - sageattn3_sparse not found, please install sageattention sparse first
+2026-07-24 04:12:27.722 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:14 - flash_attn.cute not found, please install flashattention4 first
+2026-07-24 04:12:27.722 | INFO     | lightx2v.common.ops.attn.sparse_operator:<module>:20 - sageattn3_sparse not found, please install sageattn3_sparse first
+2026-07-24 04:12:36.092 | INFO     | lightx2v.utils.set_config:auto_calc_config:62 - Loading some config from /data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json
+2026-07-24 04:12:36.316 | INFO     | __main__:main:120 - Starting disagg service mode=decoder
+[INFO] 24 Jul 2026 04:12:36 | lightx2v.disagg.services.base:__init__:67 - Initializing DecoderService
+[INFO] 24 Jul 2026 04:12:36 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:12:36.847141 21173 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:12:36.847422 21173 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:12:36.847506 21173 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:12:36.847621 21173 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15263
+I0724 04:12:36.847765 21173 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:12:36.868278 21173 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:12:36.869331 21173 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:12:36.869431 21173 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:12:36.869568 21173 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:12:36.887260 21173 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:12:36.942399 21173 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:12:36.942605 21173 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:12:36 monitor.py:80: Reporter started: service=decoder gpu=7 bind=tcp://127.0.0.1:7795
+[INFO] 24 Jul 2026 04:12:36 | lightx2v.disagg.services.decoder:load_models:174 - Loading Decoder Models...
+[INFO] 24 Jul 2026 04:12:37 | lightx2v.disagg.services.controller:create_instance:1500 - Created decoder instance host=127.0.0.1 rank=7 mode=local address=127.0.0.1:12795
+[INFO] 24 Jul 2026 04:12:37 | lightx2v.disagg.services.controller:run:1970 - Managed instances created, waiting 30s before accepting requests
+[INFO] 24 Jul 2026 04:12:37 | lightx2v.utils.utils:load_weights:516 - Loading weights from /data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B/Wan2.1_VAE.pth
+[INFO] 24 Jul 2026 04:12:42 | lightx2v.disagg.services.decoder:load_models:176 - Decoder Models loaded successfully.
+[INFO] 24 Jul 2026 04:13:01 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:13:01 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:13:01 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:13:01 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:13:05 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+[INFO] 24 Jul 2026 04:13:05 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+[INFO] 24 Jul 2026 04:13:07 | lightx2v.disagg.services.controller:_load_warmup_duration_seconds:806 - Loaded workload warmup duration: file=/data/fuhaiwen1/LightX2V/configs/disagg/wan22_i2v_workload_stages.json warmup_duration_s=120.000
+[INFO] 24 Jul 2026 04:13:07 | lightx2v.disagg.services.controller:run:2021 - ENABLE_MONITOR enabled, monitor thread started
+[INFO] 24 Jul 2026 04:13:07 | lightx2v.disagg.services.controller:_monitor_callback:895 - Skip autoscaling during warmup: elapsed_s=0.303 warmup_duration_s=120.000
+[INFO] 24 Jul 2026 04:13:12 | lightx2v.disagg.services.controller:run:2063 - LOAD_FROM_USER disabled, generating requests from config: count=1
+[INFO] 24 Jul 2026 04:13:12 rdma_buffer.py:293: Produced config to RDMA buffer slot 0
+[INFO] 24 Jul 2026 04:13:12 | lightx2v.disagg.services.controller:send_request:1924 - Request enqueued to encoder request RDMA buffer
+[INFO] 24 Jul 2026 04:13:12 | lightx2v.disagg.services.controller:run:2122 - Dispatched request room=0 save_path=/data/fuhaiwen1/LightX2V/save_results/disagg_smoke.mp4
+[INFO] 24 Jul 2026 04:13:12 | lightx2v.disagg.services.controller:run:2136 - Waiting for decoder results: expected=[0] on port=12787
+[INFO] 24 Jul 2026 04:13:12 rdma_buffer.py:356: Consumed config from RDMA buffer slot 0
+[INFO] 24 Jul 2026 04:13:12 | lightx2v.disagg.services.encoder:run:783 - Received request config from RDMA buffer: {'do_mm_calib': False, 'cpu_offload': True, 'max_area': False, 'vae_stride': [4, 8, 8], 'patch_size': [1, 2, 2], 'feature_caching': 'NoCaching', 'teacache_thresh': 0.26, 'use_ret_steps': False, 'use_bfloat16': True, 'lora_configs': None, 'use_prompt_enhancer': False, 'parallel': False, 'seq_parallel': False, 'cfg_parallel': False, 'enable_cfg': False, 'use_image_encoder': False, 'task': 'i2v', 'model_path': '/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B', 'model_cls': 'wan2.2_moe', 'config_json': '/data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json', 'offload_granularity': 'block', 't5_cpu_offload': False, 'clip_cpu_offload': False, 'vae_cpu_offload': False, 'infer_steps': 4, 'in_dim': 36, 'dim': 5120, 'ffn_dim': 13824, 'freq_dim': 256, 'num_heads': 40, 'num_layers': 40, 'out_dim': 16, 'eps': 1e-06, 'text_len': 512, 'target_height': 480, 'target_width': 832, 'self_attn_1_type': 'sage_attn2', 'cross_attn_1_type': 'sage_attn2', 'cross_attn_2_type': 'sage_attn2', 'sample_guide_scale': [3.5, 3.5], 'sample_shift': 5, 'rdma_buffer_slot_size': 8192, 'fps': 16, 'boundary_step_index': 2, 'denoising_step_list': [1000, 750, 500, 250], 'dit_quantized': True, 'dit_quant_scheme': 'int8-q8f', 'high_noise_quantized_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors', 'low_noise_quantized_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors', 'high_noise_original_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors', 'low_noise_original_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors', 'disagg_mode': 'controller', 'disagg_config': {'bootstrap_addr': '127.0.0.1', 'bootstrap_room': 0, 'ranks': 8, 'encoder_engine_rank': 0, 'transformer_engine_rank': 1, 'decoder_engine_rank': 2, 'protocol': 'rdma', 'local_hostname': '127.0.0.1', 'metadata_server': 'P2PHANDSHAKE', 'static_instance_slots': [{'instance_type': 'encoder', 'host': '127.0.0.1', 'engine_rank': 0, 'cuda_device': 0}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 1, 'cuda_device': 1}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 2, 'cuda_device': 2}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 3, 'cuda_device': 3}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 4, 'cuda_device': 4}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 5, 'cuda_device': 5}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 6, 'cuda_device': 6}, {'instance_type': 'decoder', 'host': '127.0.0.1', 'engine_rank': 7, 'cuda_device': 7}]}, '_wm_cli_snapshot': {}, 'model_type': 'i2v', 'target_video_length': 81, 'image_path': '/data/fuhaiwen1/LightX2V/assets/inputs/imgs/img_0.jpg', 'data_bootstrap_addr': '127.0.0.1', 'data_bootstrap_room': 0, 'encoder_engine_rank': 0, 'transformer_engine_rank': 1, 'decoder_engine_rank': 2, 'protocol': 'rdma', 'local_hostname': '127.0.0.1', 'metadata_server': 'P2PHANDSHAKE', 'seed': 42, 'prompt': 'Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard.', 'negative_prompt': '镜头晃动，色调艳丽，过曝，静态', 'save_path': '/data/fuhaiwen1/LightX2V/save_results/disagg_smoke.mp4', 'rdma_request_host': '127.0.0.1', 'rdma_buffer_slots': 128, 'rdma_request_handshake_port': 5566, 'rdma_phase1_host': '127.0.0.1', 'rdma_phase1_handshake_port': 5567, 'rdma_phase2_host': '127.0.0.1', 'rdma_phase2_handshake_port': 5568, 'controller_result_host': '127.0.0.1', 'controller_result_port': 12787, 'request_metrics': {'request_id': 0, 'controller_send_ts': 1784866392.0181918, 'stages': {'encoder': {'request_received_ts': 1784866392.0247066}}}}
+[INFO] 24 Jul 2026 04:13:12 | lightx2v.disagg.services.encoder:_ensure_phase1_meta_buffer:299 - Connected phase1 RDMA buffer: host=127.0.0.1 port=5567 slots=128 slot_size=8192
+[INFO] 24 Jul 2026 04:13:12 conn.py:356: Encoder sender_rank_port=17788
+[INFO] 24 Jul 2026 04:13:12 | lightx2v.disagg.services.encoder:process:520 - Starting processing in EncoderService...
+[INFO] 24 Jul 2026 04:13:15 | lightx2v.disagg.services.encoder:process:591 - Encode processing completed. Preparing to send data...
+[INFO] 24 Jul 2026 04:13:15 | lightx2v.disagg.services.encoder:process:668 - Encoder meta shapes: {'context_shape': [1, 512, 4096], 'context_null_shape': None, 'clip_shape': None, 'vae_shape': [20, 21, 90, 68], 'latent_shape': [16, 21, 90, 68]}
+[INFO] 24 Jul 2026 04:13:15 | lightx2v.disagg.services.encoder:process:669 - Encoder meta dtypes: {'context_dtype': 'torch.bfloat16', 'context_null_dtype': None, 'clip_dtype': None, 'vae_dtype': 'torch.bfloat16', 'latent_dtype': 'torch.int64'}
+/data/fuhaiwen1/LightX2V/lightx2v/disagg/services/encoder.py:676: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:203.)
+  meta_buf[: len(meta_bytes)].copy_(torch.from_numpy(np.frombuffer(meta_bytes, dtype=np.uint8)))
+[INFO] 24 Jul 2026 04:13:15 rdma_buffer.py:293: Produced config to RDMA buffer slot 0
+[INFO] 24 Jul 2026 04:13:21 utils.py:413: WanModel construction finished for wan2.2_moe
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.875, boundary_timestep: 875.0
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:load_models:510 - Transformer Models loaded successfully.
+[INFO] 24 Jul 2026 04:13:21 rdma_buffer.py:356: Consumed config from RDMA buffer slot 0
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:run:1034 - 1 Received request config from RDMA buffer: {'do_mm_calib': False, 'cpu_offload': True, 'max_area': False, 'vae_stride': [4, 8, 8], 'patch_size': [1, 2, 2], 'feature_caching': 'NoCaching', 'teacache_thresh': 0.26, 'use_ret_steps': False, 'use_bfloat16': True, 'lora_configs': None, 'use_prompt_enhancer': False, 'parallel': False, 'seq_parallel': False, 'cfg_parallel': False, 'enable_cfg': False, 'use_image_encoder': False, 'task': 'i2v', 'model_path': '/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B', 'model_cls': 'wan2.2_moe', 'config_json': '/data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json', 'offload_granularity': 'block', 't5_cpu_offload': False, 'clip_cpu_offload': False, 'vae_cpu_offload': False, 'infer_steps': 4, 'in_dim': 36, 'dim': 5120, 'ffn_dim': 13824, 'freq_dim': 256, 'num_heads': 40, 'num_layers': 40, 'out_dim': 16, 'eps': 1e-06, 'text_len': 512, 'target_height': 480, 'target_width': 832, 'self_attn_1_type': 'sage_attn2', 'cross_attn_1_type': 'sage_attn2', 'cross_attn_2_type': 'sage_attn2', 'sample_guide_scale': [3.5, 3.5], 'sample_shift': 5, 'rdma_buffer_slot_size': 8192, 'fps': 16, 'boundary_step_index': 2, 'denoising_step_list': [1000, 750, 500, 250], 'dit_quantized': True, 'dit_quant_scheme': 'int8-q8f', 'high_noise_quantized_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors', 'low_noise_quantized_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors', 'high_noise_original_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors', 'low_noise_original_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors', 'disagg_mode': 'controller', 'disagg_config': {'bootstrap_addr': '127.0.0.1', 'bootstrap_room': 0, 'ranks': 8, 'encoder_engine_rank': 0, 'transformer_engine_rank': 1, 'decoder_engine_rank': 2, 'protocol': 'rdma', 'local_hostname': '127.0.0.1', 'metadata_server': 'P2PHANDSHAKE', 'static_instance_slots': [{'instance_type': 'encoder', 'host': '127.0.0.1', 'engine_rank': 0, 'cuda_device': 0}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 1, 'cuda_device': 1}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 2, 'cuda_device': 2}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 3, 'cuda_device': 3}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 4, 'cuda_device': 4}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 5, 'cuda_device': 5}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 6, 'cuda_device': 6}, {'instance_type': 'decoder', 'host': '127.0.0.1', 'engine_rank': 7, 'cuda_device': 7}]}, '_wm_cli_snapshot': {}, 'model_type': 'i2v', 'target_video_length': 81, 'image_path': '/data/fuhaiwen1/LightX2V/assets/inputs/imgs/img_0.jpg', 'data_bootstrap_addr': '127.0.0.1', 'data_bootstrap_room': 0, 'encoder_engine_rank': 0, 'transformer_engine_rank': 1, 'decoder_engine_rank': 2, 'protocol': 'rdma', 'local_hostname': '127.0.0.1', 'metadata_server': 'P2PHANDSHAKE', 'seed': 42, 'prompt': 'Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard.', 'negative_prompt': '镜头晃动，色调艳丽，过曝，静态', 'save_path': '/data/fuhaiwen1/LightX2V/save_results/disagg_smoke.mp4', 'rdma_request_host': '127.0.0.1', 'rdma_buffer_slots': 128, 'rdma_request_handshake_port': 5566, 'rdma_phase1_host': '127.0.0.1', 'rdma_phase1_handshake_port': 5567, 'rdma_phase2_host': '127.0.0.1', 'rdma_phase2_handshake_port': 5568, 'controller_result_host': '127.0.0.1', 'controller_result_port': 12787, 'request_metrics': {'request_id': 0, 'controller_send_ts': 1784866392.0181918, 'stages': {'encoder': {'request_received_ts': 1784866392.0247066, 'compute_start_ts': 1784866392.1865306, 'compute_end_ts': 1784866395.313749, 'output_enqueued_ts': 1784866395.627183}, 'transformer': {'request_received_ts': 1784866401.506048}}}, 'encoder_node_address': '10.119.17.134'}
+[INFO] 24 Jul 2026 04:13:21 utils.py:413: WanModel construction finished for wan2.2_moe
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.875, boundary_timestep: 875.0
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:load_models:510 - Transformer Models loaded successfully.
+[INFO] 24 Jul 2026 04:13:21 conn.py:582: DataReceiver sender_server_url=10.119.17.134:17788
+[INFO] 24 Jul 2026 04:13:21 conn.py:378: Encoder received ZMQ: endpoint=10.119.17.134 session_id=10.119.17.134:16029 room=0 receiver_engine_rank=1 transformer_ptrs=[140697013317696, 140697002831936, 93944160185280, 93944109994048]
+I0724 04:13:21.638041 19267 transfer_engine_py.cpp:442] transferSync, cache not found, openSegment with target 10.119.17.134:16029
+I0724 04:13:21.646700 19454 rdma_endpoint.cpp:669] Received RDMA ready ACK.
+[INFO] 24 Jul 2026 04:13:21 mooncake.py:144: Mooncake Configuration loaded successfully.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0724 04:13:21.662927 19271 transfer_engine_py.cpp:100] Using default malloc/free for protocol: rdma
+I0724 04:13:21.663161 19271 transfer_engine_impl.cpp:971] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+I0724 04:13:21.663298 19271 transfer_engine_impl.cpp:115] Transfer Engine parseHostNameWithPort. server_name: 10.119.17.134 port: 12001
+I0724 04:13:21.663437 19271 transfer_engine_impl.cpp:182] Transfer Engine RPC using P2P handshake, listening on 10.119.17.134:15709
+I0724 04:13:21.663576 19271 transfer_engine_impl.cpp:258] Auto-discovering topology...
+I0724 04:13:21.680012 19271 topology.cpp:127] Device mlx5_bond_0 port 1 is available
+I0724 04:13:21.680775 19271 transfer_engine_impl.cpp:273] Topology discovery complete. Found 1 HCAs.
+I0724 04:13:21.680902 19271 rdma_transport.cpp:76] [RDMA] Relaxed ordering disabled via MC_IB_PCI_RELAXED_ORDERING=0. Falling back to strict ordering.
+I0724 04:13:21.681038 19271 rdma_context.cpp:205] Using SIEVE endpoint store
+I0724 04:13:21.686146 19271 rdma_context.cpp:1324] Find best gid index: 5 on mlx5_bond_0/ (network state: with network device)
+I0724 04:13:21.687208 19271 rdma_context.cpp:288] RDMA device: mlx5_bond_0, LID: 0, GID: (GID_Index 5) 00:00:00:00:00:00:00:00:00:00:ff:ff:0a:77:c0:e1
+I0724 04:13:21.687326 19271 transfer_engine_impl.cpp:388] installTransport, type=rdma
+[INFO] 24 Jul 2026 04:13:21 conn.py:431: Transformer sender_rank_port=17789
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:process:553 - Starting processing in TransformerService...
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:process:713 - Transformer meta shapes: {'context_shape': [1, 512, 4096], 'context_null_shape': None, 'clip_shape': None, 'vae_shape': [20, 21, 90, 68], 'latent_shape': [16, 21, 90, 68]}
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:process:714 - Transformer meta dtypes: {'context_dtype': 'torch.bfloat16', 'context_null_dtype': None, 'clip_dtype': None, 'vae_dtype': 'torch.bfloat16', 'latent_dtype': 'torch.int64'}
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:process:817 - Preparing scheduler with seed 42...
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:process:821 - Starting denoising loop...
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:process:826 - Step 1/4
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 1
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.004448 seconds
+[INFO] 24 Jul 2026 04:13:21 utils.py:413: WanModel construction finished for wan2.2_moe
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.models.runners.wan.wan_runner:__init__:858 - boundary: 0.875, boundary_timestep: 875.0
+[INFO] 24 Jul 2026 04:13:21 | lightx2v.disagg.services.transformer:load_models:510 - Transformer Models loaded successfully.
+[Client] Got Server Info: Addr=0x5653b154e000, RKey=25636
+[Client] Connection established (RTS) to 127.0.0.1:5567 at attempt 1/30
+[Client] Got Server Info: Addr=0x5653b17a3000, RKey=33088
+[Client] Connection established (RTS) to 127.0.0.1:5568 at attempt 1/30
+[INFO] 24 Jul 2026 04:13:27 | lightx2v.utils.custom_compiler:_discover_compiled_methods:120 - [Compile] Discovering compiled methods for WanModel...
+[INFO] 24 Jul 2026 04:13:27 | lightx2v.utils.custom_compiler:_discover_compiled_methods:125 - [Compile] Found compiled method: _infer_cond_uncond
+[INFO] 24 Jul 2026 04:13:29 | lightx2v.models.networks.base_model:_load_quant_ckpt:509 - Loading weights from /data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors
+[INFO] 24 Jul 2026 04:14:06 | lightx2v.models.runners.wan.wan_runner:get_current_model_index:914 - using - HIGH - noise model at step_index 2
+[INFO] 24 Jul 2026 04:14:06 | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.001249 seconds
+[INFO] 24 Jul 2026 04:14:12 | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 3
+[INFO] 24 Jul 2026 04:14:12 | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.001505 seconds
+[INFO] 24 Jul 2026 04:14:17 | lightx2v.models.runners.wan.wan_runner:get_current_model_index:924 - using - LOW - noise model at step_index 4
+[INFO] 24 Jul 2026 04:14:17 | lightx2v.utils.profiler:__exit__:87 - [Profile] Single GPU - Level2_Log Switch models in infer_main costs cost 0.001137 seconds
+/data/fuhaiwen1/LightX2V/lightx2v/disagg/services/transformer.py:861: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:203.)
+  meta_view[: len(meta_bytes)].copy_(torch.from_numpy(np.frombuffer(meta_bytes, dtype=np.uint8)))
+[INFO] 24 Jul 2026 04:14:23 rdma_buffer.py:293: Produced config to RDMA buffer slot 0
+[INFO] 24 Jul 2026 04:14:23 rdma_buffer.py:356: Consumed config from RDMA buffer slot 0
+[INFO] 24 Jul 2026 04:14:23 | lightx2v.disagg.services.decoder:run:397 - Received request config from RDMA buffer: {'do_mm_calib': False, 'cpu_offload': True, 'max_area': False, 'vae_stride': [4, 8, 8], 'patch_size': [1, 2, 2], 'feature_caching': 'NoCaching', 'teacache_thresh': 0.26, 'use_ret_steps': False, 'use_bfloat16': True, 'lora_configs': None, 'use_prompt_enhancer': False, 'parallel': False, 'seq_parallel': False, 'cfg_parallel': False, 'enable_cfg': False, 'use_image_encoder': False, 'task': 'i2v', 'model_path': '/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B', 'model_cls': 'wan2.2_moe', 'config_json': '/data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_disagg_8gpu.json', 'offload_granularity': 'block', 't5_cpu_offload': False, 'clip_cpu_offload': False, 'vae_cpu_offload': False, 'infer_steps': 4, 'in_dim': 36, 'dim': 5120, 'ffn_dim': 13824, 'freq_dim': 256, 'num_heads': 40, 'num_layers': 40, 'out_dim': 16, 'eps': 1e-06, 'text_len': 512, 'target_height': 480, 'target_width': 832, 'self_attn_1_type': 'sage_attn2', 'cross_attn_1_type': 'sage_attn2', 'cross_attn_2_type': 'sage_attn2', 'sample_guide_scale': [3.5, 3.5], 'sample_shift': 5, 'rdma_buffer_slot_size': 8192, 'fps': 16, 'boundary_step_index': 2, 'denoising_step_list': [1000, 750, 500, 250], 'dit_quantized': True, 'dit_quant_scheme': 'int8-q8f', 'high_noise_quantized_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors', 'low_noise_quantized_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors', 'high_noise_original_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_high_noise_int8_lightx2v_4step.safetensors', 'low_noise_original_ckpt': '/data/fuhaiwen1/LightX2V/models/lightx2v/Wan2.2-Distill-Models/wan2.2_i2v_A14b_low_noise_int8_lightx2v_4step.safetensors', 'disagg_mode': 'controller', 'disagg_config': {'bootstrap_addr': '127.0.0.1', 'bootstrap_room': 0, 'ranks': 8, 'encoder_engine_rank': 0, 'transformer_engine_rank': 1, 'decoder_engine_rank': 2, 'protocol': 'rdma', 'local_hostname': '127.0.0.1', 'metadata_server': 'P2PHANDSHAKE', 'static_instance_slots': [{'instance_type': 'encoder', 'host': '127.0.0.1', 'engine_rank': 0, 'cuda_device': 0}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 1, 'cuda_device': 1}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 2, 'cuda_device': 2}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 3, 'cuda_device': 3}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 4, 'cuda_device': 4}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 5, 'cuda_device': 5}, {'instance_type': 'transformer', 'host': '127.0.0.1', 'engine_rank': 6, 'cuda_device': 6}, {'instance_type': 'decoder', 'host': '127.0.0.1', 'engine_rank': 7, 'cuda_device': 7}]}, '_wm_cli_snapshot': {}, 'model_type': 'i2v', 'target_video_length': 81, 'image_path': '/data/fuhaiwen1/LightX2V/assets/inputs/imgs/img_0.jpg', 'data_bootstrap_addr': '127.0.0.1', 'data_bootstrap_room': 0, 'encoder_engine_rank': 0, 'transformer_engine_rank': 1, 'decoder_engine_rank': 2, 'protocol': 'rdma', 'local_hostname': '127.0.0.1', 'metadata_server': 'P2PHANDSHAKE', 'seed': 42, 'prompt': 'Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard.', 'negative_prompt': '镜头晃动，色调艳丽，过曝，静态', 'save_path': '/data/fuhaiwen1/LightX2V/save_results/disagg_smoke.mp4', 'rdma_request_host': '127.0.0.1', 'rdma_buffer_slots': 128, 'rdma_request_handshake_port': 5566, 'rdma_phase1_host': '127.0.0.1', 'rdma_phase1_handshake_port': 5567, 'rdma_phase2_host': '127.0.0.1', 'rdma_phase2_handshake_port': 5568, 'controller_result_host': '127.0.0.1', 'controller_result_port': 12787, 'request_metrics': {'request_id': 0, 'controller_send_ts': 1784866392.0181918, 'stages': {'encoder': {'request_received_ts': 1784866392.0247066, 'compute_start_ts': 1784866392.1865306, 'compute_end_ts': 1784866395.313749, 'output_enqueued_ts': 1784866395.627183}, 'transformer': {'request_received_ts': 1784866401.506048, 'compute_start_ts': 1784866401.7334213, 'compute_end_ts': 1784866463.348589, 'output_enqueued_ts': 1784866463.365146}, 'decoder': {'request_received_ts': 1784866463.3773382}}}, 'encoder_node_address': '10.119.17.134', 'transformer_node_address': '10.119.17.134'}
+[INFO] 24 Jul 2026 04:14:23 conn.py:582: DataReceiver sender_server_url=10.119.17.134:17789
+[INFO] 24 Jul 2026 04:14:23 conn.py:453: Transformer received ZMQ: endpoint=10.119.17.134 session_id=10.119.17.134:15263 room=0 receiver_engine_rank=2 decode_ptrs=[94035565102784, 94035537581056]
+I0724 04:14:23.474562 21534 transfer_engine_py.cpp:442] transferSync, cache not found, openSegment with target 10.119.17.134:15263
+I0724 04:14:23.482219 21266 rdma_endpoint.cpp:669] Received RDMA ready ACK.
+[INFO] 24 Jul 2026 04:14:23 | lightx2v.disagg.services.decoder:run:421 - Latents received successfully in DecoderService for room=0.
+[INFO] 24 Jul 2026 04:14:23 | lightx2v.disagg.services.decoder:process:195 - Starting processing in DecoderService...
+[INFO] 24 Jul 2026 04:14:23 | lightx2v.disagg.services.decoder:process:301 - Decoding latents in DecoderService...
+[INFO] 24 Jul 2026 04:14:27 | lightx2v.disagg.services.decoder:process:310 - Saving video to /data/fuhaiwen1/LightX2V/save_results/disagg_smoke.mp4...
+[INFO] 24 Jul 2026 04:14:28 | lightx2v.disagg.services.decoder:process:313 - Done!
+[INFO] 24 Jul 2026 04:14:28 | lightx2v.disagg.services.controller:_handle_decoder_result:1154 - Latency summary room=0 metrics={'end_to_end_delay_s': 76.93141841888428, 'controller_to_encoder_comm_delay_s': 0.006514787673950195, 'encoder_scheduling_delay_s': 0.16182398796081543, 'encoder_compute_delay_s': 3.12721848487854, 'encoder_communication_delay_s': 5.878865003585815, 'transformer_scheduling_delay_s': 0.22737336158752441, 'transformer_compute_delay_s': 61.61516761779785, 'transformer_communication_delay_s': 0.012192249298095703, 'decoder_scheduling_delay_s': 0.11805057525634766, 'decoder_compute_delay_s': 4.478596448898315, 'decoder_communication_delay_s': 0.0014851093292236328, 'sum_of_components_s': 75.62728762626648}
+[INFO] 24 Jul 2026 04:14:28 | lightx2v.disagg.services.controller:_handle_decoder_result:1160 - Decoder result received room=0 save_path=/data/fuhaiwen1/LightX2V/save_results/disagg_smoke.mp4 (1/1)
+[INFO] 24 Jul 2026 04:14:28 | lightx2v.disagg.services.controller:run:2150 - All decoder results received. Controller exiting.
+[INFO] 24 Jul 2026 04:14:28 | lightx2v.disagg.services.controller:run:2154 - Batch total elapsed time: requests=1 completed=1 total_time_s=76.932
+[INFO] 24 Jul 2026 04:14:30 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed decoder instance from host=127.0.0.1 rank=7 address=127.0.0.1:12795
+[INFO] 24 Jul 2026 04:14:31 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for decoder address=127.0.0.1:12795
+[INFO] 24 Jul 2026 04:14:35 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed transformer instance from host=127.0.0.1 rank=6 address=127.0.0.1:12794
+[INFO] 24 Jul 2026 04:14:35 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for transformer address=127.0.0.1:12794
+[INFO] 24 Jul 2026 04:14:40 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed transformer instance from host=127.0.0.1 rank=5 address=127.0.0.1:12793
+[INFO] 24 Jul 2026 04:14:40 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for transformer address=127.0.0.1:12793
+[INFO] 24 Jul 2026 04:14:44 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed transformer instance from host=127.0.0.1 rank=4 address=127.0.0.1:12792
+[INFO] 24 Jul 2026 04:14:44 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for transformer address=127.0.0.1:12792
+[INFO] 24 Jul 2026 04:14:48 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed transformer instance from host=127.0.0.1 rank=3 address=127.0.0.1:12791
+[INFO] 24 Jul 2026 04:14:48 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for transformer address=127.0.0.1:12791
+[INFO] 24 Jul 2026 04:14:53 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed transformer instance from host=127.0.0.1 rank=2 address=127.0.0.1:12790
+[INFO] 24 Jul 2026 04:14:53 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for transformer address=127.0.0.1:12790
+[INFO] 24 Jul 2026 04:14:57 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed transformer instance from host=127.0.0.1 rank=1 address=127.0.0.1:12789
+[INFO] 24 Jul 2026 04:14:57 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for transformer address=127.0.0.1:12789
+[INFO] 24 Jul 2026 04:14:57 | lightx2v.disagg.services.controller:reclaim_instance:1612 - Reclaimed encoder instance from host=127.0.0.1 rank=0 address=127.0.0.1:12788
+[INFO] 24 Jul 2026 04:14:58 | lightx2v.disagg.services.controller:_reclaim_sidecar_when_drained:732 - Reclaimed sidecar for encoder address=127.0.0.1:12788
+[INFO] 24 Jul 2026 04:14:58 | lightx2v.disagg.services.controller:_dump_controller_metrics:1097 - Controller metrics saved to /data/fuhaiwen1/LightX2V/save_results/disagg_smoke_metrics.json
+Warning: Sage2++ NOT enabled
+[Server] MR Registered. Addr: 94917455003648, RKey: 21017
+[Server] Waiting for connection on 127.0.0.1:5566...
+[Server] MR Registered. Addr: 94917457403904, RKey: 25636
+[Server] Waiting for connection on 127.0.0.1:5567...
+[Server] MR Registered. Addr: 94917459849216, RKey: 33088
+[Server] Waiting for connection on 127.0.0.1:5568...
+[Server] Connected to ('127.0.0.1', 60222)
+[Server] Received remote info: QPN=5415
+[Server] QP State changed to RTS
+[Server] Connected to ('127.0.0.1', 54590)
+[Server] Received remote info: QPN=5418
+[Server] QP State changed to RTS
+[Server] Connected to ('127.0.0.1', 50580)
+[Server] Received remote info: QPN=5421
+[Server] QP State changed to RTS
+[Server] Connected to ('127.0.0.1', 54980)
+[Server] Received remote info: QPN=5424
+[Server] QP State changed to RTS
+[Server] Connected to ('127.0.0.1', 60198)
+[Server] Received remote info: QPN=5427
+[Server] QP State changed to RTS
+[Server] Connected to ('127.0.0.1', 54984)
+[Server] Received remote info: QPN=5430
+[Server] QP State changed to RTS
+[Server] Connected to ('127.0.0.1', 55000)
+[Server] Received remote info: QPN=5437
+[Server] QP State changed to RTS

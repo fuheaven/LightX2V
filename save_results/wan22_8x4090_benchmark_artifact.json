@@ -1,0 +1,553 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Wan2.2 在 8×RTX 4090 D 上的 Baseline 与 Disagg 对比",
+    "description": "LightX2V Wan2.2 I2V 4-step INT8 的本地 6 请求 burst 基准测试。",
+    "generatedAt": "2026-07-24T05:44:00Z",
+    "cards": [
+      {
+        "id": "active_speedup",
+        "description": "6 请求 active batch：baseline 1,900.63 秒，disagg ready 60.72 秒。",
+        "dataset": "headline",
+        "sourceId": "benchmark_headline",
+        "metrics": [
+          {
+            "label": "Active batch 加速",
+            "field": "active_batch_speedup",
+            "format": "number",
+            "unit": "×"
+          }
+        ]
+      },
+      {
+        "id": "ready_throughput",
+        "description": "6 个 transformer 全部 ready 后的实测完成吞吐。",
+        "dataset": "headline",
+        "sourceId": "benchmark_headline",
+        "metrics": [
+          {
+            "label": "Disagg 吞吐",
+            "field": "ready_throughput_per_min",
+            "format": "number",
+            "unit": "视频/分钟"
+          }
+        ]
+      },
+      {
+        "id": "first_completion",
+        "description": "同一 burst 中首个视频从请求发出到完成的时间。",
+        "dataset": "headline",
+        "sourceId": "benchmark_headline",
+        "metrics": [
+          {
+            "label": "Disagg 首完成",
+            "field": "ready_first_completion_s",
+            "format": "number",
+            "unit": "秒"
+          }
+        ]
+      },
+      {
+        "id": "cold_speedup",
+        "description": "包含模型加载、150 秒等待、active batch 与退出清理的 wrapper wall time。",
+        "dataset": "headline",
+        "sourceId": "benchmark_headline",
+        "metrics": [
+          {
+            "label": "冷启动到退出加速",
+            "field": "cold_to_exit_speedup",
+            "format": "number",
+            "unit": "×"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "completion_curve_chart",
+        "title": "6 请求完成时间",
+        "subtitle": "距同一 burst 发出时刻的累计秒数；baseline、默认 30 秒 disagg 与全-ready disagg。",
+        "question": "三种服务状态下，第 1 至第 6 个完成请求分别需要多久？",
+        "intent": "comparison",
+        "type": "bar",
+        "dataset": "completion_curve",
+        "sourceId": "benchmark_completion_curve",
+        "encodings": {
+          "x": {
+            "field": "completion_ordinal",
+            "type": "ordinal",
+            "label": "完成序号"
+          },
+          "y": {
+            "field": "completion_s",
+            "type": "quantitative",
+            "label": "累计完成时间（秒）",
+            "format": "number"
+          },
+          "color": {
+            "field": "method",
+            "type": "nominal",
+            "label": "方法"
+          }
+        },
+        "palette": {
+          "kind": "categorical",
+          "name": "benchmark-methods"
+        },
+        "legend": {
+          "interactive": true,
+          "position": "bottom",
+          "sort": "spec",
+          "title": "方法"
+        },
+        "labels": {
+          "values": "none"
+        },
+        "layout": "full"
+      }
+    ],
+    "tables": [
+      {
+        "id": "run_comparison",
+        "title": "四轮运行汇总",
+        "subtitle": "同一 6 请求 workload；active batch 不含服务启动，wrapper wall 包含整次脚本。",
+        "dataset": "runs",
+        "sourceId": "benchmark_runs",
+        "defaultSort": {
+          "field": "active_batch_s",
+          "direction": "asc"
+        },
+        "columns": [
+          {"field": "method", "label": "运行", "type": "text"},
+          {"field": "active_batch_s", "label": "Active batch（秒）", "format": "number"},
+          {"field": "throughput_per_min", "label": "视频/分钟", "format": "number"},
+          {"field": "first_completion_s", "label": "首完成（秒）", "format": "number"},
+          {"field": "wrapper_wall_s", "label": "Wrapper wall（秒）", "format": "number"},
+          {"field": "transformer_workers_used", "label": "Transformer workers", "format": "number"}
+        ]
+      },
+      {
+        "id": "compute_breakdown_table",
+        "title": "单请求计算阶段耗时",
+        "subtitle": "baseline 取每请求最慢 rank；disagg ready 为 6 请求阶段统计，单位为秒。",
+        "dataset": "compute_breakdown",
+        "sourceId": "benchmark_compute_breakdown",
+        "defaultSort": {
+          "field": "mean_s",
+          "direction": "desc"
+        },
+        "columns": [
+          {"field": "method", "label": "方法", "type": "text"},
+          {"field": "stage", "label": "阶段", "type": "text"},
+          {"field": "mean_s", "label": "均值（秒）", "format": "number"},
+          {"field": "median_s", "label": "中位数（秒）", "format": "number"}
+        ]
+      },
+      {
+        "id": "output_validation_table",
+        "title": "输出视频结构校验",
+        "subtitle": "四轮最终落盘视频均能被 ffprobe 正常解析。",
+        "dataset": "output_validation",
+        "sourceId": "benchmark_output_validation",
+        "defaultSort": {
+          "field": "method",
+          "direction": "asc"
+        },
+        "columns": [
+          {"field": "method", "label": "运行", "type": "text"},
+          {"field": "codec", "label": "Codec", "type": "text"},
+          {"field": "width", "label": "宽", "format": "number"},
+          {"field": "height", "label": "高", "format": "number"},
+          {"field": "fps", "label": "FPS", "format": "number"},
+          {"field": "frames", "label": "帧数", "format": "number"},
+          {"field": "duration_s", "label": "时长（秒）", "format": "number"}
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "benchmark_summary",
+        "label": "Wan2.2 8×4090 D benchmark derived summary",
+        "path": "wan22_8x4090_benchmark_summary.json"
+      },
+      {
+        "id": "benchmark_headline",
+        "label": "Headline metrics from the reviewed benchmark summary",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-headline-v1",
+          "executed_at": "2026-07-24T05:44:00Z",
+          "description": "Selects the four headline comparison metrics from the reviewed local benchmark summary.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT primary_comparison.active_batch_speedup AS active_batch_speedup, primary_comparison.disagg_ready_throughput_per_min AS ready_throughput_per_min, primary_comparison.disagg_ready_first_completion_s AS ready_first_completion_s, primary_comparison.cold_to_exit_speedup AS cold_to_exit_speedup FROM read_json_auto('wan22_8x4090_benchmark_summary.json')",
+          "metric_definitions": [
+            "Active batch speedup = baseline active batch seconds / full-ready disagg active batch seconds.",
+            "Disagg throughput = 6 successful videos × 60 / full-ready disagg active batch seconds.",
+            "Disagg first completion = seconds from burst dispatch to the first completed full-ready disagg request.",
+            "Cold-to-exit speedup = baseline wrapper wall seconds / full-ready disagg wrapper wall seconds."
+          ]
+        }
+      },
+      {
+        "id": "benchmark_completion_curve",
+        "label": "Completion curve from the reviewed benchmark summary",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-completion-curve-v1",
+          "executed_at": "2026-07-24T05:44:00Z",
+          "description": "Expands the reviewed completion-curve rows for the three benchmark service states.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(completion_curve) AS t(u)"
+        }
+      },
+      {
+        "id": "benchmark_runs",
+        "label": "Run comparison from the reviewed benchmark summary",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-runs-v1",
+          "executed_at": "2026-07-24T05:44:00Z",
+          "description": "Expands the four reviewed benchmark-run summary rows.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(runs) AS t(u)"
+        }
+      },
+      {
+        "id": "benchmark_compute_breakdown",
+        "label": "Compute breakdown from the reviewed benchmark summary",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-compute-breakdown-v1",
+          "executed_at": "2026-07-24T05:44:00Z",
+          "description": "Expands the reviewed per-request compute-stage timing rows.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(compute_breakdown) AS t(u)"
+        }
+      },
+      {
+        "id": "benchmark_output_validation",
+        "label": "Output validation from the reviewed benchmark summary",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-output-validation-v1",
+          "executed_at": "2026-07-24T05:44:00Z",
+          "description": "Expands ffprobe-derived structural validation rows for the four final videos.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(output_validation) AS t(u)"
+        }
+      },
+      {
+        "id": "baseline_metrics",
+        "label": "Baseline controller metrics",
+        "path": "baseline_benchmark_6_metrics.json"
+      },
+      {
+        "id": "disagg_default_metrics",
+        "label": "Disagg default-30s controller metrics",
+        "path": "disagg_benchmark_6_metrics.json"
+      },
+      {
+        "id": "disagg_ready_metrics",
+        "label": "Disagg full-ready controller metrics",
+        "path": "disagg_ready_benchmark_6_metrics.json"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Wan2.2 在 8×RTX 4090 D 上的 Baseline 与 Disagg 对比"
+      },
+      {
+        "id": "technical_summary",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 技术摘要\n\n**全-ready disagg 在 6 请求 burst 上将 active batch 从 1,900.63 秒降到 60.72 秒，实测吞吐从 0.189 提升到 5.929 视频/分钟，即 31.30×。** 首个视频完成时间从 323.38 秒降到 32.96 秒。两边均为 6/6 成功。\n\n**即使把 disagg 服务启动、额外 150 秒 ready 等待和退出清理全部计入，整次脚本仍是 457.32 秒，对 baseline 的 1,915.53 秒快 4.19×。** 这说明结论不只依赖排除启动时间。\n\n**增益来自服务常驻与请求并行，而不是单请求算得更快。** baseline 的实际 pipeline 最慢 rank 平均仅 23.84 秒，但每个请求都要重新启动 8-rank 进程并加载权重，平均服务时间达到 315.26 秒；disagg 则用 6 个常驻 transformer 各处理 1 个请求。"
+      },
+      {
+        "id": "headline_metrics",
+        "type": "metric-strip",
+        "cardIds": ["active_speedup", "ready_throughput", "first_completion", "cold_speedup"]
+      },
+      {
+        "id": "completion_finding",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 完成曲线显示差距来自串行冷加载\n\nbaseline 的完成时间近似每个请求增加 315 秒，形成严格阶梯；全-ready disagg 的 6 个 transformer 并行计算，之后由单 decoder 依次收尾，完成间隔约 5–6 秒。默认 30 秒等待只让 2 个 transformer 及时接单，active batch 为 96.52 秒；这仍比 baseline 快，但低估了完整 disagg 拓扑的吞吐。\n\n下图按完成序号比较累计完成时间。纵轴从零开始，直接反映 6 请求 burst 的绝对耗时。"
+      },
+      {
+        "id": "completion_chart",
+        "type": "chart",
+        "chartId": "completion_curve_chart",
+        "layout": "full"
+      },
+      {
+        "id": "run_table_context",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 启动状态决定 disagg 能否用满 6 个 transformer\n\n等待从 30 秒增加到 90 秒再到 150 秒时，实际参与处理的 transformer 从 2 个增至 5 个、最终增至 6 个，active batch 依次从 96.52 秒降至 74.13 秒和 60.72 秒。生产部署应以服务 health/readiness 为门槛，而不是固定短 sleep；否则启动 I/O 抖动会直接进入延迟指标。"
+      },
+      {
+        "id": "run_table",
+        "type": "table",
+        "tableId": "run_comparison",
+        "layout": "full"
+      },
+      {
+        "id": "compute_finding",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 单请求计算并未获得 31× 加速\n\nbaseline 使用 8 卡 Ulysses sequence parallel，DiT 最慢 rank 平均 19.31 秒、完整 pipeline 最慢 rank 平均 23.84 秒。全-ready disagg 的单请求阶段均值为 encoder 2.73 秒、transformer 22.97 秒、decoder 4.28 秒。换言之，baseline 的隔离计算本身很有竞争力；其服务吞吐被重复权重加载和单 cooperative group 串行化拖垮。\n\n因此，31.30× 应解读为当前两个脚本在 6 请求服务 workload 下的系统吞吐差异，不能解读成 kernel 或单样本模型计算快 31×。"
+      },
+      {
+        "id": "compute_table",
+        "type": "table",
+        "tableId": "compute_breakdown_table",
+        "layout": "full"
+      },
+      {
+        "id": "scope_and_definitions",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 实验范围与指标定义\n\n- **硬件：** 单机 8× NVIDIA GeForce RTX 4090 D（每卡 24,564 MiB），无 NVLink；RDMA HCA 为 `mlx5_bond_0`。\n- **workload：** Wan2.2 I2V A14B、LightX2V 4-step INT8、seed 42、同一输入图和 prompt，一次 burst 发出 6 个相同请求。\n- **输出：** 配置目标为 480×832；按输入宽高比预处理后的实际视频为 544×720、81 帧、16 fps、5.0625 秒。\n- **active batch：** 从 controller 发出 burst 到最后一个成功结果完成；不含服务启动和最终 drain。\n- **wrapper wall：** 从 shell 脚本启动到退出，包含加载、显式 warmup wait、active batch 与清理。\n- **吞吐：** `6 / active_batch`，换算为视频/分钟。"
+      },
+      {
+        "id": "methodology",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 方法与执行细节\n\nbaseline 使用 `run_baseline.sh`，8 张卡组成一个 cooperative Ulysses group，6 个请求在同一组上串行执行；每个请求重新启动推理 rank 并加载 high-noise、low-noise、T5 与 VAE 权重。发现 rank 可能跨请求漂移后，controller 增加了 8-rank completion gate 与超时进程组清理，然后从干净 GPU 状态重跑正式批次。\n\ndisagg 使用 `run_dynamic.sh`，拓扑为 GPU0 encoder、GPU1–6 六个 transformer、GPU7 decoder，阶段间通过本机 RDMA/Mooncake 传输。主结果使用 150 秒等待轮，并从日志确认全部 6 个 transformer 在请求前完成加载且 ranks 1–6 各消费 1 个请求。\n\n所有 headline 数字同时从 metrics JSON 重新计算，并与 controller 日志的 batch elapsed 交叉核对；三轮 disagg 的差异均小于 0.005 秒。"
+      },
+      {
+        "id": "limitations",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 限制、不确定性与稳健性检查\n\n- **样本量有限：** 每个状态只有一次 6 请求 burst；结论对当前机器、当前模型、当前脚本成立，尚未给出跨天或多轮置信区间。\n- **比较的是服务语义：** baseline 每请求冷加载，disagg 模型常驻。这正是两个脚本当前行为的差异，但不是纯计算 microbenchmark。\n- **请求没有多样性：** 6 个请求使用相同 prompt、图像和 seed，并写入同一路径；metrics 记录 6 次完成，但磁盘只保留最后一次视频。\n- **质量未证明等价：** 四个视频结构均合法；baseline 与全-ready disagg 的像素相似度为 SSIM 0.849、平均 PSNR 25.44 dB，说明输出相似但不是逐像素等价。这些值不是独立感知质量评分。\n- **实现修复影响可复现性：** 多请求 RDMA ring 需按网络字节序解码 atomic 返回值；baseline cooperative ranks 需逐请求同步。正式结果均在修复后得到，失败前日志单独保留。\n- **资源采样是 2 秒轮询：** active 平均 GPU 利用率 baseline 为 5.89%，全-ready disagg 为 35.49%；它适合系统级对比，不应当作 kernel profiler。"
+      },
+      {
+        "id": "output_validation",
+        "type": "table",
+        "tableId": "output_validation_table",
+        "layout": "full"
+      },
+      {
+        "id": "next_steps",
+        "type": "markdown",
+        "sourceId": "benchmark_summary",
+        "body": "## 建议下一步\n\n1. 把 transformer readiness 从固定 sleep 改成显式 health gate，只有 6/6 模型加载完成才接收流量。\n2. 以至少 5 轮、每轮 30–100 个请求复测，并报告吞吐、P50/P95/P99、失败率与轮间方差。\n3. 分别补一组 warm baseline 或持久化 8-rank baseline，拆开“模型常驻收益”和“阶段解耦/多副本收益”。\n4. 使用固定参考样本集做 VBench 或人工盲评，确认两条路径的质量差异是否可接受。\n5. 若目标是进一步提高 burst 吞吐，评估 encoder/decoder 副本与 transformer 数量之间的 8 卡配比；当前全-ready 轮中 decoder 排队均值为 3.75 秒。"
+      },
+      {
+        "id": "further_questions",
+        "type": "markdown",
+        "body": "## 后续问题\n\n- 在 prompt、输入尺寸和视频长度变化后，最佳 1:6:1 拓扑是否仍成立？\n- 生产流量下的到达率达到多少时，单 encoder 或单 decoder 会成为第一瓶颈？\n- 如果 baseline 改为模型常驻，其单请求低计算延迟能否在较低并发下优于 disagg？"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-07-24T05:44:00Z",
+    "status": "ready",
+    "datasets": {
+      "headline": [
+        {
+          "active_batch_speedup": 31.300265905318028,
+          "ready_throughput_per_min": 5.928614887839415,
+          "ready_first_completion_s": 32.957013845443726,
+          "cold_to_exit_speedup": 4.188598792967725
+        }
+      ],
+      "runs": [
+        {
+          "method": "Baseline",
+          "service_state": "每请求重新启动 8-rank 并加载权重",
+          "successful_requests": 6,
+          "active_batch_s": 1900.6287200450897,
+          "throughput_per_min": 0.1894110071068796,
+          "first_completion_s": 323.3773458003998,
+          "wrapper_wall_s": 1915.53,
+          "active_mean_gpu_util_pct": 5.892179319371728,
+          "active_peak_memory_mb": 16170,
+          "transformer_workers_used": 1
+        },
+        {
+          "method": "Disagg default",
+          "service_state": "等待 30 秒；发流量时仅 2 个 transformer ready",
+          "successful_requests": 6,
+          "active_batch_s": 96.51756858825684,
+          "throughput_per_min": 3.7298908920484424,
+          "first_completion_s": 46.229376554489136,
+          "wrapper_wall_s": 377.05,
+          "active_mean_gpu_util_pct": 23.140243902439025,
+          "active_peak_memory_mb": 16068,
+          "transformer_workers_used": 2
+        },
+        {
+          "method": "Disagg wait90",
+          "service_state": "等待 90 秒；发流量时 3 个 ready，批次中扩展到 5 个",
+          "successful_requests": 6,
+          "active_batch_s": 74.13343048095703,
+          "throughput_per_min": 4.856108744252362,
+          "first_completion_s": 32.084996700286865,
+          "wrapper_wall_s": 412.58,
+          "active_mean_gpu_util_pct": 29.77734375,
+          "active_peak_memory_mb": 16068,
+          "transformer_workers_used": 5
+        },
+        {
+          "method": "Disagg ready",
+          "service_state": "等待 150 秒；6 个 transformer 全部 ready 后发流量",
+          "successful_requests": 6,
+          "active_batch_s": 60.72244644165039,
+          "throughput_per_min": 5.928614887839415,
+          "first_completion_s": 32.957013845443726,
+          "wrapper_wall_s": 457.32,
+          "active_mean_gpu_util_pct": 35.49038461538461,
+          "active_peak_memory_mb": 16068,
+          "transformer_workers_used": 6
+        }
+      ],
+      "completion_curve": [
+        {"completion_ordinal": 1, "method": "Baseline", "completion_s": 323.3773458003998},
+        {"completion_ordinal": 2, "method": "Baseline", "completion_s": 639.8103516101837},
+        {"completion_ordinal": 3, "method": "Baseline", "completion_s": 951.6109309196472},
+        {"completion_ordinal": 4, "method": "Baseline", "completion_s": 1270.4672029018402},
+        {"completion_ordinal": 5, "method": "Baseline", "completion_s": 1585.9646639823914},
+        {"completion_ordinal": 6, "method": "Baseline", "completion_s": 1900.6287200450897},
+        {"completion_ordinal": 1, "method": "Disagg default", "completion_s": 46.229376554489136},
+        {"completion_ordinal": 2, "method": "Disagg default", "completion_s": 51.662482023239136},
+        {"completion_ordinal": 3, "method": "Disagg default", "completion_s": 68.222092628479},
+        {"completion_ordinal": 4, "method": "Disagg default", "completion_s": 73.89387035369873},
+        {"completion_ordinal": 5, "method": "Disagg default", "completion_s": 90.8718671798706},
+        {"completion_ordinal": 6, "method": "Disagg default", "completion_s": 96.51756858825684},
+        {"completion_ordinal": 1, "method": "Disagg ready", "completion_s": 32.957013845443726},
+        {"completion_ordinal": 2, "method": "Disagg ready", "completion_s": 38.43688750267029},
+        {"completion_ordinal": 3, "method": "Disagg ready", "completion_s": 43.97934603691101},
+        {"completion_ordinal": 4, "method": "Disagg ready", "completion_s": 49.5615816116333},
+        {"completion_ordinal": 5, "method": "Disagg ready", "completion_s": 55.193742990493774},
+        {"completion_ordinal": 6, "method": "Disagg ready", "completion_s": 60.72244644165039}
+      ],
+      "compute_breakdown": [
+        {"method": "Baseline", "stage": "完整 pipeline（最慢 rank）", "mean_s": 23.837929666666668, "median_s": 23.7094935},
+        {"method": "Baseline", "stage": "DiT（最慢 rank）", "mean_s": 19.3136625, "median_s": 19.4249405},
+        {"method": "Disagg ready", "stage": "Encoder compute", "mean_s": 2.7294564644495645, "median_s": 2.6579504013061523},
+        {"method": "Disagg ready", "stage": "Transformer compute", "mean_s": 22.968383312225342, "median_s": 22.847175002098083},
+        {"method": "Disagg ready", "stage": "Decoder compute", "mean_s": 4.2810981671015425, "median_s": 4.233408451080322}
+      ],
+      "output_validation": [
+        {"method": "Baseline", "codec": "h264", "width": 544, "height": 720, "fps": 16, "frames": 81, "duration_s": 5.0625},
+        {"method": "Disagg default", "codec": "h264", "width": 544, "height": 720, "fps": 16, "frames": 81, "duration_s": 5.0625},
+        {"method": "Disagg wait90", "codec": "h264", "width": 544, "height": 720, "fps": 16, "frames": 81, "duration_s": 5.0625},
+        {"method": "Disagg ready", "codec": "h264", "width": 544, "height": 720, "fps": 16, "frames": 81, "duration_s": 5.0625}
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "benchmark_summary",
+      "label": "Wan2.2 8×4090 D benchmark derived summary",
+      "path": "wan22_8x4090_benchmark_summary.json"
+    },
+    {
+      "id": "benchmark_headline",
+      "label": "Headline metrics from the reviewed benchmark summary",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-headline-v1",
+        "executed_at": "2026-07-24T05:44:00Z",
+        "description": "Selects the four headline comparison metrics from the reviewed local benchmark summary.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT primary_comparison.active_batch_speedup AS active_batch_speedup, primary_comparison.disagg_ready_throughput_per_min AS ready_throughput_per_min, primary_comparison.disagg_ready_first_completion_s AS ready_first_completion_s, primary_comparison.cold_to_exit_speedup AS cold_to_exit_speedup FROM read_json_auto('wan22_8x4090_benchmark_summary.json')",
+        "metric_definitions": [
+          "Active batch speedup = baseline active batch seconds / full-ready disagg active batch seconds.",
+          "Disagg throughput = 6 successful videos × 60 / full-ready disagg active batch seconds.",
+          "Disagg first completion = seconds from burst dispatch to the first completed full-ready disagg request.",
+          "Cold-to-exit speedup = baseline wrapper wall seconds / full-ready disagg wrapper wall seconds."
+        ]
+      }
+    },
+    {
+      "id": "benchmark_completion_curve",
+      "label": "Completion curve from the reviewed benchmark summary",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-completion-curve-v1",
+        "executed_at": "2026-07-24T05:44:00Z",
+        "description": "Expands the reviewed completion-curve rows for the three benchmark service states.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(completion_curve) AS t(u)"
+      }
+    },
+    {
+      "id": "benchmark_runs",
+      "label": "Run comparison from the reviewed benchmark summary",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-runs-v1",
+        "executed_at": "2026-07-24T05:44:00Z",
+        "description": "Expands the four reviewed benchmark-run summary rows.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(runs) AS t(u)"
+      }
+    },
+    {
+      "id": "benchmark_compute_breakdown",
+      "label": "Compute breakdown from the reviewed benchmark summary",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-compute-breakdown-v1",
+        "executed_at": "2026-07-24T05:44:00Z",
+        "description": "Expands the reviewed per-request compute-stage timing rows.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(compute_breakdown) AS t(u)"
+      }
+    },
+    {
+      "id": "benchmark_output_validation",
+      "label": "Output validation from the reviewed benchmark summary",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-output-validation-v1",
+        "executed_at": "2026-07-24T05:44:00Z",
+        "description": "Expands ffprobe-derived structural validation rows for the four final videos.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(output_validation) AS t(u)"
+      }
+    },
+    {
+      "id": "baseline_metrics",
+      "label": "Baseline controller metrics",
+      "path": "baseline_benchmark_6_metrics.json"
+    },
+    {
+      "id": "disagg_default_metrics",
+      "label": "Disagg default-30s controller metrics",
+      "path": "disagg_benchmark_6_metrics.json"
+    },
+    {
+      "id": "disagg_ready_metrics",
+      "label": "Disagg full-ready controller metrics",
+      "path": "disagg_ready_benchmark_6_metrics.json"
+    }
+  ]
+}
