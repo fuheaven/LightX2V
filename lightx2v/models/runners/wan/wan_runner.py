@@ -36,6 +36,7 @@ from lightx2v.models.video_encoders.hf.wan.vae import WanVAE
 from lightx2v.models.video_encoders.hf.wan.vae_2_2 import Wan2_2_VAE
 from lightx2v.models.video_encoders.hf.wan.vae_tiny import Wan2_2_VAE_tiny, WanVAE_tiny
 from lightx2v.server.metrics import monitor_cli
+from lightx2v.utils.communication_profiler import finish_communication_profile, start_communication_profile
 from lightx2v.utils.envs import *
 from lightx2v.utils.input_info import T2VInputInfo
 from lightx2v.utils.profiler import *
@@ -472,24 +473,29 @@ class WanRunner(DisaggMixin, DefaultRunner):
 
     @ProfilingContext4DebugL1("RUN pipeline", recorder_mode=GET_RECORDER_MODE(), metrics_func=monitor_cli.lightx2v_worker_request_duration, metrics_labels=["WanRunner"])
     def run_pipeline(self, input_info):
+        communication_profile_started = start_communication_profile()
         if GET_RECORDER_MODE():
             monitor_cli.lightx2v_worker_request_count.inc()
-        self.input_info = input_info
-        disagg_mode = self.config.get("disagg_mode")
+        try:
+            self.input_info = input_info
+            disagg_mode = self.config.get("disagg_mode")
 
-        if disagg_mode == "encoder":
-            gen_video_final = self._run_pipeline_disagg_encoder()
-        elif disagg_mode == "transformer":
-            gen_video_final = self._run_pipeline_disagg_transformer()
-        elif disagg_mode == "decode":
-            gen_video_final = self._run_pipeline_disagg_decode()
-        else:
-            # Keep default runner pipeline behavior unchanged in local mode.
-            gen_video_final = self._run_pipeline_local()
+            if disagg_mode == "encoder":
+                gen_video_final = self._run_pipeline_disagg_encoder()
+            elif disagg_mode == "transformer":
+                gen_video_final = self._run_pipeline_disagg_transformer()
+            elif disagg_mode == "decode":
+                gen_video_final = self._run_pipeline_disagg_decode()
+            else:
+                # Keep default runner pipeline behavior unchanged in local mode.
+                gen_video_final = self._run_pipeline_local()
 
-        if GET_RECORDER_MODE():
-            monitor_cli.lightx2v_worker_request_success.inc()
-        return gen_video_final
+            if GET_RECORDER_MODE():
+                monitor_cli.lightx2v_worker_request_success.inc()
+            return gen_video_final
+        finally:
+            if communication_profile_started:
+                finish_communication_profile()
 
     @ProfilingContext4DebugL1(
         "Run Text Encoder",

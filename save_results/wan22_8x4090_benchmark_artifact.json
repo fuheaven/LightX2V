@@ -5,7 +5,7 @@
     "surface": "report",
     "title": "Wan2.2 在 8×RTX 4090 D 上的 Baseline 与 Disagg 对比",
     "description": "LightX2V Wan2.2 I2V 4-step INT8 的本地 6 请求 burst 基准测试。",
-    "generatedAt": "2026-07-24T05:44:00Z",
+    "generatedAt": "2026-07-24T08:34:20Z",
     "cards": [
       {
         "id": "active_speedup",
@@ -62,6 +62,48 @@
             "unit": "×"
           }
         ]
+      },
+      {
+        "id": "baseline_comm_share",
+        "description": "单请求 profiling 的 critical rank；集合通信是 pipeline 内部的嵌套时间。",
+        "dataset": "phase_headline",
+        "sourceId": "benchmark_phase_headline",
+        "metrics": [
+          {
+            "label": "Baseline 通信占比",
+            "field": "baseline_comm_share_pct",
+            "format": "number",
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "id": "disagg_wire_share",
+        "description": "两次 Mooncake transfer_sync 的 sender 直接计时，相对 6 请求平均 E2E。",
+        "dataset": "phase_headline",
+        "sourceId": "benchmark_phase_headline",
+        "metrics": [
+          {
+            "label": "Disagg 纯传输占比",
+            "field": "disagg_wire_share_pct",
+            "format": "number",
+            "unit": "%"
+          }
+        ]
+      },
+      {
+        "id": "disagg_transport_wait_share",
+        "description": "receiver 可见 transfer interval 加 metadata/control 等待；不等于纯网络耗时。",
+        "dataset": "phase_headline",
+        "sourceId": "benchmark_phase_headline",
+        "metrics": [
+          {
+            "label": "Disagg 传输/控制可见等待",
+            "field": "disagg_transport_wait_share_pct",
+            "format": "number",
+            "unit": "%"
+          }
+        ]
       }
     ],
     "charts": [
@@ -101,6 +143,48 @@
           "position": "bottom",
           "sort": "spec",
           "title": "方法"
+        },
+        "labels": {
+          "values": "none"
+        },
+        "layout": "full"
+      },
+      {
+        "id": "phase_composition_chart",
+        "title": "请求关键路径构成",
+        "subtitle": "Baseline 为单请求 critical rank 的 20.406 秒 pipeline；Disagg 为 6 请求平均 46.053 秒 E2E。两者分母语义不同，图用于定位各自瓶颈。",
+        "question": "Baseline 的卡内/跨卡阶段与 disagg 的计算/传输/等待分别占多少时间？",
+        "intent": "comparison",
+        "type": "bar",
+        "dataset": "phase_composition",
+        "sourceId": "benchmark_phase_composition",
+        "encodings": {
+          "x": {
+            "field": "method",
+            "type": "nominal",
+            "label": "计时口径"
+          },
+          "y": {
+            "field": "seconds",
+            "type": "quantitative",
+            "label": "耗时（秒）",
+            "format": "number"
+          },
+          "color": {
+            "field": "category",
+            "type": "nominal",
+            "label": "关键路径分项"
+          }
+        },
+        "palette": {
+          "kind": "categorical",
+          "name": "phase-categories"
+        },
+        "legend": {
+          "interactive": true,
+          "position": "bottom",
+          "sort": "spec",
+          "title": "关键路径分项"
         },
         "labels": {
           "values": "none"
@@ -163,6 +247,40 @@
           {"field": "fps", "label": "FPS", "format": "number"},
           {"field": "frames", "label": "帧数", "format": "number"},
           {"field": "duration_s", "label": "时长（秒）", "format": "number"}
+        ]
+      },
+      {
+        "id": "phase_latency_table",
+        "title": "Text encoder / DiT / VAE 阶段耗时与占比",
+        "subtitle": "Baseline 分母为 critical-rank pipeline；Disagg 分母为 6 请求平均 E2E。秒数和占比都保留，避免只看百分比。",
+        "dataset": "phase_latency",
+        "sourceId": "benchmark_phase_latency",
+        "defaultSort": {
+          "field": "seconds",
+          "direction": "desc"
+        },
+        "columns": [
+          {"field": "method", "label": "方法 / 口径", "type": "text"},
+          {"field": "stage", "label": "阶段", "type": "text"},
+          {"field": "seconds", "label": "耗时（秒）", "format": "number"},
+          {"field": "share_pct", "label": "占分母（%）", "format": "number"}
+        ]
+      },
+      {
+        "id": "communication_breakdown_table",
+        "title": "Baseline 与 Disagg 通信开销",
+        "subtitle": "纯数据搬运与 transport/control 可见等待分开列示；通信时间均已包含在对应关键路径内。",
+        "dataset": "communication_breakdown",
+        "sourceId": "benchmark_communication_breakdown",
+        "defaultSort": {
+          "field": "share_pct",
+          "direction": "desc"
+        },
+        "columns": [
+          {"field": "method", "label": "方法", "type": "text"},
+          {"field": "scope", "label": "观测范围", "type": "text"},
+          {"field": "seconds", "label": "耗时（秒）", "format": "number"},
+          {"field": "share_pct", "label": "占分母（%）", "format": "number"}
         ]
       }
     ],
@@ -262,6 +380,87 @@
         "id": "disagg_ready_metrics",
         "label": "Disagg full-ready controller metrics",
         "path": "disagg_ready_benchmark_6_metrics.json"
+      },
+      {
+        "id": "benchmark_phase_analysis",
+        "label": "Ranked phase and communication analysis",
+        "path": "wan22_8x4090_phase_analysis.json"
+      },
+      {
+        "id": "benchmark_phase_headline",
+        "label": "Phase and communication headline metrics",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-phase-headline-v1",
+          "executed_at": "2026-07-24T08:34:20Z",
+          "description": "Selects the baseline collective share, disagg sender-wire share, and transport/control visible-wait share.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT phase_analysis.baseline.critical_rank_communication_share * 100 AS baseline_comm_share_pct, phase_analysis.disagg.sender_wire_share_of_mean_e2e * 100 AS disagg_wire_share_pct, phase_analysis.disagg.transport_control_visible_share_of_mean_e2e * 100 AS disagg_transport_wait_share_pct FROM read_json_auto('wan22_8x4090_benchmark_summary.json')",
+          "metric_definitions": [
+            "Baseline communication share = profiled critical-rank collective CUDA-event seconds / critical-rank pipeline seconds.",
+            "Disagg sender-wire share = mean sender transfer_sync seconds / mean request E2E seconds.",
+            "Disagg transport/control visible-wait share = mean receiver transfer interval plus metadata/control wait / mean request E2E seconds."
+          ]
+        }
+      },
+      {
+        "id": "benchmark_phase_composition",
+        "label": "Critical-path phase composition",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-phase-composition-v1",
+          "executed_at": "2026-07-24T08:34:20Z",
+          "description": "Expands the reviewed baseline critical-rank and disagg mean-request critical-path categories.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(phase_analysis.stage_composition) AS t(u)"
+        }
+      },
+      {
+        "id": "benchmark_phase_latency",
+        "label": "Text encoder, DiT, and VAE stage latency",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-phase-latency-v1",
+          "executed_at": "2026-07-24T08:34:20Z",
+          "description": "Expands the reviewed model-stage latency and denominator-aware share rows.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(phase_analysis.stage_latency) AS t(u)"
+        }
+      },
+      {
+        "id": "benchmark_communication_breakdown",
+        "label": "Baseline and disagg communication breakdown",
+        "path": "wan22_8x4090_benchmark_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "id": "wan22-communication-breakdown-v1",
+          "executed_at": "2026-07-24T08:34:20Z",
+          "description": "Expands direct communication, receiver-visible transfer, and transport/control wait rows with explicit denominators.",
+          "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+          "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(phase_analysis.communication_breakdown) AS t(u)"
+        }
+      },
+      {
+        "id": "baseline_phase_log",
+        "label": "Baseline ranked CUDA-event phase profile",
+        "path": "baseline_phase_ranked_1.log"
+      },
+      {
+        "id": "disagg_phase_metrics",
+        "label": "Disagg phase-profile controller metrics",
+        "path": "disagg_phase_wire_6_metrics.json"
+      },
+      {
+        "id": "disagg_transfer_log",
+        "label": "Disagg sender transfer_sync profile",
+        "path": "disagg_phase_wire_6_controller.log"
       }
     ],
     "blocks": [
@@ -274,7 +473,7 @@
         "id": "technical_summary",
         "type": "markdown",
         "sourceId": "benchmark_summary",
-        "body": "## 技术摘要\n\n**全-ready disagg 在 6 请求 burst 上将 active batch 从 1,900.63 秒降到 60.72 秒，实测吞吐从 0.189 提升到 5.929 视频/分钟，即 31.30×。** 首个视频完成时间从 323.38 秒降到 32.96 秒。两边均为 6/6 成功。\n\n**即使把 disagg 服务启动、额外 150 秒 ready 等待和退出清理全部计入，整次脚本仍是 457.32 秒，对 baseline 的 1,915.53 秒快 4.19×。** 这说明结论不只依赖排除启动时间。\n\n**增益来自服务常驻与请求并行，而不是单请求算得更快。** baseline 的实际 pipeline 最慢 rank 平均仅 23.84 秒，但每个请求都要重新启动 8-rank 进程并加载权重，平均服务时间达到 315.26 秒；disagg 则用 6 个常驻 transformer 各处理 1 个请求。"
+        "body": "## 技术摘要\n\n**全-ready disagg 在 6 请求 burst 上将 active batch 从 1,900.63 秒降到 60.72 秒，实测吞吐从 0.189 提升到 5.929 视频/分钟，即 31.30×。** 首个视频完成时间从 323.38 秒降到 32.96 秒。两边均为 6/6 成功。\n\n**即使把 disagg 服务启动、额外 150 秒 ready 等待和退出清理全部计入，整次脚本仍是 457.32 秒，对 baseline 的 1,915.53 秒快 4.19×。** 这说明结论不只依赖排除启动时间。\n\n**增益来自服务常驻与请求并行，而不是单请求算得更快。** baseline 的实际 pipeline 最慢 rank 平均仅 23.84 秒，但每个请求都要重新启动 8-rank 进程并加载权重，平均服务时间达到 315.26 秒；disagg 则用 6 个常驻 transformer 各处理 1 个请求。\n\n**阶段 profiling 显示两条路径的通信性质完全不同。** Baseline critical rank 的集合通信为 13.24 秒，占 20.41 秒 pipeline 的 64.9%；其中 DiT collective 占 DiT 的 74.2%。Disagg 两次跨阶段 sender 纯传输合计仅 22.0 ms/请求，占平均 E2E 的 0.048%；但 receiver transfer interval 与 metadata/control 可见等待合计占 31.5%，说明后续优化重点是流水线排队与通知路径，而不是 RDMA 带宽。"
       },
       {
         "id": "headline_metrics",
@@ -318,22 +517,57 @@
         "layout": "full"
       },
       {
+        "id": "phase_headline_metrics",
+        "type": "metric-strip",
+        "cardIds": ["baseline_comm_share", "disagg_wire_share", "disagg_transport_wait_share"]
+      },
+      {
+        "id": "phase_composition_finding",
+        "type": "markdown",
+        "sourceId": "benchmark_phase_analysis",
+        "body": "## 阶段占比：Baseline 被 DiT 集合通信主导，Disagg 被 DiT 与流水线等待共同主导\n\nBaseline 单请求 profiling 的 critical rank pipeline 为 20.406 秒：text encoder 0.253 秒（1.24%）、VAE encoder 0.805 秒（3.95%）、DiT 17.735 秒（86.91%）、VAE decoder 0.926 秒（4.54%），其余 host/I/O residual 0.687 秒（3.36%）。进一步拆开 DiT 后，纯计算约 4.582 秒，而显式 collective 为 13.154 秒。\n\nDisagg 6 请求 profiling 的平均请求 E2E 为 46.053 秒：text encoder 0.105 秒（0.23%）、VAE encoder 2.600 秒（5.65%）、DiT 22.958 秒（49.85%）、VAE decoder 4.259 秒（9.25%）；其余约 35.0% 是序列化、传输/背压、metadata/control 和队列。去掉首请求冷态后，5 个稳态请求阶段均值为 0.065 / 2.584 / 22.901 / 4.216 秒。\n\n下图中的 Baseline 是 rank 内 pipeline，而 Disagg 是 burst 中平均请求 E2E，不能把两根柱子的绝对高度解释成单模型等价延迟；它们用于回答各自的时间花在哪里。"
+      },
+      {
+        "id": "phase_composition_chart_block",
+        "type": "chart",
+        "chartId": "phase_composition_chart",
+        "layout": "full"
+      },
+      {
+        "id": "phase_latency_table_block",
+        "type": "table",
+        "tableId": "phase_latency_table",
+        "layout": "full"
+      },
+      {
+        "id": "communication_finding",
+        "type": "markdown",
+        "sourceId": "benchmark_phase_analysis",
+        "body": "## 通信开销：Disagg 的纯传输很小，等待主要发生在调度和通知路径\n\nBaseline critical rank 每请求执行 640 次 Ulysses all-to-all、4 次 DiT output all-gather，以及 VAE encode/decode 各 1 次 all-gather。已包装 collective 的 CUDA-event 总和为 13.238 秒，占该 rank pipeline 的 64.87%；8 个 rank 的范围为 13.238–14.090 秒。每 rank 逻辑发送和接收数据各约 21.63 GiB（总逻辑双向流量约 43.25 GiB）。\n\nDisagg 每请求只跨阶段发送约 18.0 MiB（encoder→transformer）和 8.0 MiB（transformer→decoder）。Sender `transfer_sync` 两段均值合计 0.02199 秒，仅占平均 E2E 的 0.0478%。Receiver 可见 transfer interval 均值为 2.797 秒，其中约 2.777 秒是 sidecar/下游背压；再计入 metadata/control 回调等待后，可见 transport/control 区间为 14.529 秒、占 31.55%。后两个数字描述排队与控制路径，不能标成“网络传输耗时”。"
+      },
+      {
+        "id": "communication_table_block",
+        "type": "table",
+        "tableId": "communication_breakdown_table",
+        "layout": "full"
+      },
+      {
         "id": "scope_and_definitions",
         "type": "markdown",
         "sourceId": "benchmark_summary",
-        "body": "## 实验范围与指标定义\n\n- **硬件：** 单机 8× NVIDIA GeForce RTX 4090 D（每卡 24,564 MiB），无 NVLink；RDMA HCA 为 `mlx5_bond_0`。\n- **workload：** Wan2.2 I2V A14B、LightX2V 4-step INT8、seed 42、同一输入图和 prompt，一次 burst 发出 6 个相同请求。\n- **输出：** 配置目标为 480×832；按输入宽高比预处理后的实际视频为 544×720、81 帧、16 fps、5.0625 秒。\n- **active batch：** 从 controller 发出 burst 到最后一个成功结果完成；不含服务启动和最终 drain。\n- **wrapper wall：** 从 shell 脚本启动到退出，包含加载、显式 warmup wait、active batch 与清理。\n- **吞吐：** `6 / active_batch`，换算为视频/分钟。"
+        "body": "## 实验范围与指标定义\n\n- **硬件：** 单机 8× NVIDIA GeForce RTX 4090 D（每卡 24,564 MiB），无 NVLink；RDMA HCA 为 `mlx5_bond_0`。\n- **workload：** Wan2.2 I2V A14B、LightX2V 4-step INT8、seed 42、同一输入图和 prompt，一次 burst 发出 6 个相同请求。\n- **输出：** 配置目标为 480×832；按输入宽高比预处理后的实际视频为 544×720、81 帧、16 fps、5.0625 秒。\n- **active batch：** 从 controller 发出 burst 到最后一个成功结果完成；不含服务启动和最终 drain。\n- **wrapper wall：** 从 shell 脚本启动到退出，包含加载、显式 warmup wait、active batch 与清理。\n- **吞吐：** `6 / active_batch`，换算为视频/分钟。\n- **Baseline 通信：** 每个 rank 上显式包装 collective 的 CUDA event 时长总和，包含 collective wait/stall；它是 pipeline/DiT 的子集，不能与阶段时间相加。\n- **Disagg 纯传输：** sender 进入同步 Mooncake `transfer_sync` 的 wall time；sender 与 receiver 的观测边界不同，关键路径只分配两者重叠的 receiver 可见部分。\n- **Disagg transport/control 可见等待：** receiver transfer interval 加 metadata/control 回调区间，含 sidecar、下游背压和通知等待；不是纯网络带宽成本。"
       },
       {
         "id": "methodology",
         "type": "markdown",
         "sourceId": "benchmark_summary",
-        "body": "## 方法与执行细节\n\nbaseline 使用 `run_baseline.sh`，8 张卡组成一个 cooperative Ulysses group，6 个请求在同一组上串行执行；每个请求重新启动推理 rank 并加载 high-noise、low-noise、T5 与 VAE 权重。发现 rank 可能跨请求漂移后，controller 增加了 8-rank completion gate 与超时进程组清理，然后从干净 GPU 状态重跑正式批次。\n\ndisagg 使用 `run_dynamic.sh`，拓扑为 GPU0 encoder、GPU1–6 六个 transformer、GPU7 decoder，阶段间通过本机 RDMA/Mooncake 传输。主结果使用 150 秒等待轮，并从日志确认全部 6 个 transformer 在请求前完成加载且 ranks 1–6 各消费 1 个请求。\n\n所有 headline 数字同时从 metrics JSON 重新计算，并与 controller 日志的 batch elapsed 交叉核对；三轮 disagg 的差异均小于 0.005 秒。"
+        "body": "## 方法与执行细节\n\nbaseline 使用 `run_baseline.sh`，8 张卡组成一个 cooperative Ulysses group，6 个请求在同一组上串行执行；每个请求重新启动推理 rank 并加载 high-noise、low-noise、T5 与 VAE 权重。发现 rank 可能跨请求漂移后，controller 增加了 8-rank completion gate 与超时进程组清理，然后从干净 GPU 状态重跑正式批次。\n\ndisagg 使用 `run_dynamic.sh`，拓扑为 GPU0 encoder、GPU1–6 六个 transformer、GPU7 decoder，阶段间通过本机 RDMA/Mooncake 传输。主结果使用 150 秒等待轮，并从日志确认全部 6 个 transformer 在请求前完成加载且 ranks 1–6 各消费 1 个请求。\n\n阶段 profiling 另跑 baseline 1 请求与 disagg 6 请求：baseline 用 CUDA events 包装 Ulysses all-to-all、DiT output all-gather 和 VAE all-gather，并在请求结束统一同步解析；disagg 在 encoder/transformer/decoder 内记录模型子阶段时间戳，同时在 sender 内直接计时 `transfer_sync`。Disagg 每请求关键路径分项之和与 E2E 完全闭合，最大误差为 0。\n\n所有 headline 数字同时从 metrics JSON 重新计算，并与 controller 日志的 batch elapsed 交叉核对；三轮原始 disagg 的差异均小于 0.005 秒。新增 profiling 批次 active batch 59.88 秒，与主结果 60.72 秒接近，因此保留原正式批次作为 headline、profiling 批次只用于拆分。"
       },
       {
         "id": "limitations",
         "type": "markdown",
         "sourceId": "benchmark_summary",
-        "body": "## 限制、不确定性与稳健性检查\n\n- **样本量有限：** 每个状态只有一次 6 请求 burst；结论对当前机器、当前模型、当前脚本成立，尚未给出跨天或多轮置信区间。\n- **比较的是服务语义：** baseline 每请求冷加载，disagg 模型常驻。这正是两个脚本当前行为的差异，但不是纯计算 microbenchmark。\n- **请求没有多样性：** 6 个请求使用相同 prompt、图像和 seed，并写入同一路径；metrics 记录 6 次完成，但磁盘只保留最后一次视频。\n- **质量未证明等价：** 四个视频结构均合法；baseline 与全-ready disagg 的像素相似度为 SSIM 0.849、平均 PSNR 25.44 dB，说明输出相似但不是逐像素等价。这些值不是独立感知质量评分。\n- **实现修复影响可复现性：** 多请求 RDMA ring 需按网络字节序解码 atomic 返回值；baseline cooperative ranks 需逐请求同步。正式结果均在修复后得到，失败前日志单独保留。\n- **资源采样是 2 秒轮询：** active 平均 GPU 利用率 baseline 为 5.89%，全-ready disagg 为 35.49%；它适合系统级对比，不应当作 kernel profiler。"
+        "body": "## 限制、不确定性与稳健性检查\n\n- **样本量有限：** 每个状态只有一次 6 请求 burst；baseline 通信 profile 只有 1 个请求。结论对当前机器、当前模型、当前脚本成立，尚未给出跨天或多轮置信区间。\n- **比较的是服务语义：** baseline 每请求冷加载，disagg 模型常驻。这正是两个脚本当前行为的差异，但不是纯计算 microbenchmark。\n- **阶段分母不同：** baseline 阶段占比基于 critical-rank pipeline；disagg 阶段占比基于 burst 中平均请求 E2E，包含并发排队。绝对值不能当作完全同口径的单样本 microbenchmark。\n- **通信 profile 不是链路抓包：** baseline CUDA events 包含 collective stall；disagg sender/receiver 的计时边界不同。报告把 sender 纯传输和 receiver/control 可见等待分开，避免把背压误标为 RDMA 线速时间。\n- **请求没有多样性：** 6 个请求使用相同 prompt、图像和 seed，并写入同一路径；metrics 记录 6 次完成，但磁盘只保留最后一次视频。\n- **质量未证明等价：** 四个视频结构均合法；baseline 与全-ready disagg 的像素相似度为 SSIM 0.849、平均 PSNR 25.44 dB，说明输出相似但不是逐像素等价。这些值不是独立感知质量评分。\n- **实现修复影响可复现性：** 多请求 RDMA ring 需按网络字节序解码 atomic 返回值；baseline cooperative ranks 需逐请求同步。正式结果均在修复后得到，失败前日志单独保留。\n- **资源采样是 2 秒轮询：** active 平均 GPU 利用率 baseline 为 5.89%，全-ready disagg 为 35.49%；它适合系统级对比，不应当作 kernel profiler。"
       },
       {
         "id": "output_validation",
@@ -345,7 +579,7 @@
         "id": "next_steps",
         "type": "markdown",
         "sourceId": "benchmark_summary",
-        "body": "## 建议下一步\n\n1. 把 transformer readiness 从固定 sleep 改成显式 health gate，只有 6/6 模型加载完成才接收流量。\n2. 以至少 5 轮、每轮 30–100 个请求复测，并报告吞吐、P50/P95/P99、失败率与轮间方差。\n3. 分别补一组 warm baseline 或持久化 8-rank baseline，拆开“模型常驻收益”和“阶段解耦/多副本收益”。\n4. 使用固定参考样本集做 VBench 或人工盲评，确认两条路径的质量差异是否可接受。\n5. 若目标是进一步提高 burst 吞吐，评估 encoder/decoder 副本与 transformer 数量之间的 8 卡配比；当前全-ready 轮中 decoder 排队均值为 3.75 秒。"
+        "body": "## 建议下一步\n\n1. 把 transformer readiness 从固定 sleep 改成显式 health gate，只有 6/6 模型加载完成才接收流量。\n2. 优先优化 transformer→decoder 的 sidecar/metadata 回调与单 decoder 背压；纯 Mooncake 传输仅约 22 ms/请求，不是当前主要瓶颈。\n3. 对 baseline 的 Ulysses all-to-all 做 NCCL/拓扑调优，并测试 2/4/8 卡 SP；当前无 NVLink 的 8×4090 D 上，critical rank 的 DiT collective 占 DiT 74.2%。\n4. 以至少 5 轮、每轮 30–100 个请求复测，并报告吞吐、P50/P95/P99、失败率、阶段分位数与轮间方差。\n5. 分别补一组 warm baseline 或持久化 8-rank baseline，拆开“模型常驻收益”和“阶段解耦/多副本收益”。\n6. 使用固定参考样本集做 VBench 或人工盲评，确认两条路径的质量差异是否可接受。"
       },
       {
         "id": "further_questions",
@@ -356,7 +590,7 @@
   },
   "snapshot": {
     "version": 1,
-    "generatedAt": "2026-07-24T05:44:00Z",
+    "generatedAt": "2026-07-24T08:34:20Z",
     "status": "ready",
     "datasets": {
       "headline": [
@@ -365,6 +599,13 @@
           "ready_throughput_per_min": 5.928614887839415,
           "ready_first_completion_s": 32.957013845443726,
           "cold_to_exit_speedup": 4.188598792967725
+        }
+      ],
+      "phase_headline": [
+        {
+          "baseline_comm_share_pct": 64.87297361518128,
+          "disagg_wire_share_pct": 0.04775679331141144,
+          "disagg_transport_wait_share_pct": 31.547866154697757
         }
       ],
       "runs": [
@@ -443,6 +684,37 @@
         {"method": "Disagg ready", "stage": "Encoder compute", "mean_s": 2.7294564644495645, "median_s": 2.6579504013061523},
         {"method": "Disagg ready", "stage": "Transformer compute", "mean_s": 22.968383312225342, "median_s": 22.847175002098083},
         {"method": "Disagg ready", "stage": "Decoder compute", "mean_s": 4.2810981671015425, "median_s": 4.233408451080322}
+      ],
+      "phase_composition": [
+        {"method": "Baseline critical rank", "category": "计算", "seconds": 6.481512842653733, "share_pct": 31.762793792537362},
+        {"method": "Baseline critical rank", "category": "通信", "seconds": 13.237973157346268, "share_pct": 64.87297361518128},
+        {"method": "Baseline critical rank", "category": "I/O", "seconds": 0.6865049999999989, "share_pct": 3.36423259228135},
+        {"method": "Baseline critical rank", "category": "背压", "seconds": 0, "share_pct": 0},
+        {"method": "Baseline critical rank", "category": "控制", "seconds": 0, "share_pct": 0},
+        {"method": "Baseline critical rank", "category": "队列", "seconds": 0, "share_pct": 0},
+        {"method": "Disagg mean request E2E", "category": "计算", "seconds": 29.921632568041485, "share_pct": 64.97192936084798},
+        {"method": "Disagg mean request E2E", "category": "I/O", "seconds": 1.46707022190094, "share_pct": 3.185601006495833},
+        {"method": "Disagg mean request E2E", "category": "通信", "seconds": 0.02024336793190511, "share_pct": 0.04395651434815689},
+        {"method": "Disagg mean request E2E", "category": "背压", "seconds": 2.777072229602275, "share_pct": 6.030143586630565},
+        {"method": "Disagg mean request E2E", "category": "控制", "seconds": 11.731476585070292, "share_pct": 25.47376605371903},
+        {"method": "Disagg mean request E2E", "category": "队列", "seconds": 0.13567423820495605, "share_pct": 0.2946034779584305}
+      ],
+      "phase_latency": [
+        {"method": "Baseline critical rank", "stage": "Text encoder", "seconds": 0.253442, "share_pct": 1.2419979995090657, "denominator": "20.406s profiled pipeline"},
+        {"method": "Baseline critical rank", "stage": "VAE encoder", "seconds": 0.805325, "share_pct": 3.9465125707445425, "denominator": "20.406s profiled pipeline"},
+        {"method": "Baseline critical rank", "stage": "DiT", "seconds": 17.735213, "share_pct": 86.91179467833736, "denominator": "20.406s profiled pipeline"},
+        {"method": "Baseline critical rank", "stage": "VAE decoder", "seconds": 0.925506, "share_pct": 4.53546215912768, "denominator": "20.406s profiled pipeline"},
+        {"method": "Disagg mean request", "stage": "Text encoder", "seconds": 0.10462427139282227, "share_pct": 0.2271814799846523, "denominator": "46.053s mean burst-request E2E"},
+        {"method": "Disagg mean request", "stage": "VAE encoder", "seconds": 2.600183844566345, "share_pct": 5.646047577458123, "denominator": "46.053s mean burst-request E2E"},
+        {"method": "Disagg mean request", "stage": "DiT", "seconds": 22.95831310749054, "share_pct": 49.85175504953208, "denominator": "46.053s mean burst-request E2E"},
+        {"method": "Disagg mean request", "stage": "VAE decoder", "seconds": 4.258511344591777, "share_pct": 9.246945253873124, "denominator": "46.053s mean burst-request E2E"}
+      ],
+      "communication_breakdown": [
+        {"method": "Baseline", "scope": "全部已包装 collectives（critical rank）", "seconds": 13.237973157346268, "share_pct": 64.87297361518128, "denominator": "20.406s profiled pipeline", "interpretation": "DiT/VAE 内部通信，已包含在阶段耗时中，不能与 DiT 再相加。"},
+        {"method": "Baseline", "scope": "DiT collectives（critical rank）", "seconds": 13.15353709357979, "share_pct": 74.1662200142721, "denominator": "17.735s DiT", "interpretation": "640 次 Ulysses all-to-all 与 4 次 sequence-output all-gather。"},
+        {"method": "Disagg", "scope": "Sender 直接测量的两次纯传输", "seconds": 0.021993516833333334, "share_pct": 0.04775679331141144, "denominator": "46.053s mean E2E", "interpretation": "Mooncake transfer_sync；phase1 18.0 MiB、phase2 8.0 MiB。"},
+        {"method": "Disagg", "scope": "Receiver 可见 transfer interval", "seconds": 2.7973155975341797, "share_pct": 6.074100100978721, "denominator": "46.053s mean E2E", "interpretation": "含约 0.020s wire critical-path 贡献和 2.777s sidecar/下游背压。"},
+        {"method": "Disagg", "scope": "Transport/control 可见总等待", "seconds": 14.528792182604471, "share_pct": 31.547866154697757, "denominator": "46.053s mean E2E", "interpretation": "transfer interval 加 metadata/control 回调等待；不是纯网络耗时。"}
       ],
       "output_validation": [
         {"method": "Baseline", "codec": "h264", "width": 544, "height": 720, "fps": 16, "frames": 81, "duration_s": 5.0625},
@@ -548,6 +820,87 @@
       "id": "disagg_ready_metrics",
       "label": "Disagg full-ready controller metrics",
       "path": "disagg_ready_benchmark_6_metrics.json"
+    },
+    {
+      "id": "benchmark_phase_analysis",
+      "label": "Ranked phase and communication analysis",
+      "path": "wan22_8x4090_phase_analysis.json"
+    },
+    {
+      "id": "benchmark_phase_headline",
+      "label": "Phase and communication headline metrics",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-phase-headline-v1",
+        "executed_at": "2026-07-24T08:34:20Z",
+        "description": "Selects the baseline collective share, disagg sender-wire share, and transport/control visible-wait share.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT phase_analysis.baseline.critical_rank_communication_share * 100 AS baseline_comm_share_pct, phase_analysis.disagg.sender_wire_share_of_mean_e2e * 100 AS disagg_wire_share_pct, phase_analysis.disagg.transport_control_visible_share_of_mean_e2e * 100 AS disagg_transport_wait_share_pct FROM read_json_auto('wan22_8x4090_benchmark_summary.json')",
+        "metric_definitions": [
+          "Baseline communication share = profiled critical-rank collective CUDA-event seconds / critical-rank pipeline seconds.",
+          "Disagg sender-wire share = mean sender transfer_sync seconds / mean request E2E seconds.",
+          "Disagg transport/control visible-wait share = mean receiver transfer interval plus metadata/control wait / mean request E2E seconds."
+        ]
+      }
+    },
+    {
+      "id": "benchmark_phase_composition",
+      "label": "Critical-path phase composition",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-phase-composition-v1",
+        "executed_at": "2026-07-24T08:34:20Z",
+        "description": "Expands the reviewed baseline critical-rank and disagg mean-request critical-path categories.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(phase_analysis.stage_composition) AS t(u)"
+      }
+    },
+    {
+      "id": "benchmark_phase_latency",
+      "label": "Text encoder, DiT, and VAE stage latency",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-phase-latency-v1",
+        "executed_at": "2026-07-24T08:34:20Z",
+        "description": "Expands the reviewed model-stage latency and denominator-aware share rows.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(phase_analysis.stage_latency) AS t(u)"
+      }
+    },
+    {
+      "id": "benchmark_communication_breakdown",
+      "label": "Baseline and disagg communication breakdown",
+      "path": "wan22_8x4090_benchmark_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "id": "wan22-communication-breakdown-v1",
+        "executed_at": "2026-07-24T08:34:20Z",
+        "description": "Expands direct communication, receiver-visible transfer, and transport/control wait rows with explicit denominators.",
+        "tables_used": ["wan22_8x4090_benchmark_summary.json"],
+        "sql": "SELECT u.* FROM read_json_auto('wan22_8x4090_benchmark_summary.json'), UNNEST(phase_analysis.communication_breakdown) AS t(u)"
+      }
+    },
+    {
+      "id": "baseline_phase_log",
+      "label": "Baseline ranked CUDA-event phase profile",
+      "path": "baseline_phase_ranked_1.log"
+    },
+    {
+      "id": "disagg_phase_metrics",
+      "label": "Disagg phase-profile controller metrics",
+      "path": "disagg_phase_wire_6_metrics.json"
+    },
+    {
+      "id": "disagg_transfer_log",
+      "label": "Disagg sender transfer_sync profile",
+      "path": "disagg_phase_wire_6_controller.log"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T05:44:00Z",
+  "generated_at": "2026-07-24T08:34:20Z",
   "hardware": {
     "gpu_count": 8,
     "gpu_model": "NVIDIA GeForce RTX 4090 D",
@@ -168,6 +168,91 @@
     "psnr_average_db": 25.441467,
     "interpretation": "结构一致但不是逐像素等价；这些指标只表示相似度，不是独立质量评分。"
   },
+  "phase_analysis": {
+    "source": "wan22_8x4090_phase_analysis.json",
+    "profile_runs": {
+      "baseline": "1 个请求，8 个 rank；CUDA event 覆盖显式包装的 collective，阶段计时按 critical rank。",
+      "disagg": "6 请求 burst；阶段时间来自服务时间戳，Mooncake 纯传输来自 sender transfer_sync 直接计时。",
+      "headline_policy": "原 6 请求正式批次仍是主吞吐结果；profiling 批次用于阶段与通信拆分。profiling disagg active batch 为 59.8797 秒、6.0120 视频/分钟，与主批次 60.7224 秒、5.9286 视频/分钟接近。"
+    },
+    "baseline": {
+      "critical_rank": 0,
+      "critical_rank_pipeline_s": 20.405991,
+      "critical_rank_text_encoder_s": 0.253442,
+      "critical_rank_vae_encoder_s": 0.805325,
+      "critical_rank_dit_s": 17.735213,
+      "critical_rank_vae_decoder_s": 0.925506,
+      "critical_rank_residual_s": 0.6865049999999989,
+      "critical_rank_communication_s": 13.237973157346268,
+      "critical_rank_communication_share": 0.6487297361518128,
+      "critical_rank_dit_communication_s": 13.15353709357979,
+      "critical_rank_dit_communication_share_of_dit": 0.741662200142721,
+      "all_rank_communication_mean_s": 13.762077417828142,
+      "all_rank_communication_min_s": 13.237973157346268,
+      "all_rank_communication_max_s": 14.090474052190777,
+      "logical_tx_bytes_per_rank": 23219642208,
+      "logical_rx_bytes_per_rank": 23219642208,
+      "collectives_per_rank": 646
+    },
+    "disagg": {
+      "request_count": 6,
+      "active_batch_s": 59.87974834442139,
+      "throughput_per_min": 6.0120493147252665,
+      "mean_e2e_s": 46.053169210751854,
+      "all_request_text_encoder_mean_s": 0.10462427139282227,
+      "all_request_vae_encoder_mean_s": 2.600183844566345,
+      "all_request_dit_mean_s": 22.95831310749054,
+      "all_request_vae_decoder_mean_s": 4.258511344591777,
+      "steady_request_count": 5,
+      "steady_text_encoder_mean_s": 0.06463651657104492,
+      "steady_vae_encoder_mean_s": 2.5838420391082764,
+      "steady_dit_mean_s": 22.901220655441286,
+      "steady_vae_decoder_mean_s": 4.215939521789551,
+      "sender_wire_mean_s": 0.021993516833333334,
+      "sender_wire_share_of_mean_e2e": 0.0004775679331141144,
+      "receiver_visible_transfer_mean_s": 2.7973155975341797,
+      "receiver_visible_transfer_share_of_mean_e2e": 0.06074100100978721,
+      "metadata_control_mean_s": 11.731476585070292,
+      "transport_control_visible_mean_s": 14.528792182604471,
+      "transport_control_visible_share_of_mean_e2e": 0.31547866154697757,
+      "phase1_bytes_per_request": 18875936,
+      "phase2_bytes_per_request": 8390656,
+      "phase1_sender_wire_mean_s": 0.013494537666666667,
+      "phase2_sender_wire_mean_s": 0.008498979166666667,
+      "max_critical_path_accounting_delta_s": 0
+    },
+    "stage_composition": [
+      {"method": "Baseline critical rank", "category": "计算", "seconds": 6.481512842653733, "share_pct": 31.762793792537362},
+      {"method": "Baseline critical rank", "category": "通信", "seconds": 13.237973157346268, "share_pct": 64.87297361518128},
+      {"method": "Baseline critical rank", "category": "I/O", "seconds": 0.6865049999999989, "share_pct": 3.36423259228135},
+      {"method": "Baseline critical rank", "category": "背压", "seconds": 0, "share_pct": 0},
+      {"method": "Baseline critical rank", "category": "控制", "seconds": 0, "share_pct": 0},
+      {"method": "Baseline critical rank", "category": "队列", "seconds": 0, "share_pct": 0},
+      {"method": "Disagg mean request E2E", "category": "计算", "seconds": 29.921632568041485, "share_pct": 64.97192936084798},
+      {"method": "Disagg mean request E2E", "category": "I/O", "seconds": 1.46707022190094, "share_pct": 3.185601006495833},
+      {"method": "Disagg mean request E2E", "category": "通信", "seconds": 0.02024336793190511, "share_pct": 0.04395651434815689},
+      {"method": "Disagg mean request E2E", "category": "背压", "seconds": 2.777072229602275, "share_pct": 6.030143586630565},
+      {"method": "Disagg mean request E2E", "category": "控制", "seconds": 11.731476585070292, "share_pct": 25.47376605371903},
+      {"method": "Disagg mean request E2E", "category": "队列", "seconds": 0.13567423820495605, "share_pct": 0.2946034779584305}
+    ],
+    "stage_latency": [
+      {"method": "Baseline critical rank", "stage": "Text encoder", "seconds": 0.253442, "share_pct": 1.2419979995090657, "denominator": "20.406s profiled pipeline"},
+      {"method": "Baseline critical rank", "stage": "VAE encoder", "seconds": 0.805325, "share_pct": 3.9465125707445425, "denominator": "20.406s profiled pipeline"},
+      {"method": "Baseline critical rank", "stage": "DiT", "seconds": 17.735213, "share_pct": 86.91179467833736, "denominator": "20.406s profiled pipeline"},
+      {"method": "Baseline critical rank", "stage": "VAE decoder", "seconds": 0.925506, "share_pct": 4.53546215912768, "denominator": "20.406s profiled pipeline"},
+      {"method": "Disagg mean request", "stage": "Text encoder", "seconds": 0.10462427139282227, "share_pct": 0.2271814799846523, "denominator": "46.053s mean burst-request E2E"},
+      {"method": "Disagg mean request", "stage": "VAE encoder", "seconds": 2.600183844566345, "share_pct": 5.646047577458123, "denominator": "46.053s mean burst-request E2E"},
+      {"method": "Disagg mean request", "stage": "DiT", "seconds": 22.95831310749054, "share_pct": 49.85175504953208, "denominator": "46.053s mean burst-request E2E"},
+      {"method": "Disagg mean request", "stage": "VAE decoder", "seconds": 4.258511344591777, "share_pct": 9.246945253873124, "denominator": "46.053s mean burst-request E2E"}
+    ],
+    "communication_breakdown": [
+      {"method": "Baseline", "scope": "全部已包装 collectives（critical rank）", "seconds": 13.237973157346268, "share_pct": 64.87297361518128, "denominator": "20.406s profiled pipeline", "interpretation": "DiT/VAE 内部通信，已包含在阶段耗时中，不能与 DiT 再相加。"},
+      {"method": "Baseline", "scope": "DiT collectives（critical rank）", "seconds": 13.15353709357979, "share_pct": 74.1662200142721, "denominator": "17.735s DiT", "interpretation": "640 次 Ulysses all-to-all 与 4 次 sequence-output all-gather。"},
+      {"method": "Disagg", "scope": "Sender 直接测量的两次纯传输", "seconds": 0.021993516833333334, "share_pct": 0.04775679331141144, "denominator": "46.053s mean E2E", "interpretation": "Mooncake transfer_sync；phase1 18.0 MiB、phase2 8.0 MiB。"},
+      {"method": "Disagg", "scope": "Receiver 可见 transfer interval", "seconds": 2.7973155975341797, "share_pct": 6.074100100978721, "denominator": "46.053s mean E2E", "interpretation": "含约 0.020s wire critical-path 贡献和 2.777s sidecar/下游背压。"},
+      {"method": "Disagg", "scope": "Transport/control 可见总等待", "seconds": 14.528792182604471, "share_pct": 31.547866154697757, "denominator": "46.053s mean E2E", "interpretation": "transfer interval 加 metadata/control 回调等待；不是纯网络耗时。"}
+    ]
+  },
   "robustness_checks": {
     "json_vs_controller_log_max_delta_s": 0.004553558349606135,
     "final_log_traceback_or_error_count": 0,
@@ -189,6 +274,11 @@
     "disagg_ready_benchmark_6_metrics.json",
     "disagg_ready_benchmark_6_controller.log",
     "disagg_ready_benchmark_6.time",
+    "baseline_phase_ranked_1_metrics.json",
+    "baseline_phase_ranked_1.log",
+    "disagg_phase_wire_6_metrics.json",
+    "disagg_phase_wire_6_controller.log",
+    "wan22_8x4090_phase_analysis.json",
     "benchmark_wan22_baseline_8gpu.json",
     "benchmark_wan22_disagg_8gpu.json"
   ]

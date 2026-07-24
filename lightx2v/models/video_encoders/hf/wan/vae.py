@@ -7,6 +7,7 @@ import torch.nn.functional as F
 from einops import rearrange
 from loguru import logger
 
+from lightx2v.utils.communication_profiler import profiled_all_gather
 from lightx2v.utils.envs import GET_USE_CHANNELS_LAST_3D
 from lightx2v.utils.utils import load_weights
 from lightx2v_platform.base.global_var import AI_DEVICE
@@ -1096,7 +1097,7 @@ class WanVAE:
                 encoded_chunk = encoded_chunk[:, :, :, :, padding_size:-padding_size].contiguous()
 
         full_encoded = [torch.empty_like(encoded_chunk) for _ in range(world_size)]
-        dist.all_gather(full_encoded, encoded_chunk)
+        profiled_all_gather(full_encoded, encoded_chunk, name="vae_encoder_all_gather")
 
         self.device_synchronize()
 
@@ -1137,7 +1138,7 @@ class WanVAE:
         total_processes = world_size_h * world_size_w
         full_encoded = [torch.empty_like(encoded_chunk) for _ in range(total_processes)]
 
-        dist.all_gather(full_encoded, encoded_chunk)
+        profiled_all_gather(full_encoded, encoded_chunk, name="vae_encoder_all_gather")
 
         self.device_synchronize()
 
@@ -1299,7 +1300,7 @@ class WanVAE:
                 images = images[:, :, :, :, 8 * padding_size : -8 * padding_size].contiguous()
 
         full_images = [torch.empty_like(images) for _ in range(world_size)]
-        dist.all_gather(full_images, images)
+        profiled_all_gather(full_images, images, name="vae_decoder_all_gather")
 
         self.device_synchronize()
 
@@ -1373,7 +1374,7 @@ class WanVAE:
         total_processes = world_size_h * world_size_w
         full_images = [torch.empty_like(images_chunk) for _ in range(total_processes)]
 
-        dist.all_gather(full_images, images_chunk)
+        profiled_all_gather(full_images, images_chunk, name="vae_decoder_all_gather")
 
         self.device_synchronize()
 
@@ -1454,7 +1455,7 @@ class WanVAE:
             total_processes = world_size_h * world_size_w
             full_images = [torch.empty_like(images_chunk) for _ in range(total_processes)]
 
-            dist.all_gather(full_images, images_chunk)
+            profiled_all_gather(full_images, images_chunk, name="vae_decoder_all_gather")
 
             self.device_synchronize()
 
@@ -1536,7 +1537,7 @@ class WanVAE:
         total_processes = world_size_h * world_size_w
         full_images = [torch.empty_like(images_chunk) for _ in range(total_processes)]
 
-        dist.all_gather(full_images, images_chunk)
+        profiled_all_gather(full_images, images_chunk, name="vae_decoder_all_gather")
 
         self.device_synchronize()
 

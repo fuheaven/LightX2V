@@ -25,6 +25,7 @@ from lightx2v.models.networks.wan.weights.pre_weights import WanPreWeights
 from lightx2v.models.networks.wan.weights.transformer_weights import (
     WanTransformerWeights,
 )
+from lightx2v.utils.communication_profiler import profiled_all_gather
 from lightx2v.utils.custom_compiler import compiled_method
 from lightx2v.utils.envs import *
 from lightx2v.utils.utils import *
@@ -155,7 +156,12 @@ class WanModel(BaseTransformerModel):
     def _seq_parallel_post_process(self, x):
         world_size = dist.get_world_size(self.seq_p_group)
         gathered_x = [torch.empty_like(x) for _ in range(world_size)]
-        dist.all_gather(gathered_x, x, group=self.seq_p_group)
+        profiled_all_gather(
+            gathered_x,
+            x,
+            group=self.seq_p_group,
+            name="dit_sequence_output_all_gather",
+        )
         combined_output = torch.cat(gathered_x, dim=0)
         return combined_output
 

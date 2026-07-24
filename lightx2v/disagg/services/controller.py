@@ -1839,6 +1839,133 @@ class ControllerService(BaseService):
             ]
             if all(key in summary for key in component_keys):
                 summary["sum_of_components_s"] = sum(summary[key] for key in component_keys)
+
+        def _add_duration(key: str, start_value: Any, end_value: Any) -> float | None:
+            start_ts = _as_float(start_value)
+            end_ts = _as_float(end_value)
+            if start_ts is None or end_ts is None:
+                return None
+            duration = max(0.0, end_ts - start_ts)
+            summary[key] = duration
+            return duration
+
+        # Fine-grained compute timings. These are intentionally separate from
+        # the legacy coarse stage fields above so historical result readers
+        # remain compatible.
+        _add_duration("text_encoder_compute_delay_s", encoder.get("text_encoder_start_ts"), encoder.get("text_encoder_end_ts"))
+        _add_duration("vae_encoder_compute_delay_s", encoder.get("vae_encoder_start_ts"), encoder.get("vae_encoder_end_ts"))
+        _add_duration("encoder_output_prepare_delay_s", encoder.get("output_prepare_start_ts"), encoder.get("output_prepare_end_ts"))
+        _add_duration("transformer_input_prepare_delay_s", transformer.get("input_prepare_start_ts"), transformer.get("input_prepare_end_ts"))
+        _add_duration("dit_compute_delay_s", transformer.get("dit_start_ts"), transformer.get("dit_end_ts"))
+        _add_duration("transformer_output_prepare_delay_s", transformer.get("output_prepare_start_ts"), transformer.get("output_prepare_end_ts"))
+        _add_duration("decoder_input_prepare_delay_s", decoder.get("input_prepare_start_ts"), decoder.get("input_prepare_end_ts"))
+        _add_duration("vae_decoder_compute_delay_s", decoder.get("vae_decoder_start_ts"), decoder.get("vae_decoder_end_ts"))
+        _add_duration("decoder_postprocess_delay_s", decoder.get("postprocess_start_ts"), decoder.get("postprocess_end_ts"))
+        _add_duration("decoder_save_delay_s", decoder.get("save_start_ts"), decoder.get("save_end_ts"))
+
+        phase1_transfer_s = _add_duration(
+            "encoder_to_transformer_data_transfer_delay_s",
+            transformer.get("input_transfer_start_ts"),
+            transformer.get("input_transfer_end_ts"),
+        )
+        phase2_transfer_s = _add_duration(
+            "transformer_to_decoder_data_transfer_delay_s",
+            decoder.get("input_transfer_start_ts"),
+            decoder.get("input_transfer_end_ts"),
+        )
+        phase1_bytes = _as_float(transformer.get("input_transfer_bytes"))
+        phase2_bytes = _as_float(decoder.get("input_transfer_bytes"))
+        if phase1_bytes is not None:
+            summary["encoder_to_transformer_transfer_bytes"] = phase1_bytes
+        if phase2_bytes is not None:
+            summary["transformer_to_decoder_transfer_bytes"] = phase2_bytes
+        if phase1_transfer_s is not None and phase1_transfer_s > 0 and phase1_bytes is not None:
+            summary["encoder_to_transformer_effective_mib_per_s"] = phase1_bytes / phase1_transfer_s / (1024.0 * 1024.0)
+        if phase2_transfer_s is not None and phase2_transfer_s > 0 and phase2_bytes is not None:
+            summary["transformer_to_decoder_effective_mib_per_s"] = phase2_bytes / phase2_transfer_s / (1024.0 * 1024.0)
+        if phase1_transfer_s is not None and phase2_transfer_s is not None:
+            summary["interstage_data_transfer_delay_s"] = phase1_transfer_s + phase2_transfer_s
+
+        # Split receive-to-compute scheduling into setup, data movement, and
+        # post-transfer queueing. The legacy scheduling fields conflate all
+        # three and are retained only for compatibility.
+        _add_duration(
+            "transformer_transfer_setup_delay_s",
+            transformer.get("request_received_ts"),
+            transformer.get("input_transfer_start_ts"),
+        )
+        _add_duration(
+            "transformer_post_transfer_queue_delay_s",
+            transformer.get("input_transfer_end_ts"),
+            transformer.get("compute_start_ts"),
+        )
+        _add_duration(
+            "decoder_transfer_setup_delay_s",
+            decoder.get("request_received_ts"),
+            decoder.get("input_transfer_start_ts"),
+        )
+        _add_duration(
+            "decoder_post_transfer_queue_delay_s",
+            decoder.get("input_transfer_end_ts"),
+            decoder.get("compute_start_ts"),
+        )
+
+        # Exact non-overlapping critical-path accounting for decentralized
+        # mode. Each adjacent interval appears once, so this sum can be
+        # compared directly with end_to_end_delay_s.
+        if not centralized_mode:
+            critical_intervals = [
+                ("controller_dispatch_delay_s", controller_send_ts, encoder_recv_ts),
+                ("encoder_queue_delay_s", encoder_recv_ts, encoder_compute_start_ts),
+                ("encoder_active_until_enqueue_delay_s", encoder_compute_start_ts, encoder_output_enqueued_ts),
+                ("phase1_metadata_notification_delay_s", encoder_output_enqueued_ts, transformer_recv_ts),
+                (
+                    "transformer_setup_before_transfer_delay_s",
+                    transformer_recv_ts,
+                    _as_float(transformer.get("input_transfer_start_ts")),
+                ),
+                (
+                    "phase1_tensor_transfer_delay_s",
+                    _as_float(transformer.get("input_transfer_start_ts")),
+                    _as_float(transformer.get("input_transfer_end_ts")),
+                ),
+                (
+                    "transformer_queue_after_transfer_delay_s",
+                    _as_float(transformer.get("input_transfer_end_ts")),
+                    transformer_compute_start_ts,
+                ),
+                ("transformer_active_until_enqueue_delay_s", transformer_compute_start_ts, transformer_output_enqueued_ts),
+                ("phase2_metadata_notification_delay_s", transformer_output_enqueued_ts, decoder_recv_ts),
+                (
+                    "decoder_setup_before_transfer_delay_s",
+                    decoder_recv_ts,
+                    _as_float(decoder.get("input_transfer_start_ts")),
+                ),
+                (
+                    "phase2_tensor_transfer_delay_s",
+                    _as_float(decoder.get("input_transfer_start_ts")),
+                    _as_float(decoder.get("input_transfer_end_ts")),
+                ),
+                (
+                    "decoder_queue_after_transfer_delay_s",
+                    _as_float(decoder.get("input_transfer_end_ts")),
+                    decoder_compute_start_ts,
+                ),
+                ("decoder_active_until_enqueue_delay_s", decoder_compute_start_ts, decoder_output_enqueued_ts),
+                ("result_callback_delay_s", decoder_output_enqueued_ts, controller_recv_ts),
+            ]
+            accounted = 0.0
+            complete = True
+            for key, start_ts, end_ts in critical_intervals:
+                if start_ts is None or end_ts is None:
+                    complete = False
+                    continue
+                duration = max(0.0, end_ts - start_ts)
+                summary[key] = duration
+                accounted += duration
+            if complete:
+                summary["critical_path_accounted_s"] = accounted
+                summary["critical_path_unattributed_s"] = summary["end_to_end_delay_s"] - accounted
         return summary
 
     def add_instance(self, instance_type: str, instance_address: str):

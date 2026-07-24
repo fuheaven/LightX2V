@@ -533,6 +533,7 @@ class EncoderService(BaseService):
         # 1. Text Encoding
         text_len = config.get("text_len", 512)
 
+        encoder_metrics["text_encoder_start_ts"] = time.time()
         context = self.text_encoder.infer([prompt])
         context = torch.stack([torch.cat([u, u.new_zeros(text_len - u.size(0), u.size(1))]) for u in context])
 
@@ -543,6 +544,7 @@ class EncoderService(BaseService):
             context_null = torch.stack([torch.cat([u, u.new_zeros(text_len - u.size(0), u.size(1))]) for u in context_null])
         else:
             context_null = None
+        encoder_metrics["text_encoder_end_ts"] = time.time()
 
         text_encoder_output = {
             "context": context,
@@ -568,17 +570,23 @@ class EncoderService(BaseService):
                 raise ValueError("image_path is required for i2v task.")
 
             # 2. Image Encoding + VAE Encoding
+            encoder_metrics["image_input_start_ts"] = time.time()
             img, _ = read_image_input(image_path)
+            encoder_metrics["image_input_end_ts"] = time.time()
 
             if self.image_encoder is not None:
                 # Assuming image_encoder.visual handles list of images
+                encoder_metrics["image_encoder_start_ts"] = time.time()
                 clip_encoder_out = self.image_encoder.visual([img]).squeeze(0).to(GET_DTYPE())
+                encoder_metrics["image_encoder_end_ts"] = time.time()
 
             if self.vae_encoder is None:
                 raise RuntimeError("VAE encoder is required but was not loaded.")
 
+            encoder_metrics["vae_encoder_start_ts"] = time.time()
             latent_shape, latent_h, latent_w = self._compute_latent_shape_from_image(img)
             vae_encoder_out = self._get_vae_encoder_output(img, latent_h, latent_w)
+            encoder_metrics["vae_encoder_end_ts"] = time.time()
 
             image_encoder_output = {
                 "clip_encoder_out": clip_encoder_out,
@@ -588,6 +596,7 @@ class EncoderService(BaseService):
             raise ValueError(f"Unsupported task: {task}")
 
         encoder_metrics["compute_end_ts"] = time.time()
+        encoder_metrics["output_prepare_start_ts"] = encoder_metrics["compute_end_ts"]
         self.logger.info("Encode processing completed. Preparing to send data...")
 
         if self.data_mgr is not None and sender is not None:
@@ -677,6 +686,7 @@ class EncoderService(BaseService):
 
             buffer_ptrs = [buf.data_ptr() for buf in room_buffers]
             # Publish phase1 request metadata after compute so downstream can see latest metrics.
+            encoder_metrics["output_prepare_end_ts"] = time.time()
             encoder_metrics["output_enqueued_ts"] = time.time()
             if self._centralized_request_mode:
                 self._report_stage_metrics_to_controller("encoder", config)

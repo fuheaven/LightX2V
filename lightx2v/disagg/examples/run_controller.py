@@ -178,6 +178,8 @@ def _run_infer_once(args: argparse.Namespace, payload: dict[str, Any], worker_id
         cmd = [args.python_executable, *infer_argv]
 
     env = os.environ.copy()
+    if str(env.get("LIGHTX2V_COMM_PROFILE", "")).strip().lower() in {"1", "true", "yes", "on"}:
+        env["LIGHTX2V_PROFILE_REQUEST_ID"] = str(request_id)
     if cooperative_parallel:
         env["MASTER_ADDR"] = str(args.dist_master_addr)
         env["MASTER_PORT"] = str(int(args.dist_master_port))

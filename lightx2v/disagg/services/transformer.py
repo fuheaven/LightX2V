@@ -557,6 +557,7 @@ class TransformerService(BaseService):
         room = config.get("data_bootstrap_room", 0)
         transformer_metrics = config.setdefault("request_metrics", {}).setdefault("stages", {}).setdefault("transformer", {})
         transformer_metrics["compute_start_ts"] = time.time()
+        transformer_metrics["input_prepare_start_ts"] = transformer_metrics["compute_start_ts"]
 
         phase1_buffers = self.rdma_buffer1.get(room)
         phase2_buffers = self.rdma_buffer2.get(room)
@@ -814,6 +815,8 @@ class TransformerService(BaseService):
             raise ValueError("latent_shape is required in inputs.")
 
         # Scheduler Preparation
+        transformer_metrics["input_prepare_end_ts"] = time.time()
+        transformer_metrics["dit_start_ts"] = time.time()
         self.logger.info(f"Preparing scheduler with seed {seed}...")
         self.scheduler.prepare(seed=seed, latent_shape=latent_shape, image_encoder_output=image_encoder_output)
 
@@ -829,7 +832,9 @@ class TransformerService(BaseService):
             self.scheduler.step_post()
 
         latents = self.scheduler.latents
+        transformer_metrics["dit_end_ts"] = time.time()
         transformer_metrics["compute_end_ts"] = time.time()
+        transformer_metrics["output_prepare_start_ts"] = transformer_metrics["compute_end_ts"]
 
         # Send latents to DecoderService
         if len(phase2_buffers) < 2:
@@ -862,6 +867,7 @@ class TransformerService(BaseService):
 
         buffer_ptrs = [buf.data_ptr() for buf in phase2_buffers]
         # Publish phase2 request metadata after compute so downstream can see latest metrics.
+        transformer_metrics["output_prepare_end_ts"] = time.time()
         transformer_metrics["output_enqueued_ts"] = time.time()
         phase2_request_config = dict(config)
         phase2_request_config["transformer_engine_rank"] = self.transformer_engine_rank
@@ -1043,6 +1049,9 @@ class TransformerService(BaseService):
                     receiver = self.data_receiver.get(room)
                     if receiver is None:
                         raise RuntimeError(f"DataReceiver is not initialized for room={room}")
+                    transformer_metrics = config.setdefault("request_metrics", {}).setdefault("stages", {}).setdefault("transformer", {})
+                    transformer_metrics["input_transfer_start_ts"] = time.time()
+                    transformer_metrics["input_transfer_bytes"] = sum(int(buf.numel() * buf.element_size()) for buf in self.rdma_buffer1.get(room, []))
                     self._data_mgr_sidecar.watch_input(room, receiver)
                 except Exception:
                     self.logger.exception("Failed to initialize request for room=%s", room)
@@ -1054,6 +1063,8 @@ class TransformerService(BaseService):
             for room in ready_rooms:
                 config = waiting_queue.pop(room, None)
                 if config is not None:
+                    transformer_metrics = config.setdefault("request_metrics", {}).setdefault("stages", {}).setdefault("transformer", {})
+                    transformer_metrics["input_transfer_end_ts"] = time.time()
                     exec_queue.append((room, config))
 
             for room in failed_rooms:

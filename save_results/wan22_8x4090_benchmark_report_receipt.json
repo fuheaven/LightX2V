@@ -7,11 +7,11 @@
     "verification": "passed"
   },
   "counts": {
-    "blocks": 18,
-    "charts": 1,
+    "blocks": 26,
+    "charts": 2,
     "html": 0,
-    "metrics": 4,
-    "tables": 3
+    "metrics": 7,
+    "tables": 5
   },
   "sourceDialog": "passed",
   "sourceInteraction": "keyboard_menu_semantic_click",

@@ -16,6 +16,16 @@ _excluded_time_local = threading.local()
 _no_sync_local = threading.local()
 
 
+def _current_rank_info() -> str:
+    # Decorator instances are created while modules are imported, which is
+    # often before torch.distributed.init_process_group(). Resolve the rank at
+    # context entry so benchmark logs retain the actual rank instead of the
+    # misleading "Single GPU" label.
+    if dist.is_initialized():
+        return f"Rank {dist.get_rank()}"
+    return "Single GPU"
+
+
 def _get_excluded_time_stack():
     if not hasattr(_excluded_time_local, "stack"):
         _excluded_time_local.stack = []
@@ -54,16 +64,14 @@ class _ProfilingContext:
         recorder_mode = 2: enable recorder and force disable logger
         """
         self.name = name
-        if dist.is_initialized():
-            self.rank_info = f"Rank {dist.get_rank()}"
-        else:
-            self.rank_info = "Single GPU"
+        self.rank_info = _current_rank_info()
         self.enable_recorder = recorder_mode > 0
         self.enable_logger = recorder_mode <= 1
         self.metrics_func = metrics_func
         self.metrics_labels = metrics_labels
 
     def __enter__(self):
+        self.rank_info = _current_rank_info()
         self._skip_sync = _is_profiler_no_sync_active()
         if not self._skip_sync:
             torch_device_module.synchronize()
@@ -88,6 +96,7 @@ class _ProfilingContext:
         return False
 
     async def __aenter__(self):
+        self.rank_info = _current_rank_info()
         self._skip_sync = _is_profiler_no_sync_active()
         if not self._skip_sync:
             torch_device_module.synchronize()
@@ -156,12 +165,10 @@ class _ExcludedProfilingContext:
 
     def __init__(self, name=None):
         self.name = name
-        if dist.is_initialized():
-            self.rank_info = f"Rank {dist.get_rank()}"
-        else:
-            self.rank_info = "Single GPU"
+        self.rank_info = _current_rank_info()
 
     def __enter__(self):
+        self.rank_info = _current_rank_info()
         self._skip_sync = _is_profiler_no_sync_active()
         if not self._skip_sync:
             torch_device_module.synchronize()
@@ -181,6 +188,7 @@ class _ExcludedProfilingContext:
         return False
 
     async def __aenter__(self):
+        self.rank_info = _current_rank_info()
         self._skip_sync = _is_profiler_no_sync_active()
         if not self._skip_sync:
             torch_device_module.synchronize()

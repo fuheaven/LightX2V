@@ -1,0 +1,23 @@
+	Command being timed: "env LIGHTX2V_PATH=/data/fuhaiwen1/LightX2V WAN22_MOE_MODEL_PATH=/data/fuhaiwen1/LightX2V/models/Wan-AI/Wan2.2-I2V-A14B BASELINE_CONFIG_JSON=/data/fuhaiwen1/LightX2V/save_results/benchmark_wan22_baseline_8gpu.json BASELINE_SKIP_CONDA_ACTIVATE=1 NUM_GPUS=8 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 BASELINE_GENERATE_REQUESTS=1 BASELINE_NUM_WORKERS=8 BASELINE_METRICS_OUTPUT_JSON=/data/fuhaiwen1/LightX2V/save_results/baseline_phase_profile_1_metrics.json BASELINE_LOG=/data/fuhaiwen1/LightX2V/save_results/baseline_phase_profile_1.log BASELINE_SAVE_RESULT_PATH=/data/fuhaiwen1/LightX2V/save_results/baseline_phase_profile_1.mp4 BASELINE_DIST_MASTER_PORT=29620 BASELINE_INFER_TIMEOUT_S=420 LIGHTX2V_COMM_PROFILE=1 TORCH_CUDA_ARCH_LIST=8.9 PYTHONPATH=/data/fuhaiwen1/LightX2V bash scripts/disagg/run_baseline.sh"
+	User time (seconds): 5239.06
+	System time (seconds): 1191.92
+	Percent of CPU this job got: 1903%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:37.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 59470632
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1111491
+	Minor (reclaiming a frame) page faults: 141669027
+	Voluntary context switches: 5176068
+	Involuntary context switches: 714330
+	Swaps: 0
+	File system inputs: 247816
+	File system outputs: 488
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

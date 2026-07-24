@@ -4,6 +4,7 @@ import logging
 import os
 import struct
 import threading
+import time
 from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import Enum
@@ -155,6 +156,7 @@ class DataManager:
                         sender_data_ptrs = self.request_pool.pop(pending_room)
 
                     self.sync_status_to_transformer_endpoint(endpoint, pending_room)
+                    transfer_started = time.perf_counter()
                     try:
                         ret = self.send_data(
                             pending_room,
@@ -165,6 +167,17 @@ class DataManager:
                     except Exception:
                         logger.exception("Transfer loop exception room=%s session=%s", pending_room, mooncake_session_id)
                         ret = -1
+                    transfer_duration_s = time.perf_counter() - transfer_started
+                    transfer_bytes = sum(int(value) for value in self.data_args[pending_room].data_item_lens)
+                    logger.info(
+                        "[DataTransferProfile] phase=%s mode=%s room=%s bytes=%s duration_s=%.9f status=%s",
+                        self.disaggregation_phase.value,
+                        self.disaggregation_mode.value,
+                        pending_room,
+                        transfer_bytes,
+                        transfer_duration_s,
+                        ret,
+                    )
                     with self.pool_lock:
                         if ret != 0:
                             self.request_status[pending_room] = DataPoll.Failed

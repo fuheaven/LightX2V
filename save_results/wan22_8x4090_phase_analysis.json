@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "metric_definitions": {
+    "baseline_communication": "CUDA-event sum of explicitly wrapped collectives on one rank; includes collective wait/stall and is a subset of pipeline time.",
+    "disagg_sender_wire_transfer": "Sender-side wall time spent inside synchronous Mooncake transfer_sync calls, summed across both inter-stage transfers; reported independently because sender and receiver scopes have different boundaries.",
+    "disagg_critical_path_wire_transfer": "The sender transfer_sync duration capped by the corresponding receiver-visible interval, so only wire time observed on the controller critical path is allocated.",
+    "disagg_transfer_backpressure": "Receiver-visible transfer-completion delay minus the allocated critical-path wire time; includes sender/sidecar queueing and status propagation.",
+    "active_batch": "Maximum request completion relative to burst dispatch; teardown is excluded."
+  },
+  "baseline_service": {
+    "request_count": 6,
+    "active_batch_s": 1900.6287200450897,
+    "throughput_per_min": 0.1894110071068796,
+    "first_completion_s": 323.3773458003998,
+    "success_count": 6
+  },
+  "baseline_ranked_profile": {
+    "rank_rows": [
+      {
+        "rank": 0,
+        "pipeline_s": 20.405991,
+        "text_encoder_s": 0.253442,
+        "vae_encoder_s": 0.805325,
+        "dit_s": 17.735213,
+        "vae_decoder_s": 0.925506,
+        "communication_s": 13.237973157346268,
+        "dit_communication_s": 13.15353709357979,
+        "vae_encoder_communication_s": 0.01844643211364746,
+        "vae_decoder_communication_s": 0.06598963165283203,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.6865049999999989
+      },
+      {
+        "rank": 1,
+        "pipeline_s": 20.064838,
+        "text_encoder_s": 0.218992,
+        "vae_encoder_s": 1.064422,
+        "dit_s": 17.722583,
+        "vae_decoder_s": 0.937668,
+        "communication_s": 13.833907217502597,
+        "dit_communication_s": 13.572761934757237,
+        "vae_encoder_communication_s": 0.24496403503417968,
+        "vae_decoder_communication_s": 0.01618124771118164,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.12117300000000109
+      },
+      {
+        "rank": 2,
+        "pipeline_s": 19.870328,
+        "text_encoder_s": 0.231681,
+        "vae_encoder_s": 0.786301,
+        "dit_s": 17.728579,
+        "vae_decoder_s": 0.932388,
+        "communication_s": 13.555992859065517,
+        "dit_communication_s": 13.428712440669521,
+        "vae_encoder_communication_s": 0.06993920135498047,
+        "vae_decoder_communication_s": 0.05734121704101563,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.19137900000000085
+      },
+      {
+        "rank": 3,
+        "pipeline_s": 19.941075,
+        "text_encoder_s": 0.21102,
+        "vae_encoder_s": 0.895193,
+        "dit_s": 17.730760000000004,
+        "vae_decoder_s": 0.929819,
+        "communication_s": 13.978650708317746,
+        "dit_communication_s": 13.685819485783565,
+        "vae_encoder_communication_s": 0.18804428100585938,
+        "vae_decoder_communication_s": 0.10478694152832031,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.17428299999999752
+      },
+      {
+        "rank": 4,
+        "pipeline_s": 19.937987,
+        "text_encoder_s": 0.215635,
+        "vae_encoder_s": 0.918432,
+        "dit_s": 17.712291999999998,
+        "vae_decoder_s": 0.9479,
+        "communication_s": 13.765955212056639,
+        "dit_communication_s": 13.583955635488035,
+        "vae_encoder_communication_s": 0.14493490600585937,
+        "vae_decoder_communication_s": 0.037064670562744144,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.14372800000000363
+      },
+      {
+        "rank": 5,
+        "pipeline_s": 20.01913,
+        "text_encoder_s": 0.207739,
+        "vae_encoder_s": 1.005148,
+        "dit_s": 17.716458,
+        "vae_decoder_s": 0.944026,
+        "communication_s": 13.976926849603652,
+        "dit_communication_s": 13.67970256447792,
+        "vae_encoder_communication_s": 0.2363116455078125,
+        "vae_decoder_communication_s": 0.06091263961791992,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.14575900000000264
+      },
+      {
+        "rank": 6,
+        "pipeline_s": 19.911008,
+        "text_encoder_s": 0.242306,
+        "vae_encoder_s": 0.832191,
+        "dit_s": 17.709696,
+        "vae_decoder_s": 0.950083,
+        "communication_s": 13.65673928654193,
+        "dit_communication_s": 13.569925587892524,
+        "vae_encoder_communication_s": 0.0016701439619064332,
+        "vae_decoder_communication_s": 0.0851435546875,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.176731999999997
+      },
+      {
+        "rank": 7,
+        "pipeline_s": 20.020045,
+        "text_encoder_s": 0.224994,
+        "vae_encoder_s": 1.012541,
+        "dit_s": 17.713402000000002,
+        "vae_decoder_s": 0.947122,
+        "communication_s": 14.090474052190777,
+        "dit_communication_s": 13.725238952398296,
+        "vae_encoder_communication_s": 0.24996751403808593,
+        "vae_decoder_communication_s": 0.11526758575439452,
+        "tx_bytes": 23219642208,
+        "rx_bytes": 23219642208,
+        "stage_residual_s": 0.12198599999999993
+      }
+    ],
+    "critical_rank": 0,
+    "critical_rank_pipeline_s": 20.405991,
+    "critical_rank_categories": [
+      {
+        "category": "Text encoder compute",
+        "seconds": 0.253442,
+        "share": 0.012419979995090657
+      },
+      {
+        "category": "VAE encoder compute excluding collectives",
+        "seconds": 0.7868785678863525,
+        "share": 0.038561154314257634
+      },
+      {
+        "category": "VAE encoder communication",
+        "seconds": 0.01844643211364746,
+        "share": 0.0009039713931877879
+      },
+      {
+        "category": "DiT compute excluding collectives",
+        "seconds": 4.581675906420212,
+        "share": 0.2245260181884924
+      },
+      {
+        "category": "DiT communication",
+        "seconds": 13.15353709357979,
+        "share": 0.6445919285948812
+      },
+      {
+        "category": "VAE decoder compute excluding collectives",
+        "seconds": 0.859516368347168,
+        "share": 0.04212078542753293
+      },
+      {
+        "category": "VAE decoder communication",
+        "seconds": 0.06598963165283203,
+        "share": 0.0032338361637438747
+      },
+      {
+        "category": "Pipeline residual / host I/O",
+        "seconds": 0.6865049999999989,
+        "share": 0.0336423259228135
+      }
+    ],
+    "communication_s_across_ranks": {
+      "mean": 13.762077417828142,
+      "median": 13.799931214779619,
+      "min": 13.237973157346268,
+      "max": 14.090474052190777
+    },
+    "communication_share_of_pipeline_critical_rank": 0.6487297361518128,
+    "dit_communication_share_critical_rank": 0.741662200142721,
+    "collective_counts_per_rank": {
+      "dit_sequence_output_all_gather": 4,
+      "dit_ulysses_all_to_all": 640,
+      "vae_decoder_all_gather": 1,
+      "vae_encoder_all_gather": 1
+    },
+    "logical_traffic_per_rank": {
+      "tx_bytes": 23219642208,
+      "rx_bytes": 23219642208
+    }
+  },
+  "disagg_profile": {
+    "request_rows": [
+      {
+        "request_id": 0,
+        "e2e_s": 32.387399435043335,
+        "text_encoder_s": 0.304563045501709,
+        "vae_encoder_s": 2.6818928718566895,
+        "dit_s": 23.243775367736816,
+        "vae_decoder_s": 4.471370458602905,
+        "phase1_bytes": 18875936,
+        "phase1_wire_s": 0.019444287,
+        "phase1_receiver_visible_s": 0.01155543327331543,
+        "phase2_bytes": 8390656,
+        "phase2_wire_s": 0.008095279,
+        "phase2_receiver_visible_s": 0.01120901107788086,
+        "model_compute_s": 30.70160174369812,
+        "serialization_and_io_s": 1.471498966217041,
+        "sender_wire_s": 0.027539566,
+        "wire_transfer_s": 0.01965071227331543,
+        "transfer_backpressure_s": 0.003113732077880859,
+        "metadata_control_s": 0.013810157775878906,
+        "setup_and_queue_s": 0.17772412300109863,
+        "category_sum_s": 32.387399435043335,
+        "accounting_delta_s": 0.0
+      },
+      {
+        "request_id": 1,
+        "e2e_s": 37.744898319244385,
+        "text_encoder_s": 0.06261682510375977,
+        "vae_encoder_s": 2.5799455642700195,
+        "dit_s": 22.582464456558228,
+        "vae_decoder_s": 4.214634656906128,
+        "phase1_bytes": 18875936,
+        "phase1_wire_s": 0.01193694,
+        "phase1_receiver_visible_s": 0.011541366577148438,
+        "phase2_bytes": 8390656,
+        "phase2_wire_s": 0.008098111,
+        "phase2_receiver_visible_s": 0.021432161331176758,
+        "model_compute_s": 29.439661502838135,
+        "serialization_and_io_s": 1.3727614879608154,
+        "sender_wire_s": 0.020035050999999998,
+        "wire_transfer_s": 0.019639477577148436,
+        "transfer_backpressure_s": 0.01333405033117676,
+        "metadata_control_s": 6.766151666641235,
+        "setup_and_queue_s": 0.13335013389587402,
+        "category_sum_s": 37.744898319244385,
+        "accounting_delta_s": 0.0
+      },
+      {
+        "request_id": 2,
+        "e2e_s": 43.228920459747314,
+        "text_encoder_s": 0.06406354904174805,
+        "vae_encoder_s": 2.5908195972442627,
+        "dit_s": 22.99042248725891,
+        "vae_decoder_s": 4.213716506958008,
+        "phase1_bytes": 18875936,
+        "phase1_wire_s": 0.012485348,
+        "phase1_receiver_visible_s": 0.012056112289428711,
+        "phase2_bytes": 8390656,
+        "phase2_wire_s": 0.008080654,
+        "phase2_receiver_visible_s": 0.014051437377929688,
+        "model_compute_s": 29.85902214050293,
+        "serialization_and_io_s": 1.44968843460083,
+        "sender_wire_s": 0.020566002,
+        "wire_transfer_s": 0.02013676628942871,
+        "transfer_backpressure_s": 0.005970783377929688,
+        "metadata_control_s": 11.763585090637207,
+        "setup_and_queue_s": 0.13051724433898926,
+        "category_sum_s": 43.228920459747314,
+        "accounting_delta_s": 0.0
+      },
+      {
+        "request_id": 3,
+        "e2e_s": 48.720703125,
+        "text_encoder_s": 0.06422662734985352,
+        "vae_encoder_s": 2.5838844776153564,
+        "dit_s": 23.14397382736206,
+        "vae_decoder_s": 4.216244697570801,
+        "phase1_bytes": 18875936,
+        "phase1_wire_s": 0.01297313,
+        "phase1_receiver_visible_s": 0.011409997940063477,
+        "phase2_bytes": 8390656,
+        "phase2_wire_s": 0.008185193,
+        "phase2_receiver_visible_s": 5.424435138702393,
+        "model_compute_s": 30.00832962989807,
+        "serialization_and_io_s": 1.4891564846038818,
+        "sender_wire_s": 0.021158323,
+        "wire_transfer_s": 0.019595190940063477,
+        "transfer_backpressure_s": 5.4162499457023925,
+        "metadata_control_s": 11.652255296707153,
+        "setup_and_queue_s": 0.1351165771484375,
+        "category_sum_s": 48.720703125,
+        "accounting_delta_s": 0.0
+      },
+      {
+        "request_id": 4,
+        "e2e_s": 54.35734558105469,
+        "text_encoder_s": 0.0645589828491211,
+        "vae_encoder_s": 2.602210521697998,
+        "dit_s": 22.948694705963135,
+        "vae_decoder_s": 4.217012405395508,
+        "phase1_bytes": 18875936,
+        "phase1_wire_s": 0.012183242,
+        "phase1_receiver_visible_s": 0.012496471405029297,
+        "phase2_bytes": 8390656,
+        "phase2_wire_s": 0.00972347,
+        "phase2_receiver_visible_s": 5.6241068840026855,
+        "model_compute_s": 29.83247661590576,
+        "serialization_and_io_s": 1.555893898010254,
+        "sender_wire_s": 0.021906712000000002,
+        "wire_transfer_s": 0.021906712000000002,
+        "transfer_backpressure_s": 5.614696643407715,
+        "metadata_control_s": 17.219225645065308,
+        "setup_and_queue_s": 0.11314606666564941,
+        "category_sum_s": 54.35734558105469,
+        "accounting_delta_s": 0.0
+      },
+      {
+        "request_id": 5,
+        "e2e_s": 59.87974834442139,
+        "text_encoder_s": 0.06771659851074219,
+        "vae_encoder_s": 2.562350034713745,
+        "dit_s": 22.840547800064087,
+        "vae_decoder_s": 4.21808934211731,
+        "phase1_bytes": 18875936,
+        "phase1_wire_s": 0.011944279,
+        "phase1_receiver_visible_s": 0.01172018051147461,
+        "phase2_bytes": 8390656,
+        "phase2_wire_s": 0.008811168,
+        "phase2_receiver_visible_s": 5.617879390716553,
+        "model_compute_s": 29.688703775405884,
+        "serialization_and_io_s": 1.4634220600128174,
+        "sender_wire_s": 0.020755447,
+        "wire_transfer_s": 0.02053134851147461,
+        "transfer_backpressure_s": 5.6090682227165525,
+        "metadata_control_s": 22.97383165359497,
+        "setup_and_queue_s": 0.1241912841796875,
+        "category_sum_s": 59.87974834442139,
+        "accounting_delta_s": 0.0
+      }
+    ],
+    "active_batch_s": 59.87974834442139,
+    "throughput_per_min": 6.0120493147252665,
+    "mean_e2e_s": 46.053169210751854,
+    "mean_path_categories": [
+      {
+        "category": "model compute",
+        "mean_s": 29.921632568041485,
+        "share_of_mean_e2e": 0.6497192936084798
+      },
+      {
+        "category": "serialization and io",
+        "mean_s": 1.46707022190094,
+        "share_of_mean_e2e": 0.03185601006495833
+      },
+      {
+        "category": "wire transfer",
+        "mean_s": 0.02024336793190511,
+        "share_of_mean_e2e": 0.0004395651434815689
+      },
+      {
+        "category": "transfer backpressure",
+        "mean_s": 2.777072229602275,
+        "share_of_mean_e2e": 0.06030143586630565
+      },
+      {
+        "category": "metadata control",
+        "mean_s": 11.731476585070292,
+        "share_of_mean_e2e": 0.2547376605371903
+      },
+      {
+        "category": "setup and queue",
+        "mean_s": 0.13567423820495605,
+        "share_of_mean_e2e": 0.0029460347795843052
+      }
+    ],
+    "steady_stage_seconds": {
+      "sample_count": 5,
+      "text_encoder": {
+        "mean": 0.06463651657104492,
+        "median": 0.06422662734985352,
+        "min": 0.06261682510375977,
+        "max": 0.06771659851074219
+      },
+      "vae_encoder": {
+        "mean": 2.5838420391082764,
+        "median": 2.5838844776153564,
+        "min": 2.562350034713745,
+        "max": 2.602210521697998
+      },
+      "dit": {
+        "mean": 22.901220655441286,
+        "median": 22.948694705963135,
+        "min": 22.582464456558228,
+        "max": 23.14397382736206
+      },
+      "vae_decoder": {
+        "mean": 4.215939521789551,
+        "median": 4.216244697570801,
+        "min": 4.213716506958008,
+        "max": 4.21808934211731
+      }
+    },
+    "sender_wire_seconds": {
+      "phase1": {
+        "mean": 0.013494537666666667,
+        "median": 0.012334295,
+        "min": 0.01193694,
+        "max": 0.019444287
+      },
+      "phase2": {
+        "mean": 0.008498979166666667,
+        "median": 0.008141652,
+        "min": 0.008080654,
+        "max": 0.00972347
+      },
+      "combined": {
+        "mean": 0.021993516833333334,
+        "median": 0.020956885,
+        "min": 0.020035050999999998,
+        "max": 0.027539566
+      }
+    },
+    "wire_effective_mib_per_s": {
+      "phase1": {
+        "mean": 1374.656839969808,
+        "median": 1459.6858280150645,
+        "min": 925.7986863353809,
+        "max": 1508.0494131099028
+      },
+      "phase2": {
+        "mean": 945.9306698578462,
+        "median": 982.8695687811118,
+        "min": 822.9524156499687,
+        "max": 990.2605810123785
+      }
+    },
+    "sender_wire_share_of_mean_e2e": 0.0004775679331141144,
+    "critical_path_wire_share_of_mean_e2e": 0.0004395651434815689,
+    "transport_related_visible_share_of_mean_e2e": 0.31547866154697757,
+    "max_absolute_accounting_delta_s": 0.0
+  },
+  "comparison": {
+    "throughput_speedup": 31.740759983039563,
+    "baseline_communication_share_of_profiled_pipeline": 0.6487297361518128,
+    "disagg_sender_wire_share_of_mean_e2e": 0.0004775679331141144,
+    "disagg_critical_path_wire_share_of_mean_e2e": 0.0004395651434815689,
+    "disagg_transport_related_visible_share_of_mean_e2e": 0.31547866154697757
+  },
+  "source_files": [
+    "save_results/baseline_benchmark_6_metrics.json",
+    "save_results/baseline_phase_ranked_1.log",
+    "save_results/disagg_phase_wire_6_metrics.json",
+    "save_results/disagg_phase_wire_6_controller.log"
+  ]
+}

@@ -196,6 +196,7 @@ class DecoderService(BaseService):
         room = config.get("data_bootstrap_room", 0)
         decoder_metrics = config.setdefault("request_metrics", {}).setdefault("stages", {}).setdefault("decoder", {})
         decoder_metrics["compute_start_ts"] = time.time()
+        decoder_metrics["input_prepare_start_ts"] = decoder_metrics["compute_start_ts"]
         strict_meta_hash_check = str(os.getenv("LIGHTX2V_STRICT_META_HASH", "0")).strip().lower() in {"1", "true", "yes", "on"}
         room_buffers = self._rdma_buffers.get(room)
         receiver = self.data_receiver.get(room)
@@ -298,9 +299,14 @@ class DecoderService(BaseService):
         if self.vae_decoder is None:
             raise RuntimeError("VAE decoder is not loaded.")
 
+        decoder_metrics["input_prepare_end_ts"] = time.time()
         self.logger.info("Decoding latents in DecoderService...")
+        decoder_metrics["vae_decoder_start_ts"] = time.time()
         gen_video = self.vae_decoder.decode(latents.to(GET_DTYPE()))
+        decoder_metrics["vae_decoder_end_ts"] = time.time()
+        decoder_metrics["postprocess_start_ts"] = time.time()
         gen_video_final = wan_vae_to_comfy(gen_video)
+        decoder_metrics["postprocess_end_ts"] = time.time()
         decoder_metrics["compute_end_ts"] = time.time()
 
         save_path = config.get("save_path")
@@ -308,7 +314,9 @@ class DecoderService(BaseService):
             raise ValueError("save_path is required in config.")
 
         self.logger.info(f"Saving video to {save_path}...")
+        decoder_metrics["save_start_ts"] = time.time()
         save_to_video(gen_video_final, save_path, fps=config.get("fps", 16), method="ffmpeg")
+        decoder_metrics["save_end_ts"] = time.time()
         decoder_metrics["output_enqueued_ts"] = time.time()
         self.logger.info("Done!")
 
@@ -406,6 +414,9 @@ class DecoderService(BaseService):
                     receiver = self.data_receiver.get(room)
                     if receiver is None:
                         raise RuntimeError(f"DataReceiver is not initialized for room={room}")
+                    decoder_metrics = config.setdefault("request_metrics", {}).setdefault("stages", {}).setdefault("decoder", {})
+                    decoder_metrics["input_transfer_start_ts"] = time.time()
+                    decoder_metrics["input_transfer_bytes"] = sum(int(buf.numel() * buf.element_size()) for buf in self._rdma_buffers.get(room, []))
                     self._data_mgr_sidecar.watch_input(room, receiver)
                 except Exception:
                     self.logger.exception("Failed to initialize request for room=%s", room)
@@ -418,6 +429,8 @@ class DecoderService(BaseService):
                 config = waiting_queue.pop(room, None)
                 if config is None:
                     continue
+                decoder_metrics = config.setdefault("request_metrics", {}).setdefault("stages", {}).setdefault("decoder", {})
+                decoder_metrics["input_transfer_end_ts"] = time.time()
                 self.logger.info("Latents received successfully in DecoderService for room=%s.", room)
                 exec_queue.append((room, config))
 

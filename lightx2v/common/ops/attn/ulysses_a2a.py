@@ -3,6 +3,8 @@ from functools import cache
 import torch
 import torch.distributed as dist
 
+from lightx2v.utils.communication_profiler import cuda_communication_region
+
 
 @cache
 def _get_round_robin_schedule(world_size, rank):
@@ -35,7 +37,10 @@ class TorchUlyssesA2A:
     @staticmethod
     def exchange(input_tensor, group=None, async_op=False):
         output_tensor = torch.empty_like(input_tensor)
-        work = dist.all_to_all_single(output_tensor, input_tensor, group=group, async_op=async_op)
+        world_size = dist.get_world_size(group)
+        peer_bytes = int(input_tensor.numel() * input_tensor.element_size()) * max(0, world_size - 1) // max(1, world_size)
+        with cuda_communication_region("dit_ulysses_all_to_all", tx_bytes=peer_bytes, rx_bytes=peer_bytes):
+            work = dist.all_to_all_single(output_tensor, input_tensor, group=group, async_op=async_op)
         return output_tensor, work
 
 
@@ -54,18 +59,20 @@ class RoundRobinUlyssesA2A:
         output_tensor = torch.empty_like(input_tensor)
         output_tensor[rank].copy_(input_tensor[rank])
 
-        for peer, send_first in _get_round_robin_schedule(world_size, rank):
-            peer_global_rank = dist.get_global_rank(group, peer) if group is not None else peer
-            if send_first:
-                send_work = dist.isend(input_tensor[peer], dst=peer_global_rank, group=group)
-                recv_work = dist.irecv(output_tensor[peer], src=peer_global_rank, group=group)
-                send_work.wait()
-                recv_work.wait()
-            else:
-                recv_work = dist.irecv(output_tensor[peer], src=peer_global_rank, group=group)
-                send_work = dist.isend(input_tensor[peer], dst=peer_global_rank, group=group)
-                recv_work.wait()
-                send_work.wait()
+        peer_bytes = int(input_tensor.numel() * input_tensor.element_size()) * max(0, world_size - 1) // max(1, world_size)
+        with cuda_communication_region("dit_ulysses_all_to_all", tx_bytes=peer_bytes, rx_bytes=peer_bytes):
+            for peer, send_first in _get_round_robin_schedule(world_size, rank):
+                peer_global_rank = dist.get_global_rank(group, peer) if group is not None else peer
+                if send_first:
+                    send_work = dist.isend(input_tensor[peer], dst=peer_global_rank, group=group)
+                    recv_work = dist.irecv(output_tensor[peer], src=peer_global_rank, group=group)
+                    send_work.wait()
+                    recv_work.wait()
+                else:
+                    recv_work = dist.irecv(output_tensor[peer], src=peer_global_rank, group=group)
+                    send_work = dist.isend(input_tensor[peer], dst=peer_global_rank, group=group)
+                    recv_work.wait()
+                    send_work.wait()
 
         return output_tensor, None
 
